@@ -1,0 +1,269 @@
+---
+title: "Nierfen_raster_to_csv"
+author: 'Noémie Huvelle'
+date: "2025-12-01"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Prepare R environment 
+```{r load packages}
+rm(list = ls())
+library(terra)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(here)
+```
+
+```{r files directories}
+LandUse_file <- here("Niefern_NDVI/LandUse") #Input 
+NDVI_rasters_file <- here("Niefern_NDVI/NDVI_rasters") #Input 
+Graph_Niefern_file <- here("Graphs/Niefern") #Output
+NDVI_csv_file <- here("run_scenarios/QualityFlo_treatment")#Output
+```
+
+## Read rasters 
+```{r load data -- NDVI satellite rasters}
+# List of raster files
+ras_files <- list.files(NDVI_rasters_file, pattern = "\\.tif$", full.names = TRUE)
+# Stack them into a SpatRaster multibands
+ndvi_rast <- rast(ras_files)
+
+# Set names to source file names
+layer_names <- tools::file_path_sans_ext(basename(ras_files))
+names(ndvi_rast) <- layer_names
+```
+
+## Read shapefile
+```{r load data -- LandUse shapefile}
+# Read shapefile
+plots <- vect(paste(LandUse_file,"/Niefern_LandUse.shp", sep=""))
+
+# Check if crs compatible
+crs(ndvi_rast)
+crs(plots)
+```
+This shapefile represents the classified land uses within a 1200 meter buffer around the field study location of Niefern. It includes the spatial distribution of land-use categories as well as their corresponding surface areas and classification attributes.
+
+
+Categories of land use : 
+* 1 = Cultivated area
+* 2 = Semi-natural wooded area
+* 3 = Urban area
+* 4 = Semi-natural herbaceous area
+* 5 = Semi-natural mixed area (herbaceous + wooded )
+
+The field study site is located within the entity ID n°5. 
+
+![Land Use map](paste(Graph_Niefern_file,"/LU_map.png", sep=""))
+
+# NDVI extraction per plot
+```{r extract mean NDVI per plot}
+ndvi_per_plot <- terra::extract(
+  ndvi_rast,
+  plots,
+  fun   = mean,
+  na.rm = TRUE,
+  bind  = TRUE
+)
+
+```
+
+## Vizualise the resulting df 
+```{r extract resulting df}
+ndvi_per_plot <- as.data.frame(ndvi_per_plot)
+ndvi_per_plot
+```
+
+## Definition of a pixel count 
+
+Application a pixel threshold per plot. The maximum count is defined by a fictional raster of ones, then a threshold of 80% per max pixels per plot is applied. If a plot at a given time doesn't satisfy this condition, then the mean NDVI is set to NA. 
+This procedure is intended to limit a statistical bias due to a poor representativeness. 
+
+```{r pixel count limitation}
+#Create a raster of ones
+r1 <- ndvi_rast[[1]] * 0 + 1
+
+#Get the number of pixels per polygon (.shp) 
+pix_count <- terra::extract(r1, plots, fun = sum, na.rm = TRUE, bind = TRUE)
+pix_count$Niefern_2015_NDVI_2015.04.08
+
+#Set a threshold of 80% of pixels needing to be present to consider the NDVI value
+pix_thresh <- pix_count$Niefern_2015_NDVI_2015.04.08 * 0.8
+
+#Extract the pixel count for each raster, and each plot
+valid <- !is.na(ndvi_rast)
+valid_num <- classify(valid, rbind(c(0, NA), c(1, 1))) 
+ndvi_counts <- terra::extract(
+  valid_num,
+  plots,
+  fun   = sum,   # somme des 1 = nombre de pixels valides
+  na.rm = TRUE,
+  bind  = TRUE
+)
+
+#NDVI layers name
+layer_names <- names(ndvi_rast)
+
+#Loop over ndvi_per_pot to set to NA where pixels_count < pixels_max
+for (nm in layer_names) {
+  
+  # vector with all ndvi counts 
+  count_vec <- ndvi_counts[[nm]]
+  
+  # rows where count < thres and non NAl
+  idx <- !is.na(count_vec) & count_vec < pix_thresh
+  
+  if (nm %in% names(ndvi_per_plot)) {
+    ndvi_per_plot[idx, nm] <- NA
+  }
+}
+
+ndvi_per_plot
+```
+
+## Reshape the resulting dataframe
+Extraction of the dates (going from a wide format to a long one)
+```{r long format dataframe}
+ndvi_long <- ndvi_per_plot  %>%
+  pivot_longer(
+    cols = starts_with("Niefern_2015_NDVI_"),
+    names_to = "date",
+    values_to = "ndvi_mean",
+    names_pattern = "Niefern_2015_NDVI_(.*)$"
+  ) %>%
+  mutate(
+    date = as.Date(date, format = "%Y.%m.%d"),
+    LandUse = as.factor(LandUse),
+    LandUse = recode(LandUse,  "1" = "Culture",
+                     "2" = "Bois",
+                     "3" = "Urbain",
+                     "5" = "Semi-naturelle mixte")
+  )
+
+ndvi_long
+
+```
+# Plot NDVI
+
+```{r}
+ndvi_per_subplotLU <- ggplot(ndvi_long, aes(x = date, y = ndvi_mean, group = id)) +
+  geom_line(color = "darkgreen", alpha = 0.4) +
+  geom_point(color = "darkgreen") +
+  facet_wrap(~ LandUse) +
+  labs(
+    title = "NDVI moyen par parcelle et par occupation du sol pour l'année 2015",
+    x = "Date",
+    y = "NDVI moyen [-]"
+  ) +
+  scale_x_date(date_labels = "%d-%m")+
+  theme_minimal()
+
+ndvi_per_subplotLU
+
+ggsave(filename = paste(Graph_Niefern_file,
+                        "/NDVI_per_subplotLU.png", sep=""),
+       plot = ndvi_per_subplotLU,
+       height = 5, width = 12)
+```
+
+```{r}
+ndvi_mean_agg <- ndvi_long %>%
+  group_by(LandUse, date) %>%
+  summarise(
+    ndvi_mean = mean(ndvi_mean, na.rm = TRUE),
+    Stot_per_LU = sum(S),
+    .groups = "drop"
+  )
+ndvi_mean_agg
+
+ndvi_mean_perLU <- ggplot(ndvi_mean_agg, aes(x = date, y = ndvi_mean, color = LandUse)) +
+  geom_line(size = 1.2) +
+  geom_point() +
+  labs(
+    title = "Évolution du NDVI moyen par occupation du sol",
+    x = "Date",
+    y = "NDVI moyen [-]",
+    color = "Zone"
+  ) +
+  scale_x_date(date_labels = "%d-%m")+
+  theme_minimal()+
+  theme(legend.position = "bottom")
+
+ndvi_mean_perLU 
+
+ggsave(filename = paste(Graph_Niefern_file,
+                        "/NDVI_mean_per_LU.png", sep=""),
+       ndvi_mean_perLU,
+       height = 5, width = 10)
+```
+
+```{r}
+ndvi_mean_agg_zoom <- ndvi_mean_agg %>%
+  filter(date >= as.Date("2015-04-01"),
+         date <= as.Date("2015-06-30"))
+
+ggplot(ndvi_mean_agg_zoom, aes(x = date, y = ndvi_mean, color = LandUse)) +
+  geom_line(size = 1) +
+  geom_point()+
+  labs(
+    title = "Évolution du NDVI moyen par occupation du sol",
+    x = "Date",
+    y = "NDVI moyen",
+    color = "LandUse"
+  ) +
+  theme(legend.position = "bottom")+
+  theme_minimal()
+```
+
+# Interpolate the results 
+
+```{r NDVI aggregated }
+ndvi_mean_agg <-ndvi_mean_agg %>% filter(LandUse != 3) #Get rid of the urban category (LandUse = 3)
+ndvi_mean_agg
+```
+
+```{r NDVI aggregated - daily values}
+ndvi_mean_agg_daily <- ndvi_mean_agg %>%
+  group_by(LandUse) %>%
+  # 1. Create all dates 
+  complete(date = seq(as.Date("2015-01-01"),
+                      as.Date("2015-12-31"), by = "day")) %>%
+  arrange(LandUse, date) %>%
+  # 2. Linear interpolation
+  group_modify(~ {
+    d <- .x$date
+    y <- .x$ndvi_mean
+
+    # Indices days with observations
+    ok <- !is.na(y)
+
+    # If not enough points:
+    if (sum(ok) < 2) return(.x)
+
+    y_interp <- approx(
+      x    = as.numeric(d[ok]),
+      y    = y[ok],
+      xout = as.numeric(d),
+      rule = 2  
+    )$y
+
+    .x$ndvi_mean_interp <- y_interp
+    .x
+  }) %>%
+  ungroup()
+
+ndvi_mean_agg_daily
+
+```
+# Extract the results 
+```{r Save the results on csv file}
+write.csv(ndvi_mean_agg_daily,
+          paste(NDVI_csv_file, "/NDVI_mean_per_LUday.csv", sep=""))
+```

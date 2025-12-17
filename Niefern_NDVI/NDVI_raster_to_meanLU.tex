@@ -1,0 +1,1230 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Nierfen\_raster\_to\_csv},
+  pdfauthor={Noémie Huvelle},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Nierfen\_raster\_to\_csv}
+\author{Noémie Huvelle}
+\date{2025-12-01}
+
+\begin{document}
+\maketitle
+
+\section{Prepare R environment}\label{prepare-r-environment}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rm}\NormalTok{(}\AttributeTok{list =} \FunctionTok{ls}\NormalTok{())}
+\FunctionTok{library}\NormalTok{(terra)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: package 'terra' was built under R version 4.4.3
+\end{verbatim}
+
+\begin{verbatim}
+## terra 1.8.86
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'dplyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:terra':
+## 
+##     intersect, union
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:stats':
+## 
+##     filter, lag
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'tidyr'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:terra':
+## 
+##     extract
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(here)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## here() starts at /Users/nhuvelle/Documents/These_CA/BIO_7019/SolBeePop_repository/BIO7019_project
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{LandUse\_file }\OtherTok{\textless{}{-}} \FunctionTok{here}\NormalTok{(}\StringTok{"Niefern\_NDVI/LandUse"}\NormalTok{) }\CommentTok{\#Input }
+\NormalTok{NDVI\_rasters\_file }\OtherTok{\textless{}{-}} \FunctionTok{here}\NormalTok{(}\StringTok{"Niefern\_NDVI/NDVI\_rasters"}\NormalTok{) }\CommentTok{\#Input }
+\NormalTok{Graph\_Niefern\_file }\OtherTok{\textless{}{-}} \FunctionTok{here}\NormalTok{(}\StringTok{"Graphs/Niefern"}\NormalTok{) }\CommentTok{\#Output}
+\NormalTok{NDVI\_csv\_file }\OtherTok{\textless{}{-}} \FunctionTok{here}\NormalTok{(}\StringTok{"run\_scenarios/QualityFlo\_treatment"}\NormalTok{)}\CommentTok{\#Output}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Read rasters}\label{read-rasters}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# List of raster files}
+\NormalTok{ras\_files }\OtherTok{\textless{}{-}} \FunctionTok{list.files}\NormalTok{(NDVI\_rasters\_file, }\AttributeTok{pattern =} \StringTok{"}\SpecialCharTok{\textbackslash{}\textbackslash{}}\StringTok{.tif$"}\NormalTok{, }\AttributeTok{full.names =} \ConstantTok{TRUE}\NormalTok{)}
+\CommentTok{\# Stack them into a SpatRaster multibands}
+\NormalTok{ndvi\_rast }\OtherTok{\textless{}{-}} \FunctionTok{rast}\NormalTok{(ras\_files)}
+
+\CommentTok{\# Set names to source file names}
+\NormalTok{layer\_names }\OtherTok{\textless{}{-}}\NormalTok{ tools}\SpecialCharTok{::}\FunctionTok{file\_path\_sans\_ext}\NormalTok{(}\FunctionTok{basename}\NormalTok{(ras\_files))}
+\FunctionTok{names}\NormalTok{(ndvi\_rast) }\OtherTok{\textless{}{-}}\NormalTok{ layer\_names}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Read shapefile}\label{read-shapefile}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Read shapefile}
+\NormalTok{plots }\OtherTok{\textless{}{-}} \FunctionTok{vect}\NormalTok{(}\FunctionTok{paste}\NormalTok{(LandUse\_file,}\StringTok{"/Niefern\_LandUse.shp"}\NormalTok{, }\AttributeTok{sep=}\StringTok{""}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: PROJ: proj_identify: Cannot find proj.db (GDAL error 1)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Check if crs compatible}
+\FunctionTok{crs}\NormalTok{(ndvi\_rast)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "PROJCRS[\"WGS 84 / UTM zone 32N\",\n    BASEGEOGCRS[\"WGS 84\",\n        DATUM[\"World Geodetic System 1984\",\n            ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n                LENGTHUNIT[\"metre\",1,\n                    ID[\"EPSG\",9001]]]],\n        PRIMEM[\"Greenwich\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433,\n                ID[\"EPSG\",9122]]]],\n    CONVERSION[\"Transverse Mercator\",\n        METHOD[\"Transverse Mercator\",\n            ID[\"EPSG\",9807]],\n        PARAMETER[\"Latitude of natural origin\",0,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8801]],\n        PARAMETER[\"Longitude of natural origin\",9,\n            ANGLEUNIT[\"degree\",0.0174532925199433],\n            ID[\"EPSG\",8802]],\n        PARAMETER[\"Scale factor at natural origin\",0.9996,\n            SCALEUNIT[\"unity\",1],\n            ID[\"EPSG\",8805]],\n        PARAMETER[\"False easting\",500000,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8806]],\n        PARAMETER[\"False northing\",0,\n            LENGTHUNIT[\"metre\",1],\n            ID[\"EPSG\",8807]]],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"metre\",1,\n                ID[\"EPSG\",9001]]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"metre\",1,\n                ID[\"EPSG\",9001]]]]"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{crs}\NormalTok{(plots)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "PROJCRS[\"WGS_1984_UTM_Zone_32N\",\n    BASEGEOGCRS[\"WGS 84\",\n        DATUM[\"World Geodetic System 1984\",\n            ELLIPSOID[\"WGS 84\",6378137,298.257223563,\n                LENGTHUNIT[\"metre\",1]],\n            ID[\"EPSG\",6326]],\n        PRIMEM[\"Greenwich\",0,\n            ANGLEUNIT[\"Degree\",0.0174532925199433]]],\n    CONVERSION[\"UTM zone 32N\",\n        METHOD[\"Transverse Mercator\",\n            ID[\"EPSG\",9807]],\n        PARAMETER[\"Latitude of natural origin\",0,\n            ANGLEUNIT[\"Degree\",0.0174532925199433],\n            ID[\"EPSG\",8801]],\n        PARAMETER[\"Longitude of natural origin\",9,\n            ANGLEUNIT[\"Degree\",0.0174532925199433],\n            ID[\"EPSG\",8802]],\n        PARAMETER[\"Scale factor at natural origin\",0.9996,\n            SCALEUNIT[\"unity\",1],\n            ID[\"EPSG\",8805]],\n        PARAMETER[\"False easting\",500000,\n            LENGTHUNIT[\"Meter\",1],\n            ID[\"EPSG\",8806]],\n        PARAMETER[\"False northing\",0,\n            LENGTHUNIT[\"Meter\",1],\n            ID[\"EPSG\",8807]],\n        ID[\"EPSG\",16032]],\n    CS[Cartesian,2],\n        AXIS[\"(E)\",east,\n            ORDER[1],\n            LENGTHUNIT[\"Meter\",1]],\n        AXIS[\"(N)\",north,\n            ORDER[2],\n            LENGTHUNIT[\"Meter\",1]]]"
+\end{verbatim}
+
+This shapefile represents the classified land uses within a 1200 meter
+buffer around the field study location of Niefern. It includes the
+spatial distribution of land-use categories as well as their
+corresponding surface areas and classification attributes.
+
+Categories of land use : * 1 = Cultivated area * 2 = Semi-natural wooded
+area * 3 = Urban area * 4 = Semi-natural herbaceous area * 5 =
+Semi-natural mixed area (herbaceous + wooded )
+
+The field study site is located within the entity ID n°5.
+
+\begin{figure}
+\centering
+\includegraphics{paste(Graph_Niefern_file,"/LU_map.png", sep="")}
+\caption{Land Use map}
+\end{figure}
+
+\section{NDVI extraction per plot}\label{ndvi-extraction-per-plot}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ndvi\_per\_plot }\OtherTok{\textless{}{-}}\NormalTok{ terra}\SpecialCharTok{::}\FunctionTok{extract}\NormalTok{(}
+\NormalTok{  ndvi\_rast,}
+\NormalTok{  plots,}
+  \AttributeTok{fun   =}\NormalTok{ mean,}
+  \AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{bind  =} \ConstantTok{TRUE}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\subsection{Vizualise the resulting
+df}\label{vizualise-the-resulting-df}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ndvi\_per\_plot }\OtherTok{\textless{}{-}} \FunctionTok{as.data.frame}\NormalTok{(ndvi\_per\_plot)}
+\NormalTok{ndvi\_per\_plot}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    id LandUse           S Niefern_2015_NDVI_2015.01.18
+## 1   0       2 1110338.660                    0.4300788
+## 2   1       2  238688.036                    0.4477325
+## 3   2       2    6331.305                          NaN
+## 4   3       2   65407.097                    0.3592207
+## 5   4       2   64438.789                    0.4447394
+## 6   5       1  194773.667                    0.4708385
+## 7   6       1  200662.712                    0.4447526
+## 8   7       2   15056.899                    0.3970783
+## 9   8       1  167022.448                    0.5088235
+## 10  9       1   23665.488                    0.4710305
+## 11 10       1   25291.404                    0.5200362
+## 12 11       1  124409.814                    0.5694304
+## 13 12       1   92790.637                          NaN
+## 14 13       1   79231.742                    0.5001121
+## 15 14       3   34110.740                    0.4313960
+## 16 15       2     858.406                    0.4513384
+## 17 16       2    3072.824                          NaN
+## 18 17       5   69903.710                    0.5360269
+## 19 18       5   17483.374                    0.4729379
+## 20 19       5  336293.510                    0.4978913
+## 21 20       5  212414.071                    0.5051724
+## 22 21       5  175157.465                          NaN
+## 23 22       1   20246.862                          NaN
+## 24 23       3 1175738.538                    0.3983034
+##    Niefern_2015_NDVI_2015.02.03 Niefern_2015_NDVI_2015.02.12
+## 1                           NaN                    0.6944771
+## 2                           NaN                    0.6048945
+## 3                           NaN                    0.3710785
+## 4                           NaN                    0.5784871
+## 5                  0.0383835417                    0.5738172
+## 6                 -0.0026642558                    0.6021281
+## 7                 -0.0183287203                    0.5090583
+## 8                           NaN                    0.4690445
+## 9                 -0.0175470194                    0.6070917
+## 10                -0.0230972005                    0.6036224
+## 11                -0.0138742742                    0.6002051
+## 12                -0.0106214715                    0.5197904
+## 13                -0.0102417218                    0.4262293
+## 14                -0.0027937582                    0.5066201
+## 15                -0.0143651245                    0.5200919
+## 16                          NaN                    0.5375515
+## 17                          NaN                    0.3609362
+## 18                 0.0064805278                    0.5726323
+## 19                 0.0356055526                    0.5942788
+## 20                -0.0170444642                    0.5107762
+## 21                -0.0062648746                    0.5546682
+## 22                          NaN                    0.5128936
+## 23                          NaN                          NaN
+## 24                 0.0002679064                    0.4407566
+##    Niefern_2015_NDVI_2015.02.28 Niefern_2015_NDVI_2015.04.08
+## 1                     0.6394231                    0.5830409
+## 2                     0.5676670                    0.5417266
+## 3                           NaN                    0.5702910
+## 4                     0.4756449                    0.5427370
+## 5                     0.4473667                    0.5407761
+## 6                     0.4037702                    0.6905725
+## 7                     0.5453587                    0.6068525
+## 8                     0.5583097                    0.5007541
+## 9                     0.6441277                    0.6717230
+## 10                          NaN                    0.6916864
+## 11                          NaN                    0.6815644
+## 12                          NaN                    0.7731466
+## 13                    0.4547767                    0.6136076
+## 14                    0.4937861                    0.5950877
+## 15                    0.4399529                    0.5823917
+## 16                          NaN                    0.5956093
+## 17                          NaN                    0.4916809
+## 18                    0.4296468                    0.6415477
+## 19                          NaN                    0.5832241
+## 20                    0.6358153                    0.5634102
+## 21                    0.2056867                    0.6185356
+## 22                          NaN                    0.5690112
+## 23                    0.5300576                    0.4097507
+## 24                    0.4570809                    0.4529313
+##    Niefern_2015_NDVI_2015.04.24 Niefern_2015_NDVI_2015.05.10
+## 1                     0.7238777                    0.7972066
+## 2                     0.7996178                    0.7381353
+## 3                     0.7497356                    0.6657698
+## 4                     0.7034324                          NaN
+## 5                     0.6895515                    0.8150029
+## 6                     0.7988724                    0.8023636
+## 7                     0.7396217                    0.7959665
+## 8                     0.6408596                    0.7555965
+## 9                     0.7812857                    0.7805799
+## 10                    0.7993456                    0.6942709
+## 11                    0.7990471                    0.8009823
+## 12                    0.8473010                    0.7389180
+## 13                    0.7499385                    0.7179400
+## 14                    0.7464636                    0.7907348
+## 15                    0.7358169                    0.8323488
+## 16                    0.7268530                    0.7742331
+## 17                    0.6230716                    0.7952944
+## 18                    0.7486815                    0.7620524
+## 19                    0.7276458                          NaN
+## 20                    0.7135784                    0.7475152
+## 21                    0.7429532                    0.7290575
+## 22                    0.7100911                          NaN
+## 23                    0.5322078                          NaN
+## 24                    0.5162430                    0.6023001
+##    Niefern_2015_NDVI_2015.06.04 Niefern_2015_NDVI_2015.06.11
+## 1                     0.8857272                    0.8065098
+## 2                     0.8910744                    0.8558624
+## 3                     0.8296565                    0.8307515
+## 4                     0.8500461                    0.7848240
+## 5                     0.8224515                    0.7892968
+## 6                     0.7667719                    0.6460987
+## 7                     0.7347501                    0.7510751
+## 8                     0.7500425                    0.7580538
+## 9                     0.7207318                    0.7502664
+## 10                    0.7127394                    0.7378147
+## 11                    0.6702666                    0.7191234
+## 12                    0.8082856                    0.8220943
+## 13                    0.7420327                    0.7956374
+## 14                    0.7212132                    0.8046781
+## 15                    0.7319548                    0.7867920
+## 16                    0.8262062                    0.8027391
+## 17                    0.8169951                    0.8273490
+## 18                    0.7762477                    0.7990518
+## 19                    0.8440805                    0.8215549
+## 20                    0.8038622                    0.7951489
+## 21                    0.7747207                    0.7724842
+## 22                    0.7090699                    0.6475068
+## 23                    0.7504107                    0.7460525
+## 24                    0.5454556                    0.6043759
+##    Niefern_2015_NDVI_2015.07.06 Niefern_2015_NDVI_2015.07.22
+## 1                     0.8717933                    0.7481069
+## 2                     0.8676117                    0.7206562
+## 3                     0.7412860                    0.6106075
+## 4                     0.8344816                    0.7015767
+## 5                     0.7941087                    0.7012897
+## 6                     0.4082616                    0.3260775
+## 7                     0.6448693                    0.6134158
+## 8                     0.7347573                    0.6869453
+## 9                     0.6109491                    0.5793117
+## 10                    0.5393872                    0.5421860
+## 11                    0.6329507                    0.5805325
+## 12                    0.4654587                    0.3741492
+## 13                    0.5171328                    0.4162369
+## 14                    0.6194578                    0.4920632
+## 15                    0.5579179                    0.4743218
+## 16                    0.7040338                    0.6222297
+## 17                    0.7679277                    0.5873258
+## 18                    0.7139295                    0.5366235
+## 19                    0.8110551                    0.6393046
+## 20                    0.7387768                    0.6234732
+## 21                    0.6927470                    0.5536728
+## 22                    0.6940235                    0.6197765
+## 23                    0.6725772                    0.4828428
+## 24                    0.5202130                    0.4907501
+##    Niefern_2015_NDVI_2015.08.07 Niefern_2015_NDVI_2015.08.14
+## 1                     0.8527183                    0.7713645
+## 2                     0.8222396                    0.6366556
+## 3                     0.6139642                    0.5954505
+## 4                     0.7822848                          NaN
+## 5                     0.7167233                          NaN
+## 6                     0.2628159                    0.3603350
+## 7                     0.4870227                    0.4613780
+## 8                     0.6721725                          NaN
+## 9                     0.5053208                    0.5228662
+## 10                    0.4818079                    0.5493530
+## 11                    0.5294886                    0.5752449
+## 12                    0.3030272                    0.3566494
+## 13                    0.3473259                    0.3775580
+## 14                    0.4481021                    0.4858272
+## 15                    0.3701690                    0.4030601
+## 16                    0.6762076                    0.6540455
+## 17                    0.6119527                    0.6362282
+## 18                    0.5847306                    0.5737915
+## 19                    0.6709118                          NaN
+## 20                    0.6313476                    0.5221067
+## 21                    0.5660932                    0.5680758
+## 22                    0.5555587                    0.5224902
+## 23                    0.2891346                          NaN
+## 24                    0.4454817                    0.4730410
+##    Niefern_2015_NDVI_2015.08.30 Niefern_2015_NDVI_2015.09.24
+## 1                     0.8714942                    0.8543471
+## 2                     0.8413229                    0.8596333
+## 3                     0.7114856                    0.7968847
+## 4                     0.8202850                          NaN
+## 5                     0.7545834                          NaN
+## 6                     0.2996459                    0.5514709
+## 7                     0.6360237                    0.6825617
+## 8                     0.7351829                    0.7775623
+## 9                     0.6814783                    0.7223182
+## 10                    0.7979797                    0.8564309
+## 11                    0.7772369                    0.8700246
+## 12                    0.3739108                    0.4313427
+## 13                    0.4688305                    0.5513840
+## 14                    0.5553127                    0.6500202
+## 15                    0.4781897                    0.5725167
+## 16                    0.7095407                    0.8180649
+## 17                    0.7443071                    0.7541757
+## 18                    0.7203578                    0.7913161
+## 19                    0.7714098                          NaN
+## 20                    0.7313249                          NaN
+## 21                    0.7226907                    0.7559591
+## 22                    0.6877064                          NaN
+## 23                    0.4055242                          NaN
+## 24                    0.5240042                    0.5397713
+##    Niefern_2015_NDVI_2015.10.01 Niefern_2015_NDVI_2015.10.26
+## 1                     0.8619793                    0.6814438
+## 2                     0.8290596                    0.5479269
+## 3                     0.7483961                          NaN
+## 4                     0.7967949                    0.6418970
+## 5                     0.7452445                    0.5772442
+## 6                     0.5390016                    0.4420219
+## 7                     0.6609060                    0.5828731
+## 8                     0.7210052                    0.5775714
+## 9                     0.6789295                    0.6666971
+## 10                    0.8106327                          NaN
+## 11                    0.7958225                          NaN
+## 12                    0.3623695                          NaN
+## 13                    0.5110812                          NaN
+## 14                    0.6376457                          NaN
+## 15                    0.5528032                          NaN
+## 16                    0.7317521                          NaN
+## 17                    0.6923446                          NaN
+## 18                    0.7434991                          NaN
+## 19                    0.7952806                    0.6383916
+## 20                    0.7429727                    0.6679167
+## 21                    0.7510211                    0.6297628
+## 22                    0.6749128                    0.5289663
+## 23                    0.4012150                    0.3056537
+## 24                    0.5291664                    0.4765621
+##    Niefern_2015_NDVI_2015.11.11 Niefern_2015_NDVI_2015.11.18
+## 1                     0.6864928                    0.6195419
+## 2                     0.6070876                          NaN
+## 3                     0.6225112                          NaN
+## 4                     0.5808855                    0.6121956
+## 5                     0.5823568                          NaN
+## 6                     0.6925435                    0.7089009
+## 7                     0.5451459                    0.5500258
+## 8                     0.5293300                    0.5491604
+## 9                     0.5216403                    0.5334942
+## 10                    0.5985556                    0.4887638
+## 11                    0.6108115                    0.5739491
+## 12                    0.6210167                          NaN
+## 13                    0.6204472                    0.8810079
+## 14                    0.6797221                    0.6100607
+## 15                    0.6928156                          NaN
+## 16                    0.6691649                          NaN
+## 17                    0.5344892                          NaN
+## 18                    0.6424369                          NaN
+## 19                    0.6546991                          NaN
+## 20                    0.6178946                    0.6434718
+## 21                    0.6262948                    0.7106637
+## 22                    0.5885894                    0.5809588
+## 23                    0.4679477                          NaN
+## 24                    0.4607704                    0.4839204
+##    Niefern_2015_NDVI_2015.11.27 Niefern_2015_NDVI_2015.12.20
+## 1                     0.7531190                    0.6496306
+## 2                     0.7064879                    0.5707070
+## 3                     0.7533055                    0.5693712
+## 4                     0.4595317                    0.5707326
+## 5                     0.5788581                    0.6001039
+## 6                     0.7518659                    0.7289639
+## 7                     0.7089957                    0.5383657
+## 8                     0.5019781                    0.5115733
+## 9                     0.5453161                    0.5116433
+## 10                    0.7301117                    0.5162266
+## 11                    0.7044663                    0.5301013
+## 12                    0.7929505                    0.7106073
+## 13                    0.7235307                    0.6636826
+## 14                    0.7046509                    0.6281060
+## 15                    0.7899011                    0.6443367
+## 16                    0.7798142                    0.5455647
+## 17                    0.6109932                    0.6292658
+## 18                    0.7367833                    0.6047720
+## 19                    0.6338238                    0.5924009
+## 20                    0.6636784                    0.5646762
+## 21                    0.6537237                    0.5556737
+## 22                    0.4501866                    0.5580618
+## 23                    0.4412333                    0.6169641
+## 24                    0.5024921                    0.4608307
+##    Niefern_2015_NDVI_2015.12.29
+## 1                     0.7119576
+## 2                     0.6146809
+## 3                     0.6328922
+## 4                     0.5708206
+## 5                     0.6501018
+## 6                     0.7657976
+## 7                     0.5571971
+## 8                     0.5715560
+## 9                     0.5532596
+## 10                    0.5678297
+## 11                    0.5752111
+## 12                    0.7536048
+## 13                    0.7147408
+## 14                    0.6564305
+## 15                    0.6858921
+## 16                    0.6161416
+## 17                    0.7348081
+## 18                    0.6191550
+## 19                    0.5937266
+## 20                    0.5826730
+## 21                    0.5728993
+## 22                    0.5920720
+## 23                    0.6797703
+## 24                    0.4578421
+\end{verbatim}
+
+\subsection{Definition of a pixel
+count}\label{definition-of-a-pixel-count}
+
+Application a pixel threshold per plot. The maximum count is defined by
+a fictional raster of ones, then a threshold of 80\% per max pixels per
+plot is applied. If a plot at a given time doesn't satisfy this
+condition, then the mean NDVI is set to NA. This procedure is intended
+to limit a statistical bias due to a poor representativeness.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Create a raster of ones}
+\NormalTok{r1 }\OtherTok{\textless{}{-}}\NormalTok{ ndvi\_rast[[}\DecValTok{1}\NormalTok{]] }\SpecialCharTok{*} \DecValTok{0} \SpecialCharTok{+} \DecValTok{1}
+
+\CommentTok{\#Get the number of pixels per polygon (.shp) }
+\NormalTok{pix\_count }\OtherTok{\textless{}{-}}\NormalTok{ terra}\SpecialCharTok{::}\FunctionTok{extract}\NormalTok{(r1, plots, }\AttributeTok{fun =}\NormalTok{ sum, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{bind =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{pix\_count}\SpecialCharTok{$}\NormalTok{Niefern\_2015\_NDVI\_2015.}\FloatTok{04.08}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## NULL
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Set a threshold of 80\% of pixels needing to be present to consider the NDVI value}
+\NormalTok{pix\_thresh }\OtherTok{\textless{}{-}}\NormalTok{ pix\_count}\SpecialCharTok{$}\NormalTok{Niefern\_2015\_NDVI\_2015.}\FloatTok{04.08} \SpecialCharTok{*} \FloatTok{0.8}
+
+\CommentTok{\#Extract the pixel count for each raster, and each plot}
+\NormalTok{valid }\OtherTok{\textless{}{-}} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(ndvi\_rast)}
+\NormalTok{valid\_num }\OtherTok{\textless{}{-}} \FunctionTok{classify}\NormalTok{(valid, }\FunctionTok{rbind}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\ConstantTok{NA}\NormalTok{), }\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))) }
+\NormalTok{ndvi\_counts }\OtherTok{\textless{}{-}}\NormalTok{ terra}\SpecialCharTok{::}\FunctionTok{extract}\NormalTok{(}
+\NormalTok{  valid\_num,}
+\NormalTok{  plots,}
+  \AttributeTok{fun   =}\NormalTok{ sum,   }\CommentTok{\# somme des 1 = nombre de pixels valides}
+  \AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{bind  =} \ConstantTok{TRUE}
+\NormalTok{)}
+
+\CommentTok{\#NDVI layers name}
+\NormalTok{layer\_names }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(ndvi\_rast)}
+
+\CommentTok{\#Loop over ndvi\_per\_pot to set to NA where pixels\_count \textless{} pixels\_max}
+\ControlFlowTok{for}\NormalTok{ (nm }\ControlFlowTok{in}\NormalTok{ layer\_names) \{}
+  
+  \CommentTok{\# vector with all ndvi counts }
+\NormalTok{  count\_vec }\OtherTok{\textless{}{-}}\NormalTok{ ndvi\_counts[[nm]]}
+  
+  \CommentTok{\# rows where count \textless{} thres and non NAl}
+\NormalTok{  idx }\OtherTok{\textless{}{-}} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(count\_vec) }\SpecialCharTok{\&}\NormalTok{ count\_vec }\SpecialCharTok{\textless{}}\NormalTok{ pix\_thresh}
+  
+  \ControlFlowTok{if}\NormalTok{ (nm }\SpecialCharTok{\%in\%} \FunctionTok{names}\NormalTok{(ndvi\_per\_plot)) \{}
+\NormalTok{    ndvi\_per\_plot[idx, nm] }\OtherTok{\textless{}{-}} \ConstantTok{NA}
+\NormalTok{  \}}
+\NormalTok{\}}
+
+\NormalTok{ndvi\_per\_plot}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    id LandUse           S Niefern_2015_NDVI_2015.01.18
+## 1   0       2 1110338.660                    0.4300788
+## 2   1       2  238688.036                    0.4477325
+## 3   2       2    6331.305                          NaN
+## 4   3       2   65407.097                    0.3592207
+## 5   4       2   64438.789                    0.4447394
+## 6   5       1  194773.667                    0.4708385
+## 7   6       1  200662.712                    0.4447526
+## 8   7       2   15056.899                    0.3970783
+## 9   8       1  167022.448                    0.5088235
+## 10  9       1   23665.488                    0.4710305
+## 11 10       1   25291.404                    0.5200362
+## 12 11       1  124409.814                    0.5694304
+## 13 12       1   92790.637                          NaN
+## 14 13       1   79231.742                    0.5001121
+## 15 14       3   34110.740                    0.4313960
+## 16 15       2     858.406                    0.4513384
+## 17 16       2    3072.824                          NaN
+## 18 17       5   69903.710                    0.5360269
+## 19 18       5   17483.374                    0.4729379
+## 20 19       5  336293.510                    0.4978913
+## 21 20       5  212414.071                    0.5051724
+## 22 21       5  175157.465                          NaN
+## 23 22       1   20246.862                          NaN
+## 24 23       3 1175738.538                    0.3983034
+##    Niefern_2015_NDVI_2015.02.03 Niefern_2015_NDVI_2015.02.12
+## 1                           NaN                    0.6944771
+## 2                           NaN                    0.6048945
+## 3                           NaN                    0.3710785
+## 4                           NaN                    0.5784871
+## 5                  0.0383835417                    0.5738172
+## 6                 -0.0026642558                    0.6021281
+## 7                 -0.0183287203                    0.5090583
+## 8                           NaN                    0.4690445
+## 9                 -0.0175470194                    0.6070917
+## 10                -0.0230972005                    0.6036224
+## 11                -0.0138742742                    0.6002051
+## 12                -0.0106214715                    0.5197904
+## 13                -0.0102417218                    0.4262293
+## 14                -0.0027937582                    0.5066201
+## 15                -0.0143651245                    0.5200919
+## 16                          NaN                    0.5375515
+## 17                          NaN                    0.3609362
+## 18                 0.0064805278                    0.5726323
+## 19                 0.0356055526                    0.5942788
+## 20                -0.0170444642                    0.5107762
+## 21                -0.0062648746                    0.5546682
+## 22                          NaN                    0.5128936
+## 23                          NaN                          NaN
+## 24                 0.0002679064                    0.4407566
+##    Niefern_2015_NDVI_2015.02.28 Niefern_2015_NDVI_2015.04.08
+## 1                     0.6394231                    0.5830409
+## 2                     0.5676670                    0.5417266
+## 3                           NaN                    0.5702910
+## 4                     0.4756449                    0.5427370
+## 5                     0.4473667                    0.5407761
+## 6                     0.4037702                    0.6905725
+## 7                     0.5453587                    0.6068525
+## 8                     0.5583097                    0.5007541
+## 9                     0.6441277                    0.6717230
+## 10                          NaN                    0.6916864
+## 11                          NaN                    0.6815644
+## 12                          NaN                    0.7731466
+## 13                    0.4547767                    0.6136076
+## 14                    0.4937861                    0.5950877
+## 15                    0.4399529                    0.5823917
+## 16                          NaN                    0.5956093
+## 17                          NaN                    0.4916809
+## 18                    0.4296468                    0.6415477
+## 19                          NaN                    0.5832241
+## 20                    0.6358153                    0.5634102
+## 21                    0.2056867                    0.6185356
+## 22                          NaN                    0.5690112
+## 23                    0.5300576                    0.4097507
+## 24                    0.4570809                    0.4529313
+##    Niefern_2015_NDVI_2015.04.24 Niefern_2015_NDVI_2015.05.10
+## 1                     0.7238777                    0.7972066
+## 2                     0.7996178                    0.7381353
+## 3                     0.7497356                    0.6657698
+## 4                     0.7034324                          NaN
+## 5                     0.6895515                    0.8150029
+## 6                     0.7988724                    0.8023636
+## 7                     0.7396217                    0.7959665
+## 8                     0.6408596                    0.7555965
+## 9                     0.7812857                    0.7805799
+## 10                    0.7993456                    0.6942709
+## 11                    0.7990471                    0.8009823
+## 12                    0.8473010                    0.7389180
+## 13                    0.7499385                    0.7179400
+## 14                    0.7464636                    0.7907348
+## 15                    0.7358169                    0.8323488
+## 16                    0.7268530                    0.7742331
+## 17                    0.6230716                    0.7952944
+## 18                    0.7486815                    0.7620524
+## 19                    0.7276458                          NaN
+## 20                    0.7135784                    0.7475152
+## 21                    0.7429532                    0.7290575
+## 22                    0.7100911                          NaN
+## 23                    0.5322078                          NaN
+## 24                    0.5162430                    0.6023001
+##    Niefern_2015_NDVI_2015.06.04 Niefern_2015_NDVI_2015.06.11
+## 1                     0.8857272                    0.8065098
+## 2                     0.8910744                    0.8558624
+## 3                     0.8296565                    0.8307515
+## 4                     0.8500461                    0.7848240
+## 5                     0.8224515                    0.7892968
+## 6                     0.7667719                    0.6460987
+## 7                     0.7347501                    0.7510751
+## 8                     0.7500425                    0.7580538
+## 9                     0.7207318                    0.7502664
+## 10                    0.7127394                    0.7378147
+## 11                    0.6702666                    0.7191234
+## 12                    0.8082856                    0.8220943
+## 13                    0.7420327                    0.7956374
+## 14                    0.7212132                    0.8046781
+## 15                    0.7319548                    0.7867920
+## 16                    0.8262062                    0.8027391
+## 17                    0.8169951                    0.8273490
+## 18                    0.7762477                    0.7990518
+## 19                    0.8440805                    0.8215549
+## 20                    0.8038622                    0.7951489
+## 21                    0.7747207                    0.7724842
+## 22                    0.7090699                    0.6475068
+## 23                    0.7504107                    0.7460525
+## 24                    0.5454556                    0.6043759
+##    Niefern_2015_NDVI_2015.07.06 Niefern_2015_NDVI_2015.07.22
+## 1                     0.8717933                    0.7481069
+## 2                     0.8676117                    0.7206562
+## 3                     0.7412860                    0.6106075
+## 4                     0.8344816                    0.7015767
+## 5                     0.7941087                    0.7012897
+## 6                     0.4082616                    0.3260775
+## 7                     0.6448693                    0.6134158
+## 8                     0.7347573                    0.6869453
+## 9                     0.6109491                    0.5793117
+## 10                    0.5393872                    0.5421860
+## 11                    0.6329507                    0.5805325
+## 12                    0.4654587                    0.3741492
+## 13                    0.5171328                    0.4162369
+## 14                    0.6194578                    0.4920632
+## 15                    0.5579179                    0.4743218
+## 16                    0.7040338                    0.6222297
+## 17                    0.7679277                    0.5873258
+## 18                    0.7139295                    0.5366235
+## 19                    0.8110551                    0.6393046
+## 20                    0.7387768                    0.6234732
+## 21                    0.6927470                    0.5536728
+## 22                    0.6940235                    0.6197765
+## 23                    0.6725772                    0.4828428
+## 24                    0.5202130                    0.4907501
+##    Niefern_2015_NDVI_2015.08.07 Niefern_2015_NDVI_2015.08.14
+## 1                     0.8527183                    0.7713645
+## 2                     0.8222396                    0.6366556
+## 3                     0.6139642                    0.5954505
+## 4                     0.7822848                          NaN
+## 5                     0.7167233                          NaN
+## 6                     0.2628159                    0.3603350
+## 7                     0.4870227                    0.4613780
+## 8                     0.6721725                          NaN
+## 9                     0.5053208                    0.5228662
+## 10                    0.4818079                    0.5493530
+## 11                    0.5294886                    0.5752449
+## 12                    0.3030272                    0.3566494
+## 13                    0.3473259                    0.3775580
+## 14                    0.4481021                    0.4858272
+## 15                    0.3701690                    0.4030601
+## 16                    0.6762076                    0.6540455
+## 17                    0.6119527                    0.6362282
+## 18                    0.5847306                    0.5737915
+## 19                    0.6709118                          NaN
+## 20                    0.6313476                    0.5221067
+## 21                    0.5660932                    0.5680758
+## 22                    0.5555587                    0.5224902
+## 23                    0.2891346                          NaN
+## 24                    0.4454817                    0.4730410
+##    Niefern_2015_NDVI_2015.08.30 Niefern_2015_NDVI_2015.09.24
+## 1                     0.8714942                    0.8543471
+## 2                     0.8413229                    0.8596333
+## 3                     0.7114856                    0.7968847
+## 4                     0.8202850                          NaN
+## 5                     0.7545834                          NaN
+## 6                     0.2996459                    0.5514709
+## 7                     0.6360237                    0.6825617
+## 8                     0.7351829                    0.7775623
+## 9                     0.6814783                    0.7223182
+## 10                    0.7979797                    0.8564309
+## 11                    0.7772369                    0.8700246
+## 12                    0.3739108                    0.4313427
+## 13                    0.4688305                    0.5513840
+## 14                    0.5553127                    0.6500202
+## 15                    0.4781897                    0.5725167
+## 16                    0.7095407                    0.8180649
+## 17                    0.7443071                    0.7541757
+## 18                    0.7203578                    0.7913161
+## 19                    0.7714098                          NaN
+## 20                    0.7313249                          NaN
+## 21                    0.7226907                    0.7559591
+## 22                    0.6877064                          NaN
+## 23                    0.4055242                          NaN
+## 24                    0.5240042                    0.5397713
+##    Niefern_2015_NDVI_2015.10.01 Niefern_2015_NDVI_2015.10.26
+## 1                     0.8619793                    0.6814438
+## 2                     0.8290596                    0.5479269
+## 3                     0.7483961                          NaN
+## 4                     0.7967949                    0.6418970
+## 5                     0.7452445                    0.5772442
+## 6                     0.5390016                    0.4420219
+## 7                     0.6609060                    0.5828731
+## 8                     0.7210052                    0.5775714
+## 9                     0.6789295                    0.6666971
+## 10                    0.8106327                          NaN
+## 11                    0.7958225                          NaN
+## 12                    0.3623695                          NaN
+## 13                    0.5110812                          NaN
+## 14                    0.6376457                          NaN
+## 15                    0.5528032                          NaN
+## 16                    0.7317521                          NaN
+## 17                    0.6923446                          NaN
+## 18                    0.7434991                          NaN
+## 19                    0.7952806                    0.6383916
+## 20                    0.7429727                    0.6679167
+## 21                    0.7510211                    0.6297628
+## 22                    0.6749128                    0.5289663
+## 23                    0.4012150                    0.3056537
+## 24                    0.5291664                    0.4765621
+##    Niefern_2015_NDVI_2015.11.11 Niefern_2015_NDVI_2015.11.18
+## 1                     0.6864928                    0.6195419
+## 2                     0.6070876                          NaN
+## 3                     0.6225112                          NaN
+## 4                     0.5808855                    0.6121956
+## 5                     0.5823568                          NaN
+## 6                     0.6925435                    0.7089009
+## 7                     0.5451459                    0.5500258
+## 8                     0.5293300                    0.5491604
+## 9                     0.5216403                    0.5334942
+## 10                    0.5985556                    0.4887638
+## 11                    0.6108115                    0.5739491
+## 12                    0.6210167                          NaN
+## 13                    0.6204472                    0.8810079
+## 14                    0.6797221                    0.6100607
+## 15                    0.6928156                          NaN
+## 16                    0.6691649                          NaN
+## 17                    0.5344892                          NaN
+## 18                    0.6424369                          NaN
+## 19                    0.6546991                          NaN
+## 20                    0.6178946                    0.6434718
+## 21                    0.6262948                    0.7106637
+## 22                    0.5885894                    0.5809588
+## 23                    0.4679477                          NaN
+## 24                    0.4607704                    0.4839204
+##    Niefern_2015_NDVI_2015.11.27 Niefern_2015_NDVI_2015.12.20
+## 1                     0.7531190                    0.6496306
+## 2                     0.7064879                    0.5707070
+## 3                     0.7533055                    0.5693712
+## 4                     0.4595317                    0.5707326
+## 5                     0.5788581                    0.6001039
+## 6                     0.7518659                    0.7289639
+## 7                     0.7089957                    0.5383657
+## 8                     0.5019781                    0.5115733
+## 9                     0.5453161                    0.5116433
+## 10                    0.7301117                    0.5162266
+## 11                    0.7044663                    0.5301013
+## 12                    0.7929505                    0.7106073
+## 13                    0.7235307                    0.6636826
+## 14                    0.7046509                    0.6281060
+## 15                    0.7899011                    0.6443367
+## 16                    0.7798142                    0.5455647
+## 17                    0.6109932                    0.6292658
+## 18                    0.7367833                    0.6047720
+## 19                    0.6338238                    0.5924009
+## 20                    0.6636784                    0.5646762
+## 21                    0.6537237                    0.5556737
+## 22                    0.4501866                    0.5580618
+## 23                    0.4412333                    0.6169641
+## 24                    0.5024921                    0.4608307
+##    Niefern_2015_NDVI_2015.12.29
+## 1                     0.7119576
+## 2                     0.6146809
+## 3                     0.6328922
+## 4                     0.5708206
+## 5                     0.6501018
+## 6                     0.7657976
+## 7                     0.5571971
+## 8                     0.5715560
+## 9                     0.5532596
+## 10                    0.5678297
+## 11                    0.5752111
+## 12                    0.7536048
+## 13                    0.7147408
+## 14                    0.6564305
+## 15                    0.6858921
+## 16                    0.6161416
+## 17                    0.7348081
+## 18                    0.6191550
+## 19                    0.5937266
+## 20                    0.5826730
+## 21                    0.5728993
+## 22                    0.5920720
+## 23                    0.6797703
+## 24                    0.4578421
+\end{verbatim}
+
+\subsection{Reshape the resulting
+dataframe}\label{reshape-the-resulting-dataframe}
+
+Extraction of the dates (going from a wide format to a long one)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ndvi\_long }\OtherTok{\textless{}{-}}\NormalTok{ ndvi\_per\_plot  }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_longer}\NormalTok{(}
+    \AttributeTok{cols =} \FunctionTok{starts\_with}\NormalTok{(}\StringTok{"Niefern\_2015\_NDVI\_"}\NormalTok{),}
+    \AttributeTok{names\_to =} \StringTok{"date"}\NormalTok{,}
+    \AttributeTok{values\_to =} \StringTok{"ndvi\_mean"}\NormalTok{,}
+    \AttributeTok{names\_pattern =} \StringTok{"Niefern\_2015\_NDVI\_(.*)$"}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{date =} \FunctionTok{as.Date}\NormalTok{(date, }\AttributeTok{format =} \StringTok{"\%Y.\%m.\%d"}\NormalTok{),}
+    \AttributeTok{LandUse =} \FunctionTok{as.factor}\NormalTok{(LandUse),}
+    \AttributeTok{LandUse =} \FunctionTok{recode}\NormalTok{(LandUse,  }\StringTok{"1"} \OtherTok{=} \StringTok{"Culture"}\NormalTok{,}
+                     \StringTok{"2"} \OtherTok{=} \StringTok{"Bois"}\NormalTok{,}
+                     \StringTok{"3"} \OtherTok{=} \StringTok{"Urbain"}\NormalTok{,}
+                     \StringTok{"5"} \OtherTok{=} \StringTok{"Semi{-}naturelle mixte"}\NormalTok{)}
+\NormalTok{  )}
+
+\NormalTok{ndvi\_long}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 528 x 5
+##       id LandUse        S date       ndvi_mean
+##    <dbl> <fct>      <dbl> <date>         <dbl>
+##  1     0 Bois    1110339. 2015-01-18     0.430
+##  2     0 Bois    1110339. 2015-02-03   NaN    
+##  3     0 Bois    1110339. 2015-02-12     0.694
+##  4     0 Bois    1110339. 2015-02-28     0.639
+##  5     0 Bois    1110339. 2015-04-08     0.583
+##  6     0 Bois    1110339. 2015-04-24     0.724
+##  7     0 Bois    1110339. 2015-05-10     0.797
+##  8     0 Bois    1110339. 2015-06-04     0.886
+##  9     0 Bois    1110339. 2015-06-11     0.807
+## 10     0 Bois    1110339. 2015-07-06     0.872
+## # i 518 more rows
+\end{verbatim}
+
+\section{Plot NDVI}\label{plot-ndvi}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ndvi\_per\_subplotLU }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(ndvi\_long, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ date, }\AttributeTok{y =}\NormalTok{ ndvi\_mean, }\AttributeTok{group =}\NormalTok{ id)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"darkgreen"}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.4}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{color =} \StringTok{"darkgreen"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ LandUse) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"NDVI moyen par parcelle et par occupation du sol pour l\textquotesingle{}année 2015"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Date"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"NDVI moyen [{-}]"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_date}\NormalTok{(}\AttributeTok{date\_labels =} \StringTok{"\%d{-}\%m"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+
+\NormalTok{ndvi\_per\_subplotLU}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 10 rows containing missing values or values outside the scale range
+## (`geom_line()`).
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 58 rows containing missing values or values outside the scale range
+## (`geom_point()`).
+\end{verbatim}
+
+\includegraphics{NDVI_raster_to_meanLU_files/figure-latex/unnamed-chunk-1-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggsave}\NormalTok{(}\AttributeTok{filename =} \FunctionTok{paste}\NormalTok{(Graph\_Niefern\_file,}
+                        \StringTok{"/NDVI\_per\_subplotLU.png"}\NormalTok{, }\AttributeTok{sep=}\StringTok{""}\NormalTok{),}
+       \AttributeTok{plot =}\NormalTok{ ndvi\_per\_subplotLU,}
+       \AttributeTok{height =} \DecValTok{5}\NormalTok{, }\AttributeTok{width =} \DecValTok{12}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Removed 10 rows containing missing values or values outside the scale range
+## (`geom_line()`).
+## Removed 58 rows containing missing values or values outside the scale range
+## (`geom_point()`).
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ndvi\_mean\_agg }\OtherTok{\textless{}{-}}\NormalTok{ ndvi\_long }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(LandUse, date) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}
+    \AttributeTok{ndvi\_mean =} \FunctionTok{mean}\NormalTok{(ndvi\_mean, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{),}
+    \AttributeTok{Stot\_per\_LU =} \FunctionTok{sum}\NormalTok{(S),}
+    \AttributeTok{.groups =} \StringTok{"drop"}
+\NormalTok{  )}
+\NormalTok{ndvi\_mean\_agg}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 88 x 4
+##    LandUse date       ndvi_mean Stot_per_LU
+##    <fct>   <date>         <dbl>       <dbl>
+##  1 Culture 2015-01-18    0.498      928095.
+##  2 Culture 2015-02-03   -0.0124     928095.
+##  3 Culture 2015-02-12    0.547      928095.
+##  4 Culture 2015-02-28    0.512      928095.
+##  5 Culture 2015-04-08    0.637      928095.
+##  6 Culture 2015-04-24    0.755      928095.
+##  7 Culture 2015-05-10    0.765      928095.
+##  8 Culture 2015-06-04    0.736      928095.
+##  9 Culture 2015-06-11    0.753      928095.
+## 10 Culture 2015-07-06    0.568      928095.
+## # i 78 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ndvi\_mean\_perLU }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(ndvi\_mean\_agg, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ date, }\AttributeTok{y =}\NormalTok{ ndvi\_mean, }\AttributeTok{color =}\NormalTok{ LandUse)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \FloatTok{1.2}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Évolution du NDVI moyen par occupation du sol"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Date"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"NDVI moyen [{-}]"}\NormalTok{,}
+    \AttributeTok{color =} \StringTok{"Zone"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_date}\NormalTok{(}\AttributeTok{date\_labels =} \StringTok{"\%d{-}\%m"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## i Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ndvi\_mean\_perLU }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{NDVI_raster_to_meanLU_files/figure-latex/unnamed-chunk-2-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggsave}\NormalTok{(}\AttributeTok{filename =} \FunctionTok{paste}\NormalTok{(Graph\_Niefern\_file,}
+                        \StringTok{"/NDVI\_mean\_per\_LU.png"}\NormalTok{, }\AttributeTok{sep=}\StringTok{""}\NormalTok{),}
+\NormalTok{       ndvi\_mean\_perLU,}
+       \AttributeTok{height =} \DecValTok{5}\NormalTok{, }\AttributeTok{width =} \DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ndvi\_mean\_agg\_zoom }\OtherTok{\textless{}{-}}\NormalTok{ ndvi\_mean\_agg }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(date }\SpecialCharTok{\textgreater{}=} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"2015{-}04{-}01"}\NormalTok{),}
+\NormalTok{         date }\SpecialCharTok{\textless{}=} \FunctionTok{as.Date}\NormalTok{(}\StringTok{"2015{-}06{-}30"}\NormalTok{))}
+
+\FunctionTok{ggplot}\NormalTok{(ndvi\_mean\_agg\_zoom, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ date, }\AttributeTok{y =}\NormalTok{ ndvi\_mean, }\AttributeTok{color =}\NormalTok{ LandUse)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{title =} \StringTok{"Évolution du NDVI moyen par occupation du sol"}\NormalTok{,}
+    \AttributeTok{x =} \StringTok{"Date"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"NDVI moyen"}\NormalTok{,}
+    \AttributeTok{color =} \StringTok{"LandUse"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"bottom"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{NDVI_raster_to_meanLU_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\section{Interpolate the results}\label{interpolate-the-results}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ndvi\_mean\_agg }\OtherTok{\textless{}{-}}\NormalTok{ndvi\_mean\_agg }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{filter}\NormalTok{(LandUse }\SpecialCharTok{!=} \DecValTok{3}\NormalTok{) }\CommentTok{\#Get rid of the urban category (LandUse = 3)}
+\NormalTok{ndvi\_mean\_agg}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 88 x 4
+##    LandUse date       ndvi_mean Stot_per_LU
+##    <fct>   <date>         <dbl>       <dbl>
+##  1 Culture 2015-01-18    0.498      928095.
+##  2 Culture 2015-02-03   -0.0124     928095.
+##  3 Culture 2015-02-12    0.547      928095.
+##  4 Culture 2015-02-28    0.512      928095.
+##  5 Culture 2015-04-08    0.637      928095.
+##  6 Culture 2015-04-24    0.755      928095.
+##  7 Culture 2015-05-10    0.765      928095.
+##  8 Culture 2015-06-04    0.736      928095.
+##  9 Culture 2015-06-11    0.753      928095.
+## 10 Culture 2015-07-06    0.568      928095.
+## # i 78 more rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{ndvi\_mean\_agg\_daily }\OtherTok{\textless{}{-}}\NormalTok{ ndvi\_mean\_agg }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(LandUse) }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\# 1. Create all dates }
+  \FunctionTok{complete}\NormalTok{(}\AttributeTok{date =} \FunctionTok{seq}\NormalTok{(}\FunctionTok{as.Date}\NormalTok{(}\StringTok{"2015{-}01{-}01"}\NormalTok{),}
+                      \FunctionTok{as.Date}\NormalTok{(}\StringTok{"2015{-}12{-}31"}\NormalTok{), }\AttributeTok{by =} \StringTok{"day"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(LandUse, date) }\SpecialCharTok{\%\textgreater{}\%}
+  \CommentTok{\# 2. Linear interpolation}
+  \FunctionTok{group\_modify}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ \{}
+\NormalTok{    d }\OtherTok{\textless{}{-}}\NormalTok{ .x}\SpecialCharTok{$}\NormalTok{date}
+\NormalTok{    y }\OtherTok{\textless{}{-}}\NormalTok{ .x}\SpecialCharTok{$}\NormalTok{ndvi\_mean}
+
+    \CommentTok{\# Indices days with observations}
+\NormalTok{    ok }\OtherTok{\textless{}{-}} \SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(y)}
+
+    \CommentTok{\# If not enough points:}
+    \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{sum}\NormalTok{(ok) }\SpecialCharTok{\textless{}} \DecValTok{2}\NormalTok{) }\FunctionTok{return}\NormalTok{(.x)}
+
+\NormalTok{    y\_interp }\OtherTok{\textless{}{-}} \FunctionTok{approx}\NormalTok{(}
+      \AttributeTok{x    =} \FunctionTok{as.numeric}\NormalTok{(d[ok]),}
+      \AttributeTok{y    =}\NormalTok{ y[ok],}
+      \AttributeTok{xout =} \FunctionTok{as.numeric}\NormalTok{(d),}
+      \AttributeTok{rule =} \DecValTok{2}  
+\NormalTok{    )}\SpecialCharTok{$}\NormalTok{y}
+
+\NormalTok{    .x}\SpecialCharTok{$}\NormalTok{ndvi\_mean\_interp }\OtherTok{\textless{}{-}}\NormalTok{ y\_interp}
+\NormalTok{    .x}
+\NormalTok{  \}) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ungroup}\NormalTok{()}
+
+\NormalTok{ndvi\_mean\_agg\_daily}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 1,460 x 5
+##    LandUse date       ndvi_mean Stot_per_LU ndvi_mean_interp
+##    <fct>   <date>         <dbl>       <dbl>            <dbl>
+##  1 Culture 2015-01-01        NA          NA            0.498
+##  2 Culture 2015-01-02        NA          NA            0.498
+##  3 Culture 2015-01-03        NA          NA            0.498
+##  4 Culture 2015-01-04        NA          NA            0.498
+##  5 Culture 2015-01-05        NA          NA            0.498
+##  6 Culture 2015-01-06        NA          NA            0.498
+##  7 Culture 2015-01-07        NA          NA            0.498
+##  8 Culture 2015-01-08        NA          NA            0.498
+##  9 Culture 2015-01-09        NA          NA            0.498
+## 10 Culture 2015-01-10        NA          NA            0.498
+## # i 1,450 more rows
+\end{verbatim}
+
+\section{Extract the results}\label{extract-the-results}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{write.csv}\NormalTok{(ndvi\_mean\_agg\_daily,}
+          \FunctionTok{paste}\NormalTok{(NDVI\_csv\_file, }\StringTok{"/NDVI\_mean\_per\_LUday.csv"}\NormalTok{, }\AttributeTok{sep=}\StringTok{""}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+
+\end{document}
