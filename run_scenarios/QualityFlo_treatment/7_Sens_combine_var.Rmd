@@ -1,0 +1,294 @@
+---
+title: "Combine_outputs_sens"
+author: 'Noémie Huvelle'
+date: "2025-12-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+#Prepare R environment 
+```{r load packages}
+rm(list = ls())
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(rlang)
+library(here)
+```
+
+```{r set directories}
+wd <- here("run_scenarios/QualityFlo_treatment")
+in_files <- here("run_scenarios/QualityFlo_treatment/Intermediate_results")
+out_file <- here("run_scenarios/QualityFlo_scenarios")
+setwd(wd)
+```
+
+```{r load sensitivity analysis data}
+
+files <- list.files(in_files, pattern = "\\.csv$", full.names = TRUE)
+
+sens_data_list <- setNames(lapply(files, read.csv),
+                            basename(files))
+
+sens_data_list <- lapply(sens_data_list, function(df) {
+  names(df)[1] <- "doy"
+  df
+})
+
+str(sens_data_list)
+```
+
+```{r load baseline data}
+base_flo_ressources <- read.csv(paste(out_file,
+                                      "/baseline_ResFlo.csv",
+                                      sep=""))
+str(base_flo_ressources)
+```
+
+#Create scenario dataframes and save them 
+```{r function to properly combine df}
+prepare_sens_df <- function(sens_df,
+                            base_df,
+                            join_by   = "doy",
+                            join_col  = "Prop_foraging_day",
+                            remove_cols = "date",
+                            rename_cols = c(
+                              Quality_crop        = "quality_crop",
+                              Quality_nat         = "quality_nat",
+                              Prop_foraging_crop  = "prop_forag_crop",
+                              Prop_foraging_day   = "prop_forag_day"
+                            )) {
+
+  ## --- 1. JOIN ---
+  sens_df <- sens_df %>%
+    dplyr::left_join(
+      base_df %>% dplyr::select(dplyr::all_of(join_by), dplyr::all_of(join_col)),
+      by = join_by
+    )
+
+  ## --- 2. REMOVE columns if present ---
+  if (!is.null(remove_cols)) {
+    sens_df <- sens_df %>% dplyr::select(-dplyr::all_of(intersect(remove_cols, names(sens_df))))
+  }
+
+  ## --- 3. SAFE RENAME (only rename if column exists!)
+  for (new_name in names(rename_cols)) {
+    old_name <- rename_cols[[new_name]]
+    if (old_name %in% names(sens_df)) {
+      names(sens_df)[names(sens_df) == old_name] <- new_name
+    }
+  }
+
+  ## --- 4. REORDER columns ---
+  final_order <- c("doy", "Prop_foraging_day",
+                   "Quality_crop", "Quality_nat",
+                   "Prop_foraging_crop")
+
+  final_order <- intersect(final_order, names(sens_df))
+
+  sens_df <- sens_df %>%
+    dplyr::select(dplyr::all_of(final_order), dplyr::everything())
+
+  return(sens_df)
+}
+
+```
+
+## Quality crop sensitivity
+```{r quality crop sensitivity df}
+sens_crop_low <- prepare_sens_df(
+  sens_df   = sens_data_list$scenario_QF_QC_low.csv,
+  base_df   = base_flo_ressources,
+  join_by   = "doy",
+  join_col  = "Prop_foraging_day",
+  remove_cols = "date"
+)
+str(sens_crop_low) #OK <3
+write.csv(sens_crop_low,
+          paste(out_file,
+                "/scenario_QC_low.csv",
+                sep=""),
+          row.names = FALSE)
+
+sens_crop_high <- prepare_sens_df(
+  sens_df   =  sens_data_list$scenario_QF_QC_high.csv,
+  base_df   = base_flo_ressources,
+  join_by   = "doy",
+  join_col  = "Prop_foraging_day",
+  remove_cols = "date"
+)
+str(sens_crop_high)
+write.csv(sens_crop_high,
+          paste(out_file,
+                "/scenario_QC_high.csv",
+                sep=""),
+          row.names = FALSE)
+
+sens_crop_high$Quality_crop == sens_crop_low$Quality_crop
+```
+
+## Quality nat sensitivity
+```{r quality nat sensitivity df}
+sens_nat_low <- prepare_sens_df(
+  sens_df   = sens_data_list$scenario_QF_QN_low.csv,
+  base_df   = base_flo_ressources,
+  join_by   = "doy",
+  join_col  = "Prop_foraging_day",
+  remove_cols = "date"
+)
+str(sens_nat_low)
+write.csv(sens_nat_low,
+          paste(out_file,
+                "/scenario_QN_low.csv",
+                sep=""),
+          row.names = FALSE)
+
+sens_nat_high <- prepare_sens_df(
+  sens_df   = sens_data_list$scenario_QF_QN_high.csv,
+  base_df   = base_flo_ressources,
+  join_by   = "doy",
+  join_col  = "Prop_foraging_day",
+  remove_cols = "date"
+)
+str(sens_nat_high)
+write.csv(sens_nat_high,
+          paste(out_file,
+                "/scenario_QN_high.csv",
+                sep=""),
+          row.names = FALSE)
+
+
+sens_nat_high$Quality_nat == sens_nat_low$Quality_nat
+```
+There is an issue here... The quality_nat shouldnt be the same AND the issue stems from the Sens_analysis/Scenario_sensitivity_nat_lowORhigh -> ISSUE SOLVED
+
+## Prop foraging crop sensitivity
+Sensitivity of the alpha parameter
+```{r prop foraging crop sensitivity df}
+sens_prop_forag_crop_low <- prepare_sens_df(
+  sens_df   = sens_data_list$scenario_QF_PFC_low.csv,
+  base_df   = base_flo_ressources,
+  join_by   = "doy",
+  join_col  = "Prop_foraging_day",
+  remove_cols = "date"
+)
+str(sens_prop_forag_crop_low)
+write.csv(sens_prop_forag_crop_low,
+          paste(out_file,
+                "/scenario_PFC_low.csv",
+                sep=""),
+          row.names = FALSE)
+
+sens_prop_forag_crop_high <- prepare_sens_df(
+  sens_df   = sens_data_list$scenario_QF_PFC_high.csv,
+  base_df   = base_flo_ressources,
+  join_by   = "doy",
+  join_col  = "Prop_foraging_day",
+  remove_cols = "date"
+)
+str(sens_prop_forag_crop_high)
+write.csv(sens_prop_forag_crop_high,
+          paste(out_file,
+                "/scenario_PFC_high.csv",
+                sep=""),
+          row.names = FALSE)
+```
+
+## Weather thresholds sensitivity
+### Precipitation thresholds
+```{r PFD - Precip sensitivity df}
+sens_Precip_low <- prepare_sens_df(
+  sens_df   = sens_data_list$scenario_PFD_Precip_low.csv,
+  base_df   = base_flo_ressources,
+  join_by   = "doy",
+  join_col  = c("Quality_crop", "Quality_nat", "Prop_foraging_crop"),
+  remove_cols = "date"
+)
+str(sens_Precip_low)
+write.csv(sens_Precip_low,
+          paste(out_file,
+                "/scenario_PFD_Precip_low.csv",
+                sep=""),
+          row.names = FALSE)
+
+
+sens_Precip_high <- prepare_sens_df(
+  sens_df   = sens_data_list$scenario_PFD_Precip_high.csv,
+  base_df   = base_flo_ressources,
+  join_by   = "doy",
+  join_col  = c("Quality_crop", "Quality_nat", "Prop_foraging_crop"),
+  remove_cols = "date"
+)
+str(sens_Precip_high)
+write.csv(sens_Precip_high,
+          paste(out_file,
+                "/scenario_PFD_Precip_high.csv",
+                sep=""),
+          row.names = FALSE)
+
+sens_Precip_high$Prop_foraging_day == sens_Precip_low$Prop_foraging_day
+```
+
+### Temperature thresholds
+```{r  PFD - Temperature sensitivity df}
+sens_T_low <- prepare_sens_df(
+  sens_df   = sens_data_list$scenario_PFD_T_low.csv,
+  base_df   = base_flo_ressources,
+  join_by   = "doy",
+  join_col  = c("Quality_crop", "Quality_nat", "Prop_foraging_crop"),
+  remove_cols = "date"
+)
+str(sens_T_low)
+write.csv(sens_T_low,
+          paste(out_file,
+                "/scenario_PFD_T_low.csv",
+                sep=""),
+          row.names = FALSE)
+
+sens_T_high <- prepare_sens_df(
+  sens_df   = sens_data_list$scenario_PFD_T_high.csv,
+  base_df   = base_flo_ressources,
+  join_by   = "doy",
+  join_col  = c("Quality_crop", "Quality_nat", "Prop_foraging_crop"),
+  remove_cols = "date"
+)
+str(sens_T_high)
+write.csv(sens_T_high,
+          paste(out_file,
+                "/scenario_PFD_T_high.csv",
+                sep=""),
+          row.names = FALSE)
+```
+
+### Relative Humidity thresholds
+```{r PFD - RH sensitivity df}
+sens_RH_low <- prepare_sens_df(
+  sens_df   = sens_data_list$scenario_PFD_RH_low.csv,
+  base_df   = base_flo_ressources,
+  join_by   = "doy",
+  join_col  = c("Quality_crop", "Quality_nat", "Prop_foraging_crop"),
+  remove_cols = "date"
+)
+str(sens_RH_low)
+write.csv(sens_RH_low,
+          paste(out_file,
+                "/scenario_PFD_RH_low.csv",
+                sep=""),
+          row.names = FALSE)
+
+sens_RH_high <- prepare_sens_df(
+  sens_df   = sens_data_list$scenario_PFD_RH_high.csv,
+  base_df   = base_flo_ressources,
+  join_by   = "doy",
+  join_col  = c("Quality_crop", "Quality_nat", "Prop_foraging_crop"),
+  remove_cols = "date"
+)
+str(sens_RH_high)
+write.csv(sens_RH_high,
+          paste(out_file,
+                "/scenario_PFD_RH_high.csv",
+                sep=""),
+          row.names = FALSE)
+```

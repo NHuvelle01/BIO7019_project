@@ -1,0 +1,435 @@
+---
+title: "6_Nierfen_QualityFlo_sensitivity"
+author: 'Noémie Huvelle'
+date: "2025-12-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Preparation of R environment
+
+```{r load packages}
+rm(list = ls())
+library(tidyverse)
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(ggplot2)
+library(purrr)
+library(here)
+```
+
+```{r set directories}
+QualityFlo_file <- here("run_scenarios/QualityFlo_treatment") #input
+Graph_file <- here("Graphs/NDVI_to_QualityFlo") #output
+QualityFlo_out_file <- here("run_scenarios/QualityFlo_treatment/Intermediate_results") #output
+setwd(QualityFlo_file)
+```
+
+## NDVI loading and preparing
+```{r load data -- daily NDVI}
+ndvi <- read.csv("NDVI_mean_per_LUday.csv")
+str(ndvi)
+
+#Date format
+ndvi$date <- as.Date(ndvi$date)
+#Factorisation of LandUse 
+ndvi$LandUse <- as.factor(ndvi$LandUse)
+
+ndvi_culture <- ndvi %>% filter(LandUse == "Culture")
+ndvi_nat <- ndvi %>% filter(LandUse == "Bois")
+```
+## BBCH Loading and preparing 
+```{r load data -- BBCH}
+bbch <- read.csv("OSR_BBCH_S15_01802_Nie2015.csv", skip=3)
+bbch$Date <- as.Date(bbch$Date)
+
+head(bbch)
+```
+
+## Function to get quality_flo(t)
+```{r quality flo function}
+compute_quality_flo <- function(ndvi_data,
+                                 lambda = 0.89,
+                                 ndvi_col = "ndvi_mean_interp",
+                                 date_col = "date",
+                                 min_length = 3) {
+  
+  # Extract ndvi and date values 
+  ndvi_vals <- ndvi_data[[ndvi_col]]
+  dates     <- ndvi_data[[date_col]]
+  
+  # Get NDVI min, max, amplitude
+  NDVI_min <- min(ndvi_vals, na.rm = TRUE)
+  NDVI_max <- max(ndvi_vals, na.rm = TRUE)
+  ampl     <- NDVI_max - NDVI_min
+  
+  if (ampl == 0) {
+    stop("Amplitude NDVI = 0 (NDVI constant).")
+  }
+  
+  # Function if lambda is a single value
+  one_lambda <- function(lam) {
+    NDVI_thres <- NDVI_min + lam * ampl
+    
+    # mask TRUE/FALSE where NDVI >= NDVI threshold (ignores NA)
+    above <- ndvi_vals >= NDVI_thres & !is.na(ndvi_vals)
+    
+    # RLE (Run Length Encoding) to find the MULTIPLE consecutive sequences where NDVI > NDVI_thres
+    r <- rle(above)
+    ends   <- cumsum(r$lengths)
+    starts <- ends - r$lengths + 1
+    
+    # Indices where sequences : above == TRUE
+    idx_true <- which(r$values)
+    
+    season_id <- rep(NA_integer_, length(ndvi_vals))
+    SOS_vec   <- c()
+    EOS_vec   <- c()
+    
+    season_counter <- 0L
+    for (k in idx_true) {
+      s <- starts[k]
+      e <- ends[k]
+      # Filter sequences too short
+      if (r$lengths[k] < min_length) next
+      
+      season_counter <- season_counter + 1L
+      season_id[s:e] <- season_counter
+      SOS_vec <- c(SOS_vec, dates[s])
+      EOS_vec <- c(EOS_vec, dates[e])
+    }
+    
+    # Peak date
+    peak_id   <- which.max(ndvi_vals)
+    Peak_date <- dates[peak_id]
+    Peak_val  <- ndvi_vals[peak_id]
+    
+    # quality_flo only inside the sequences where NDVI > NDVI_thres
+    quality_flo <- ifelse(
+      !is.na(season_id),
+      (ndvi_vals - NDVI_min) / (NDVI_max - NDVI_min),
+      0
+    )
+    
+    # Returning Data.frame for this lambda value
+    quality_flo_df <- data.frame(
+      date         = dates,
+      lambda       = lam,
+      quality_flo = quality_flo,
+      season_id = season_id
+    )
+
+    # Table of time periods
+    if (season_counter > 0) {
+      periods_df <- data.frame(
+        lambda    = lam,
+        season_id = seq_len(season_counter),
+        SOS_date  = SOS_vec,
+        EOS_date  = EOS_vec
+      )
+    } else {
+      periods_df <- data.frame(
+        lambda    = lam,
+        season_id = integer(0),
+        SOS_date  = as.Date(character(0)),
+        EOS_date  = as.Date(character(0))
+      )
+    }
+    
+    # Returning phenological data
+    list(
+      lambda    = lam,
+      NDVI_min  = NDVI_min,
+      NDVI_max  = NDVI_max,
+      ampl      = ampl,
+      NDVI_thres = NDVI_thres,
+      periods = periods_df,
+      Peak_date = Peak_date,
+      Peak_val  = Peak_val,
+      quality_flo_df = quality_flo_df
+    )
+  }
+  
+  # If a single lambda -> a simple list
+  if (length(lambda) == 1) {
+    one_lambda(lambda)
+  } else {
+    # If multiple lambdas -> a named list by lambda
+    res <- lapply(lambda, one_lambda)
+    names(res) <- paste0("lambda_", lambda)
+    res
+  }
+}
+```
+
+#Sensitivity analysis
+
+## Quality_crop
+```{r lambda sensitivity for quality_crop}
+lambda <- 0.89 #for both Quality_nat and Quality_crop
+lambda_sens <- c(lambda+0.1*lambda, lambda-0.1*lambda)
+
+quality_crop_sens <- compute_quality_flo(ndvi_culture,
+                                         lambda = lambda_sens,
+                                         ndvi_col = "ndvi_mean_interp",
+                                         date_col = "date")
+
+quality_crop_sens_minus <- quality_crop_sens$lambda_0.801$quality_flo_df
+quality_crop_sens_plus <- quality_crop_sens$lambda_0.979$quality_flo_df
+
+head(quality_crop_sens_minus)
+
+```
+
+```{r plot -- lambda sensitivity for quality_crop (lambda minus)}
+NDVI_thres_minus_vec <- rep(quality_crop_sens$lambda_0.801$NDVI_thres,
+                            length(quality_crop_sens_minus$date))
+
+NDVI_thres_minus_df <- data.frame(date = quality_crop_sens_minus$date,
+                                  NDVI_thres_minus = NDVI_thres_minus_vec)
+
+ggplot(ndvi_culture, 
+       aes(x = date,
+           y = ndvi_mean_interp)) +
+  geom_line(alpha = 0.7) +
+  geom_line(
+    data = bbch,
+    aes(x = Date, y = X..of.flowers.open/100, color = "Fleurs ouvertes"),
+    inherit.aes = FALSE,
+    linetype = "dashed"
+  ) +
+  geom_line(
+    data = NDVI_thres_minus_df,
+    aes(x = date, y = NDVI_thres_minus, color = "NDVI seuil -- analyse de sensibilité"),
+    inherit.aes = FALSE,
+    linetype = "dotted"
+  ) +
+  geom_line(
+    data = quality_crop_sens_minus,
+    aes(x = date, y = quality_flo, color = "Quality_crop -- analyse de sensibilité"),
+    inherit.aes = FALSE,
+    linetype = "dotted"
+  ) +
+  labs(
+    title = "XXX",
+    x = "Date",
+    y = "NDVI moyen / % fleurs ouvertes",
+    color = "Légende"
+  ) +
+  theme_minimal()
+
+```
+
+```{r plot -- lambda sensitivity for quality_crop (lambda plus)}
+NDVI_thres_plus_vec <- rep(quality_crop_sens$lambda_0.979$NDVI_thres,
+                            length(quality_crop_sens_plus$date))
+
+NDVI_thres_plus_df <- data.frame(date = quality_crop_sens_plus$date,
+                                  NDVI_thres_plus = NDVI_thres_plus_vec)
+
+ggplot(ndvi_culture, 
+       aes(x = date,
+           y = ndvi_mean_interp)) +
+  geom_line(alpha = 0.7) +
+  geom_line(
+    data = bbch,
+    aes(x = Date, y = X..of.flowers.open/100, color = "Fleurs ouvertes"),
+    inherit.aes = FALSE,
+    linetype = "dashed"
+  ) +
+  geom_line(
+    data = NDVI_thres_plus_df,
+    aes(x = date, y = NDVI_thres_plus, color = "NDVI seuil -- analyse de sensibilité"),
+    inherit.aes = FALSE,
+    linetype = "dotted"
+  ) +
+  geom_line(
+    data = quality_crop_sens_plus,
+    aes(x = date, y = quality_flo, color = "Quality_crop -- analyse de sensibilité"),
+    inherit.aes = FALSE,
+    linetype = "dotted"
+  ) +
+  labs(
+    title = "XXX",
+    x = "Date",
+    y = "NDVI moyen / % fleurs ouvertes",
+    color = "Légende"
+  ) +
+  theme_minimal()
+```
+
+
+
+## Quality_nat
+```{r lambda sensitivity for quality_nat}
+lambda <- 0.89 #for both Quality_nat and Quality_crop
+lambda_sens <- c(lambda+0.1*lambda, lambda-0.1*lambda)
+
+quality_nat_sens <- compute_quality_flo(ndvi_nat,
+                                         lambda = lambda_sens,
+                                         ndvi_col = "ndvi_mean_interp",
+                                         date_col = "date")
+
+quality_nat_sens_minus <- quality_nat_sens$lambda_0.801$quality_flo_df
+quality_nat_sens_plus <- quality_nat_sens$lambda_0.979$quality_flo_df
+
+head(quality_nat_sens_minus)
+
+```
+
+
+```{r plot -- lambda sensitivity for quality_nat (lambda minus)}
+NDVI_thres_minus_vec <- rep(quality_nat_sens$lambda_0.801$NDVI_thres,
+                            length(quality_nat_sens_minus$date))
+
+NDVI_thres_minus_df <- data.frame(date = quality_nat_sens_minus$date,
+                                  NDVI_thres_minus = NDVI_thres_minus_vec)
+
+ggplot(ndvi_nat, 
+       aes(x = date,
+           y = ndvi_mean_interp)) +
+  geom_line(alpha = 0.7) +
+  geom_line(
+    data = NDVI_thres_minus_df,
+    aes(x = date, y = NDVI_thres_minus, color = "NDVI seuil -- analyse de sensibilité"),
+    inherit.aes = FALSE,
+    linetype = "dotted"
+  ) +
+  geom_line(
+    data = quality_nat_sens_minus,
+    aes(x = date, y = quality_flo, color = "Quality_nat -- analyse de sensibilité"),
+    inherit.aes = FALSE,
+    linetype = "dotted"
+  ) +
+  labs(
+    title = "XXX",
+    x = "Date",
+    y = "NDVI moyen / % fleurs ouvertes",
+    color = "Légende"
+  ) +
+  theme_minimal()
+
+```
+
+
+
+```{r plot -- lambda sensitivity for quality_nat (lambda plus)}
+NDVI_thres_plus_vec <- rep(quality_nat_sens$lambda_0.979$NDVI_thres,
+                            length(quality_nat_sens_plus$date))
+
+NDVI_thres_plus_df <- data.frame(date = quality_nat_sens_plus$date,
+                                  NDVI_thres_plus = NDVI_thres_plus_vec)
+
+ggplot(ndvi_nat, 
+       aes(x = date,
+           y = ndvi_mean_interp)) +
+  geom_line(alpha = 0.7) +
+  geom_line(
+    data = NDVI_thres_plus_df,
+    aes(x = date, y = NDVI_thres_plus, color = "NDVI seuil -- analyse de sensibilité"),
+    inherit.aes = FALSE,
+    linetype = "dotted"
+  ) +
+  geom_line(
+    data = quality_nat_sens_plus,
+    aes(x = date, y = quality_flo, color = "Quality_nat -- analyse de sensibilité"),
+    inherit.aes = FALSE,
+    linetype = "dotted"
+  ) +
+  labs(
+    title = "XXX",
+    x = "Date",
+    y = "NDVI moyen / % fleurs ouvertes",
+    color = "Légende"
+  ) +
+  theme_minimal()
+```
+
+
+```{r write results}
+base_scenario <- read.csv(paste(QualityFlo_out_file,
+                                "/baseline_QF.csv",
+                                sep=""))
+base_quality_crop <- base_scenario$quality_crop
+base_quality_nat <- base_scenario$quality_nat
+
+add_prop_forag_crop <- function(df, alpha = 0.73) {
+  # Vérification basique
+  stopifnot(all(c("quality_crop", "quality_nat") %in% names(df)))
+  
+  denom <- df$quality_crop + df$quality_nat
+  
+  df$prop_forag_crop <- ifelse(
+    is.na(denom) | denom == 0,
+    0,
+    alpha * df$quality_crop / denom
+  )
+  
+  df
+}
+
+
+colnames(quality_crop_sens_minus) <- c("date", "lambda_minus",
+                                       "quality_crop",
+                                       "season_id_minus")
+
+colnames(quality_crop_sens_plus) <- c("date", "lambda_plus",
+                                       "quality_crop",
+                                       "season_id_plus")
+
+colnames(quality_nat_sens_minus) <- c("date", "lambda_minus",
+                                       "quality_nat",
+                                       "season_id_minus")
+colnames(quality_nat_sens_plus) <- c("date", "lambda_plus",
+                                       "quality_nat",
+                                       "season_id_plus")
+
+quality_crop_sens_minus <- data.frame(date = quality_crop_sens_minus$date,
+                                     quality_crop = quality_crop_sens_minus$quality_crop,
+                                     quality_nat = base_quality_nat)
+quality_crop_sens_minus <- add_prop_forag_crop(quality_crop_sens_minus)
+
+
+quality_crop_sens_plus <- data.frame(date = quality_crop_sens_plus$date,
+                                     quality_crop = quality_crop_sens_plus$quality_crop,
+                                     quality_nat = base_quality_nat)
+quality_crop_sens_plus <- add_prop_forag_crop(quality_crop_sens_plus)
+
+quality_nat_sens_minus <- data.frame(date = quality_nat_sens_minus$date,
+                                     quality_crop = base_quality_crop,
+                                     quality_nat = quality_nat_sens_minus$quality_nat)
+quality_nat_sens_minus <- add_prop_forag_crop(quality_nat_sens_minus)
+
+quality_nat_sens_plus <- data.frame(date = quality_nat_sens_plus$date,
+                                     quality_crop = base_quality_crop,
+                                     quality_nat = quality_nat_sens_plus$quality_nat)
+quality_nat_sens_plus <- add_prop_forag_crop(quality_nat_sens_plus)
+
+
+
+
+write.csv(quality_crop_sens_minus,
+          paste(QualityFlo_out_file,
+                "/scenario_QF_QC_low.csv",
+                sep=""))
+write.csv(quality_crop_sens_plus,
+          paste(QualityFlo_out_file,
+                "/scenario_QF_QC_high.csv",
+                sep=""))
+write.csv(quality_nat_sens_minus,
+          paste(QualityFlo_out_file,
+                "/scenario_QF_QN_low.csv",
+                sep=""))
+write.csv(quality_nat_sens_plus,
+          paste(QualityFlo_out_file,
+                "/scenario_QF_QN_high.csv",
+                sep=""))
+
+#QC = Quality Crop
+#QN = Quality natural 
+```

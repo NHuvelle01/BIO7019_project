@@ -1,0 +1,523 @@
+---
+title: "Nierfen_NDVI_to_QualityFloral"
+author: 'Noémie Huvelle'
+date: "2025-12-01"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Preparation of R environment
+
+```{r load packages}
+rm(list = ls())
+library(tidyverse)
+library(readxl)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(ggplot2)
+library(purrr)
+library(here)
+```
+
+```{r directories}
+QualityFlo_file <- here("run_scenarios/QualityFlo_treatment") #input
+Graph_file <- here("Graphs/NDVI_to_QualityFlo") #output
+QualityFlo_out_file <- here("run_scenarios/QualityFlo_treatment/Intermediate_results") #output
+setwd(QualityFlo_file)
+```
+
+## NDVI loading and preparing
+```{r load data -- daily NDVI}
+ndvi <- read.csv("NDVI_mean_per_LUday.csv")
+str(ndvi)
+
+#Date format
+ndvi$date <- as.Date(ndvi$date)
+#Factorisation of LandUse 
+ndvi$LandUse <- as.factor(ndvi$LandUse)
+
+```
+
+## BBCH Loading and preparing 
+```{r load data -- BBCH}
+bbch <- read.csv("OSR_BBCH_S15_01802_Nie2015.csv", skip=3)
+bbch$Date <- as.Date(bbch$Date)
+
+head(bbch)
+```
+
+## Plot
+
+```{r plot NDVI and BBCH over time}
+ndvi_culture <- ndvi %>% filter(LandUse == "Culture")
+
+ggplot(ndvi_culture, 
+       aes(x = date,
+           y = ndvi_mean_interp)) +
+  geom_line(alpha = 0.7) +
+  geom_line(
+    data = bbch,
+    aes(x = Date, y = X..of.flowers.open/100, color = "Fleurs ouvertes"),
+    inherit.aes = FALSE,
+    linetype = "dashed"
+  ) +
+  labs(
+    title = "Évolution du NDVI moyen et % de fleurs ouvertes",
+    x = "Date",
+    y = "NDVI moyen / % fleurs ouvertes",
+    color = "Légende"
+  ) +
+  theme_minimal()
+```
+```{r plot NDVI and BBCH over time, zoom}
+ndvi_culture_zoom <- ndvi_culture  %>%
+  filter(date >= as.Date("2015-04-01"),
+         date <= as.Date("2015-06-30"))
+
+ggplot(ndvi_culture_zoom, 
+       aes(x = date,
+           y = ndvi_mean_interp)) +
+  geom_line(alpha = 0.7) +
+  geom_line(
+    data = bbch,
+    aes(x = Date, y = X..of.flowers.open/100, color = "Fleurs ouvertes"),
+    inherit.aes = FALSE,
+    linetype = "dashed"
+  ) +
+  labs(
+    title = "Évolution du NDVI moyen et % de fleurs ouvertes",
+    x = "Date",
+    y = "NDVI moyen / % de fleurs ouvertes",
+    color = "Légende"
+  ) +
+  theme_minimal()
+```
+
+# Get phenological dates from NDVI
+
+As described in the methodology, we set a threshold parameter (\lambda) .... (TO BE CONTINED (dum, dum))
+
+```{r set the threshold}
+NDVI_min <- min(ndvi_culture$ndvi_mean_interp)
+NDVI_max <- max(ndvi_culture$ndvi_mean_interp)
+ampl <- NDVI_max - NDVI_min 
+
+lambda <- 0.89
+
+NDVI_thres <- NDVI_min + lambda*ampl
+```
+
+```{r plot the threshold}
+dates <- seq(from = ndvi_culture$date[1], 
+                 to = ndvi_culture$date[nrow(ndvi_culture)],
+                 by = "day")
+
+NDVI_thres_vec <- rep(NDVI_thres, 
+                      length(dates))
+
+NDVI_thres_df <- data.frame(date = dates,
+                            NDVI_thres = NDVI_thres_vec)
+plot_ndvi_crop_obs_mod <- ggplot(ndvi_culture, 
+       aes(x = date,
+           y = ndvi_mean_interp,
+           colour = "NDVI")) +
+  geom_line(alpha = 0.7) +
+  
+  geom_line(
+    data = bbch,
+    aes(x = Date, y = X..of.flowers.open/100,
+        colour = "Fleurs ouvertes"),
+    inherit.aes = FALSE,
+    linetype = "dashed"
+  ) +
+  
+  geom_line(
+    data = NDVI_thres_df,
+    aes(x = date, y = NDVI_thres,
+        colour = "NDVI seuil"),
+    inherit.aes = FALSE,
+    linetype = "dashed"
+  ) +
+  
+  scale_color_manual(
+    name = "Légende",
+    values = c(
+      "NDVI" = "black",
+      "Fleurs ouvertes" = "#d95f02",
+      "NDVI seuil" = "red"
+    )
+  ) +
+  
+  labs(
+    title = "",
+    x = "Date",
+    y = "NDVI / % de fleurs ouvertes"
+  ) +
+  theme_minimal()
+
+plot_ndvi_crop_obs_mod
+
+```
+
+```{r get the phenological dates}
+id_above <- which(ndvi_culture$ndvi_mean_interp >= NDVI_thres)
+
+#SOS = Start Of Season = 1rst date where NDVI >= NDVI_threshold
+SOS_date <- ndvi_culture$date[id_above[1]]
+
+#EOS = End of Season = last date where NDVI >= NDVI_threshold
+EOS_date <- ndvi_culture$date[id_above[length(id_above)]]
+
+#Peak = Date where NDVI is max
+peak_id  <- which.max(ndvi_culture$ndvi_mean_interp)
+Peak_date <- ndvi_culture$date[peak_id]
+Peak_val  <- ndvi_culture$ndvi_mean_interp[peak_id]
+```
+
+# Get Quality_crio(t) from NDVI
+As described in the methodology, we use an equation.... (TO BE CONTINED (dum, dum))
+
+```{r get the quality_crop}
+quality_crop <- ifelse(
+  ndvi_culture$date >= SOS_date & ndvi_culture$date <= EOS_date,
+  # Calculate Quality_nat only btwn SOS and EOS, else 0
+  (ndvi_culture$ndvi_mean_interp - NDVI_min) / (NDVI_max - NDVI_min),
+  0
+)
+
+quality_crop_df <- data.frame(date = ndvi_culture$date,
+                              quality_crop = quality_crop)
+
+```
+
+```{r plot quality_crop and bbch ressource availability}
+
+plot_crop <- ggplot(ndvi_culture, 
+       aes(x = date,
+           y = ndvi_mean_interp,
+           colour = "NDVI")) +
+  geom_line(alpha = 0.7) +
+  geom_line(
+    data = bbch,
+    aes(x = Date, y = Proportional.resource.availability, color = "Quality_crop (BBCH)"),
+    inherit.aes = FALSE,
+    linetype = "twodash"
+  ) +
+  geom_line(
+    data = quality_crop_df,
+    aes(x = date, y = quality_crop, color = "Quality_crop (NDVI)"),
+    inherit.aes = FALSE,
+    linetype = "twodash"
+  ) +
+    
+  geom_line(
+    data = NDVI_thres_df,
+    aes(x = date, y = NDVI_thres,
+        colour = "NDVI seuil"),
+    inherit.aes = FALSE,
+    linetype = "dashed"
+  ) +
+   
+  scale_color_manual(
+    name = "Légende",
+    values = c(
+      "NDVI" = "black",
+      "NDVI seuil" = "brown3",
+      "Quality_crop (BBCH)" = "cyan4",
+      "Quality_crop (NDVI)" = "darkolivegreen"
+
+    )
+  ) +
+  scale_x_date(date_labels = "%d-%m") +
+  labs(
+    title = "",
+    x = "Date",
+    y = "NDVI [-] / Quality_crop[-]",
+    color = "Légende"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+plot_crop
+
+ggsave(paste(Graph_file, "/ndvi_quality_crop.png", sep=""),
+       plot_crop, width= 6 , height = 2.5)
+```
+
+# NDVI relative to wild flowers
+
+```{r vizualise values -- natural}
+#Get the slope value from 04-08 to 04-24 
+ndvi_nat <- ndvi %>% filter(LandUse == "Bois")
+ndvi_mixt <- ndvi %>% filter(LandUse == "Semi-naturelle mixte")
+
+
+ggplot(ndvi_nat, 
+       aes(x = date,
+           y = ndvi_mean_interp,
+           colour = "Milieu boisé")) +
+  geom_line(alpha = 0.7) +
+  geom_line(
+    data = ndvi_mixt,
+    aes(x = date, y = ndvi_mean_interp, color = "Milieu naturel mixte"),
+    inherit.aes = FALSE,
+    linetype = "dashed"
+  ) +
+  labs(
+    title = "Évolution du NDVI moyen des milieux naturels (boisés et mixtes)",
+    x = "Date",
+    y = "NDVI moyen",
+    color = "Légende"
+  ) +
+  scale_color_manual(
+    name = "Légende",
+    values = c(
+      "Milieu boisé" = "black",
+      "Milieu naturel mixte" = "#d95f02"
+    )) +
+  theme_minimal()
+
+
+```
+
+As both mixed and woody semi-natural NDVI curves both look more or less the same, let's consider the woddy one for the semi-natural quality
+
+## Get quality_nat(t)
+
+```{r quality flo function}
+compute_quality_flo <- function(ndvi_data,
+                                 lambda = 0.89,
+                                 ndvi_col = "ndvi_mean_interp",
+                                 date_col = "date",
+                                 min_length = 3) {
+  
+  # Extract ndvi and date values 
+  ndvi_vals <- ndvi_data[[ndvi_col]]
+  dates     <- ndvi_data[[date_col]]
+  
+  # Get NDVI min, max, amplitude
+  NDVI_min <- min(ndvi_vals, na.rm = TRUE)
+  NDVI_max <- max(ndvi_vals, na.rm = TRUE)
+  ampl     <- NDVI_max - NDVI_min
+  
+  if (ampl == 0) {
+    stop("Amplitude NDVI = 0 (NDVI constant).")
+  }
+  
+  # Function if lambda is a single value
+  one_lambda <- function(lam) {
+    NDVI_thres <- NDVI_min + lam * ampl
+    
+    # mask TRUE/FALSE where NDVI >= NDVI threshold (ignores NA)
+    above <- ndvi_vals >= NDVI_thres & !is.na(ndvi_vals)
+    
+    # RLE (Run Length Encoding) to find the MULTIPLE consecutive sequences where NDVI > NDVI_thres
+    r <- rle(above)
+    ends   <- cumsum(r$lengths)
+    starts <- ends - r$lengths + 1
+    
+    # Indices where sequences : above == TRUE
+    idx_true <- which(r$values)
+    
+    season_id <- rep(NA_integer_, length(ndvi_vals))
+    SOS_vec   <- c()
+    EOS_vec   <- c()
+    
+    season_counter <- 0L
+    for (k in idx_true) {
+      s <- starts[k]
+      e <- ends[k]
+      # Filter sequences too short
+      if (r$lengths[k] < min_length) next
+      
+      season_counter <- season_counter + 1L
+      season_id[s:e] <- season_counter
+      SOS_vec <- c(SOS_vec, dates[s])
+      EOS_vec <- c(EOS_vec, dates[e])
+    }
+    
+    # Peak date
+    peak_id   <- which.max(ndvi_vals)
+    Peak_date <- dates[peak_id]
+    Peak_val  <- ndvi_vals[peak_id]
+    
+    # quality_flo only inside the sequences where NDVI > NDVI_thres
+    quality_flo <- ifelse(
+      !is.na(season_id),
+      (ndvi_vals - NDVI_min) / (NDVI_max - NDVI_min),
+      0
+    )
+    
+    # Returning Data.frame for this lambda value
+    quality_flo_df <- data.frame(
+      date         = dates,
+      lambda       = lam,
+      quality_flo = quality_flo
+    )
+    
+    # Returning phenological data
+    list(
+      lambda    = lam,
+      NDVI_min  = NDVI_min,
+      NDVI_max  = NDVI_max,
+      ampl      = ampl,
+      NDVI_thres = NDVI_thres,
+      SOS_date  = SOS_date,
+      EOS_date  = EOS_date,
+      Peak_date = Peak_date,
+      Peak_val  = Peak_val,
+      quality_flo_df = quality_flo_df
+    )
+  }
+  
+  # If a single lambda -> a simple list
+  if (length(lambda) == 1) {
+    one_lambda(lambda)
+  } else {
+    # If multiple lambdas -> a named list by lambda
+    res <- lapply(lambda, one_lambda)
+    names(res) <- paste0("lambda_", lambda)
+    res
+  }
+}
+```
+
+```{r compute quality nat}
+quality_nat_df <- compute_quality_flo(ndvi_nat,
+                                   lambda = 0.89) 
+str(quality_nat_df)
+quality_nat <- quality_nat_df$quality_flo_df
+NDVI_thres_nat <- quality_nat_df$NDVI_thres
+```
+
+```{r plot quality_nat}
+NDVI_thres_nat_vec <- rep(NDVI_thres_nat,
+                          length(quality_nat$date))
+
+NDVI_thres_nat_df <- data.frame(date = quality_nat$date,
+                                  NDVI_thres_nat = NDVI_thres_nat_vec)
+
+plot_nat <- ggplot(ndvi_nat, 
+       aes(x = date,
+           y = ndvi_mean_interp,
+           colour = "NDVI")) +
+  geom_line(alpha = 0.7) +
+  geom_line(
+    data = quality_nat,
+    aes(x = date, y = quality_flo, color = "Quality_nat (NDVI)"),
+    inherit.aes = FALSE,
+    linetype = "twodash"
+  ) +
+  geom_line(
+    data = NDVI_thres_nat_df,
+    aes(x = date, y = NDVI_thres_nat, color = "NDVI seuil"),
+    inherit.aes = FALSE,
+    linetype = "dashed"
+  ) +
+  scale_color_manual(
+    name = "Légende",
+    values = c(
+      "NDVI" = "black",
+      "NDVI seuil" = "brown3",
+      "Quality_nat (NDVI)" = "darkolivegreen"
+
+    )
+  ) +
+ scale_x_date(date_labels = "%d-%m") +
+  labs(
+    title = "",
+    x = "Date",
+    y = "NDVI [-] / Quality_nat[-]",
+    color = "Légende"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+plot_nat
+
+ggsave(paste(Graph_file, "/ndvi_quality_nat.png", sep=""),
+       plot_nat, width= 6 , height = 2.5)
+
+```
+
+
+
+# Combine natural and crop quality 
+```{r combine quality_nat and quality_crop}
+quality_flo <- quality_crop_df %>% 
+  left_join(quality_nat, by = "date")
+colnames(quality_flo)[4] <- "quality_nat"
+
+#write.csv(quality_flo,
+#          "QualityFlo_baseline.csv")
+
+quality_flo
+```
+
+# Calculate prop_forag_crop based on the phenology of floral resources
+
+```{r calculation of prop_forag_crop}
+prop_forag_crop <- c()
+alpha <- 0.73
+
+for (i in 1:nrow(quality_flo)){
+  if (quality_flo$quality_crop[i] + quality_flo$quality_nat[i] == 0){
+    prop_forag_crop[i] <- 0
+  } else {
+    prop_forag_crop[i] <- alpha * quality_flo$quality_crop[i] /
+      (quality_flo$quality_crop[i] + quality_flo$quality_nat[i])
+  }
+}
+
+quality_flo$prop_forag_crop <- prop_forag_crop
+```
+
+
+## Plot foraging crop
+```{r plot quality_nat, quality_crop and prop_forag_crop}
+plot_prop_forag_crop <- ggplot(quality_flo, 
+       aes(x = date))+
+  geom_line(aes(y = quality_crop, colour = "Quality_crop"),
+            linetype = "twodash")+
+  geom_line(aes(y = quality_nat, colour = "Quality_nat"),
+            linetype = "twodash")+
+  geom_line(aes(y = prop_forag_crop, colour = "Prop_foraging_crop"))+
+  labs(
+    title = "",
+    x = "Date",
+    y = "Quality_crop/nat [-] / Prop_foraging_crop [-]",
+    color = "Légende"
+  ) +
+  scale_x_date(date_labels = "%d-%m") +
+  scale_color_manual(
+    name = "Légende",
+    values = c(
+      "Prop_foraging_crop" = "brown3",
+      "Quality_crop" = "cyan4" ,
+      "Quality_nat" = "darkolivegreen"
+    )
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom",
+         axis.title = element_text(size = 7),
+         legend.title = element_text(size = 7),
+         legend.text = element_text(size = 7)
+        )
+
+plot_prop_forag_crop
+
+ggsave(paste(Graph_file, "/prop_forag_crop.png", sep=""),
+       plot_prop_forag_crop, 
+       width= 6 , height = 2.5)
+```
+
+```{r save results}
+write.csv(quality_flo,
+          paste(QualityFlo_out_file,
+                "/baseline_QF.csv",
+                sep=""))
+```

@@ -1,0 +1,297 @@
+---
+title: "8_Nierfen_PropForagDay_sens"
+author: 'Noémie Huvelle'
+date: "2025-12-04"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Prepare R environment 
+
+```{r load packages}
+rm(list = ls())
+library(ggplot2)
+library(dplyr)
+library(here)
+```
+
+```{r set directories}
+wd_file <- here("run_scenarios/QualityFlo_treatment")
+out_file <- here("run_scenarios/QualityFlo_treatment/Intermediate_results")
+setwd(wd_file)
+```
+
+```{r load weather data Ruddle}
+weather_Ruddle <- read.csv("Weather_Ruddle_et_al_study_2015_Nie.csv",
+                           skip = 5)
+colnames(weather_Ruddle) <- c("date", "DOY", "T_mean", "T_max", "T_min", "Precip", "RH")
+weather_Ruddle$date <- as.Date(weather_Ruddle$date)
+head(weather_Ruddle)
+```
+```{r load base prop_foraging_day}
+prop_forag_day_base <- read.csv(paste(out_file,
+                                      "/baseline_PFD.csv",
+                                      sep=""))
+prop_forag_day_base$date <- as.Date(prop_forag_day_base$date)
+head(prop_forag_day_base)
+```
+
+# Set threshold meteorological values and their variations
+
+```{r threshod values}
+min.temp <- 18
+min.temp_sens<- c(min.temp+0.1*min.temp,
+                  min.temp-0.1*min.temp)
+
+max.precip <- 25.4
+max.precip_sens <- c(max.precip+0.1*max.precip,
+                     max.precip-0.1*max.precip)
+
+max.humid <- 80
+max.humid_sens <- c(max.humid+0.1*max.humid,
+                    max.humid-0.1*max.humid)
+```
+
+```{r plot diff. threshold and weather data}
+par(mfrow = c(3, 1), mar = c(4, 4, 2, 1))
+
+## 1) T_max + 3 thresholds (base, +10 %, -10 %)
+plot(weather_Ruddle$date, weather_Ruddle$T_max,
+     type = "l",
+     xlab = "Date",
+     ylab = "T_max (°C)",
+     main = "Température max quotidienne")
+
+abline(h = min.temp,          col = "red",      lty = 1, lwd = 2)  # base
+abline(h = min.temp_sens[1],  col = "orange",   lty = 2, lwd = 2)  # +10 %
+abline(h = min.temp_sens[2],  col = "darkred",  lty = 3, lwd = 2)  # -10 %
+
+## 2) Precipitations + 3 thresholds
+plot(weather_Ruddle$date, weather_Ruddle$Precip,
+     type = "h",
+     xlab = "Date",
+     ylab = "Précipitation (mm)",
+     main = "Précipitations quotidiennes")
+
+abline(h = max.precip,         col = "blue",      lty = 1, lwd = 2) # base
+abline(h = max.precip_sens[1], col = "skyblue3",  lty = 2, lwd = 2) # +10 %
+abline(h = max.precip_sens[2], col = "navy",      lty = 3, lwd = 2) # -10 %
+
+## 3) HR + 3 thresholds
+plot(weather_Ruddle$date, weather_Ruddle$RH,
+     type = "l",
+     xlab = "Date",
+     ylab = "Humidité relative (%)",
+     main = "Humidité relative quotidienne")
+
+abline(h = max.humid,        col = "darkgreen",  lty = 1, lwd = 2) # base
+abline(h = max.humid_sens[1],col = "chartreuse4",lty = 2, lwd = 2) # +10 %
+abline(h = max.humid_sens[2],col = "forestgreen",lty = 3, lwd = 2) # -10 %
+
+
+```
+
+# Sensitivity analysis
+
+```{r function to apply diff thresholds and get prop_forag_day}
+## Fonction utilitaire : applique les intervalles fixes 0/1
+apply_intervals_prop_forag <- function(dates, intervals) {
+  df <- data.frame(
+    date = as.Date(dates),
+    Prop_foraging_day = NA_integer_
+  )
+  
+  for (i in seq_len(nrow(intervals))) {
+    idx <- df$date >= as.Date(intervals$start[i]) &
+           df$date <= as.Date(intervals$end[i])
+    df$Prop_foraging_day[idx] <- intervals$value[i]
+  }
+  
+  df
+}
+
+
+weather_threshold_prop_forag_day<- function(
+  weather_df,
+  date_col         = "date",
+  year             = 2015,
+  intervals,                     # data.frame(start, end, value)
+  min_temp_base,                 # seuil T_base
+  max_precip_base,               # seuil P_base
+  max_humid_base,                # seuil RH_base
+  varied_param = c("min.temp", "max.precip", "max.humid"),
+  varied_values                  # vecteur de valeurs testées pour ce paramètre
+) {
+  varied_param <- match.arg(varied_param)
+  
+  # S'assurer que la colonne de dates est au bon format
+  weather_df[[date_col]] <- as.Date(weather_df[[date_col]])
+  
+  # Filtrer la météo sur l'année voulue
+  year_chr <- as.character(year)
+  idx_year <- format(weather_df[[date_col]], "%Y") == year_chr
+  weather_yr <- weather_df[idx_year, ]
+  
+  # créer TOUTES les dates de l'année (même sans météo)
+  full_dates <- seq(
+    from = as.Date(paste0(year, "-01-01")),
+    to   = as.Date(paste0(year, "-12-31")),
+    by   = "day"
+  )
+  
+  # Base Prop_foraging_day avec intervalles (comme dans ton script)
+  base_pf <- apply_intervals_prop_forag(full_dates, intervals)
+  
+  # Merge base + météo (LEFT JOIN sur toutes les dates de l'année)
+  df_met <- merge(
+    base_pf,
+    weather_yr[, c(date_col, "T_max", "Precip", "RH")],
+    by.x = "date",
+    by.y = date_col,
+    all.x = TRUE
+  )
+  
+  # Boucle sur les valeurs du paramètre varié
+  res_list <- lapply(varied_values, function(v) {
+    
+    # Seuils utilisés dans CE scénario
+    thr_min_temp   <- if (varied_param == "min.temp")   v else min_temp_base
+    thr_max_precip <- if (varied_param == "max.precip") v else max_precip_base
+    thr_max_humid  <- if (varied_param == "max.humid")  v else max_humid_base
+    
+    df <- df_met
+    
+    # 💡 Logique IDENTIQUE à ton script de base
+    ok <- is.na(df$Prop_foraging_day) &
+          df$T_max  > thr_min_temp   &
+          df$Precip < thr_max_precip &
+          df$RH     < thr_max_humid
+    
+    df$Prop_foraging_day[ok] <- 1L
+    df$Prop_foraging_day[is.na(df$Prop_foraging_day)] <- 0L
+    
+    data.frame(
+      date              = df$date,
+      Prop_foraging_day = df$Prop_foraging_day,
+      varied_param      = varied_param,
+      threshold         = v
+    )
+  })
+  
+  do.call(rbind, res_list)
+}
+
+```
+
+```{r apply sensitivity function -- T°}
+intervals_base <- data.frame(
+  start = c("2015-06-10", "2015-10-02", "2015-01-01"),
+  end   = c("2015-10-01", "2015-12-31", "2015-04-20"),
+  value = c(1,            0,            0)
+)
+
+min.temp_sens_df <- weather_threshold_prop_forag_day(
+  weather_df = weather_Ruddle,
+  date_col = "date",
+  year = 2015,
+  intervals = intervals_base,
+  min_temp_base = min.temp,
+  max_precip_base = max.precip,
+  max_humid_base = max.humid,
+  varied_param = "min.temp",
+  varied_values = min.temp_sens)
+
+head(min.temp_sens_df)
+
+length(unique(min.temp_sens_df$date)) #Ok, 365 days
+nrow(min.temp_sens_df)  #Ok, 365*2 = 730 days
+```
+
+
+
+```{r apply sensitivity function -- Precip}
+max.precip_sens_df <- weather_threshold_prop_forag_day(
+  weather_df = weather_Ruddle,
+  date_col = "date",
+  year = 2015,
+  intervals = intervals_base,
+  min_temp_base = min.temp,
+  max_precip_base = max.precip,
+  max_humid_base = max.humid,
+  varied_param = "max.precip",
+  varied_values = max.precip_sens)
+
+head(max.precip_sens_df)
+
+```
+
+```{r apply sensitivity function -- RH}
+max.humid_sens_df <- weather_threshold_prop_forag_day(
+  weather_df = weather_Ruddle,
+  date_col = "date",
+  year = 2015,
+  intervals = intervals_base,
+  min_temp_base = min.temp,
+  max_precip_base = max.precip,
+  max_humid_base = max.humid,
+  varied_param = "max.humid",
+  varied_values = max.humid_sens)
+
+head(max.humid_sens_df)
+```
+
+# Rendering of the dataframes and write results
+```{r results}
+prop_forag_day_T_minus <- min.temp_sens_df %>%
+  filter(threshold == unique(min.temp_sens_df$threshold)[2]) %>%
+  select(date, Prop_foraging_day)
+
+write.csv(prop_forag_day_T_minus,
+          paste(out_file,
+                "/scenario_PFD_T_low.csv",
+                sep=""))
+          
+
+prop_forag_day_T_plus <- min.temp_sens_df %>%
+  filter(threshold == unique(min.temp_sens_df$threshold)[1])  %>%
+  select(date, Prop_foraging_day)
+write.csv(prop_forag_day_T_plus,paste(out_file,
+                "/scenario_PFD_T_high.csv",
+                sep=""))
+
+prop_forag_day_Precip_minus <- max.precip_sens_df %>%
+  filter(threshold == unique(max.precip_sens_df$threshold)[2]) %>%
+  select(date, Prop_foraging_day)
+write.csv(prop_forag_day_Precip_minus,
+          paste(out_file,
+                "/scenario_PFD_Precip_low.csv",
+                sep=""))
+
+prop_forag_day_Precip_plus <- max.precip_sens_df %>%
+  filter(threshold == unique(max.precip_sens_df$threshold)[1]) %>%
+  select(date, Prop_foraging_day)
+write.csv(prop_forag_day_Precip_plus,
+          paste(out_file,
+                "/scenario_PFD_Precip_high.csv",
+                sep=""))
+
+prop_forag_day_RH_minus <- max.humid_sens_df %>%
+  filter(threshold == unique(max.humid_sens_df$threshold)[2]) %>%
+  select(date, Prop_foraging_day)
+write.csv(prop_forag_day_RH_minus,
+          paste(out_file,
+                "/scenario_PFD_RH_low.csv",
+                sep=""))
+
+prop_forag_day_RH_plus <- max.humid_sens_df %>%
+  filter(threshold == unique(max.humid_sens_df$threshold)[1]) %>%
+  select(date, Prop_foraging_day)
+write.csv(prop_forag_day_RH_plus,
+                    paste(out_file,
+                    "/scenario_PFD_RH_high.csv",
+                    sep=""))
+
+```

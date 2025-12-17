@@ -1,0 +1,3553 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE experiments SYSTEM "behaviorspace.dtd">
+<experiments>
+ <experiment name="1" repetitions="1" runMetricsEveryStep="true">
+  <setup>setup</setup>
+  <go>go</go>
+  <metric>doy</metric>
+  <metric>year</metric>
+  <metric>DateREP</metric>
+  <metric>count turtles</metric>
+  <metric>bees.emerged.yr</metric>
+  <metric>f.emerged.yr</metric>
+  <metric>m.emerged.yr</metric>
+  <metric>f.postemergent.today</metric>
+  <metric>bees.nesting</metric>
+  <metric>bees.nesting.today</metric>
+  <metric>sum.cells.today</metric>
+  <metric>sum.f.cells.today</metric>
+  <metric>sum.m.cells.today</metric>
+  <metric>sum.cells</metric>
+  <metric>sum.f.cells</metric>
+  <metric>sum.m.cells</metric>
+  <metric>mean.cells.today</metric>
+  <metric>mean.f.cells.today</metric>
+  <metric>mean.m.cells.today</metric>
+  <metric>mean.cells</metric>
+  <metric>mean.f.cells</metric>
+  <metric>mean.m.cells</metric>
+  <enumeratedValueSet variable="Start.day">
+   <value value="111"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Species">
+   <value value="&quot;O.bicornis&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Voltinism">
+   <value value="&quot;univoltine&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.f">
+   <value value="60"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.m">
+   <value value="90"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.stage">
+   <value value="&quot;cocoon&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.age">
+   <value value="300"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="RndSeed">
+   <value value="24584"/>
+   <value value="47478"/>
+   <value value="31949"/>
+   <value value="88425"/>
+   <value value="220"/>
+   <value value="64146"/>
+   <value value="29155"/>
+   <value value="52010"/>
+   <value value="12140"/>
+   <value value="79058"/>
+   <value value="29762"/>
+   <value value="47736"/>
+   <value value="35049"/>
+   <value value="37930"/>
+   <value value="58119"/>
+   <value value="94416"/>
+   <value value="80001"/>
+   <value value="75785"/>
+   <value value="26303"/>
+   <value value="96626"/>
+   <value value="13224"/>
+   <value value="99547"/>
+   <value value="78046"/>
+   <value value="32466"/>
+   <value value="44798"/>
+   <value value="93823"/>
+   <value value="70716"/>
+   <value value="57"/>
+   <value value="46937"/>
+   <value value="36520"/>
+   <value value="67684"/>
+   <value value="10786"/>
+   <value value="59357"/>
+   <value value="23662"/>
+   <value value="96484"/>
+   <value value="12637"/>
+   <value value="43821"/>
+   <value value="45658"/>
+   <value value="58638"/>
+   <value value="53182"/>
+   <value value="31655"/>
+   <value value="62762"/>
+   <value value="97338"/>
+   <value value="90657"/>
+   <value value="97004"/>
+   <value value="53177"/>
+   <value value="98477"/>
+   <value value="30222"/>
+   <value value="95531"/>
+   <value value="46029"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="MultiYearInput">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="List.input.floral">
+   <value value="&quot;NA&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Num.repeat.yr">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="input.floral">
+   <value value="&quot;/Users/nhuvelle/Documents/These_CA/BIO_7019/SolBeePop_repository/BIO7019_project/run_scenarios/QualityFlo_scenarios/baseline_ResFlo.csv&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="stoch.crop.forag">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Density.dep">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.thresh.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.max.cells.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.funct">
+   <value value="&quot;linear&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.log.slope">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.f">
+   <value value="118"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.f">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.m">
+   <value value="117"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.m">
+   <value value="2"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="latest.emerge">
+   <value value="147"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.egg">
+   <value value="8"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.larva">
+   <value value="32"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.cocoon">
+   <value value="68"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.maturation">
+   <value value="7"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="m.life">
+   <value value="21"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.nesting.life">
+   <value value="36"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="p.max.nesting.life">
+   <value value="0.09"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.f.ratio">
+   <value value="0.457"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.cells">
+   <value value="1.543"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.f">
+   <value value="0.913"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.m">
+   <value value="0.887"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="emerged.survival">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.age">
+   <value value="-0.006"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.age">
+   <value value="-0.058"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.age">
+   <value value="-0.003"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.resource">
+   <value value="0.94"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.resource">
+   <value value="0.42"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.resource">
+   <value value="0.114"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Effects">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.nectar.cons">
+   <value value="208.34"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.pollen.cons">
+   <value value="11.6"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="k_CA">
+   <value value="0.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.adult">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.ET">
+   <value value="0.072"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_soil">
+   <value value="0.5"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_leaf">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Exposure.resting.soil">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="GUTS">
+   <value value="&quot;GUTS-IT&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.guts">
+   <value value="10"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_SD">
+   <value value="0.39"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="bw_SD">
+   <value value="0.014"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_SD">
+   <value value="13"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_IT">
+   <value value="0.012"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_IT">
+   <value value="2.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Fs_IT">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="nectar_prop">
+   <value value="0.78"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="weight.prov">
+   <value value="306"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.dev">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SM">
+   <value value="187"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="F">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SA_i">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.intercept">
+   <value value="1.1534"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.slope">
+   <value value="-0.7876"/>
+  </enumeratedValueSet>
+ </experiment>
+ <experiment name="2" repetitions="1" runMetricsEveryStep="true">
+  <setup>setup</setup>
+  <go>go</go>
+  <metric>doy</metric>
+  <metric>year</metric>
+  <metric>DateREP</metric>
+  <metric>count turtles</metric>
+  <metric>bees.emerged.yr</metric>
+  <metric>f.emerged.yr</metric>
+  <metric>m.emerged.yr</metric>
+  <metric>f.postemergent.today</metric>
+  <metric>bees.nesting</metric>
+  <metric>bees.nesting.today</metric>
+  <metric>sum.cells.today</metric>
+  <metric>sum.f.cells.today</metric>
+  <metric>sum.m.cells.today</metric>
+  <metric>sum.cells</metric>
+  <metric>sum.f.cells</metric>
+  <metric>sum.m.cells</metric>
+  <metric>mean.cells.today</metric>
+  <metric>mean.f.cells.today</metric>
+  <metric>mean.m.cells.today</metric>
+  <metric>mean.cells</metric>
+  <metric>mean.f.cells</metric>
+  <metric>mean.m.cells</metric>
+  <enumeratedValueSet variable="Start.day">
+   <value value="111"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Species">
+   <value value="&quot;O.bicornis&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Voltinism">
+   <value value="&quot;univoltine&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.f">
+   <value value="60"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.m">
+   <value value="90"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.stage">
+   <value value="&quot;cocoon&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.age">
+   <value value="300"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="RndSeed">
+   <value value="24584"/>
+   <value value="47478"/>
+   <value value="31949"/>
+   <value value="88425"/>
+   <value value="220"/>
+   <value value="64146"/>
+   <value value="29155"/>
+   <value value="52010"/>
+   <value value="12140"/>
+   <value value="79058"/>
+   <value value="29762"/>
+   <value value="47736"/>
+   <value value="35049"/>
+   <value value="37930"/>
+   <value value="58119"/>
+   <value value="94416"/>
+   <value value="80001"/>
+   <value value="75785"/>
+   <value value="26303"/>
+   <value value="96626"/>
+   <value value="13224"/>
+   <value value="99547"/>
+   <value value="78046"/>
+   <value value="32466"/>
+   <value value="44798"/>
+   <value value="93823"/>
+   <value value="70716"/>
+   <value value="57"/>
+   <value value="46937"/>
+   <value value="36520"/>
+   <value value="67684"/>
+   <value value="10786"/>
+   <value value="59357"/>
+   <value value="23662"/>
+   <value value="96484"/>
+   <value value="12637"/>
+   <value value="43821"/>
+   <value value="45658"/>
+   <value value="58638"/>
+   <value value="53182"/>
+   <value value="31655"/>
+   <value value="62762"/>
+   <value value="97338"/>
+   <value value="90657"/>
+   <value value="97004"/>
+   <value value="53177"/>
+   <value value="98477"/>
+   <value value="30222"/>
+   <value value="95531"/>
+   <value value="46029"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="MultiYearInput">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="List.input.floral">
+   <value value="&quot;NA&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Num.repeat.yr">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="input.floral">
+   <value value="&quot;/Users/nhuvelle/Documents/These_CA/BIO_7019/SolBeePop_repository/BIO7019_project/run_scenarios/QualityFlo_scenarios/scenario_QC_low.csv&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="stoch.crop.forag">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Density.dep">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.thresh.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.max.cells.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.funct">
+   <value value="&quot;linear&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.log.slope">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.f">
+   <value value="118"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.f">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.m">
+   <value value="117"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.m">
+   <value value="2"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="latest.emerge">
+   <value value="147"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.egg">
+   <value value="8"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.larva">
+   <value value="32"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.cocoon">
+   <value value="68"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.maturation">
+   <value value="7"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="m.life">
+   <value value="21"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.nesting.life">
+   <value value="36"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="p.max.nesting.life">
+   <value value="0.09"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.f.ratio">
+   <value value="0.457"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.cells">
+   <value value="1.543"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.f">
+   <value value="0.913"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.m">
+   <value value="0.887"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="emerged.survival">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.age">
+   <value value="-0.006"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.age">
+   <value value="-0.058"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.age">
+   <value value="-0.003"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.resource">
+   <value value="0.94"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.resource">
+   <value value="0.42"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.resource">
+   <value value="0.114"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Effects">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.nectar.cons">
+   <value value="208.34"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.pollen.cons">
+   <value value="11.6"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="k_CA">
+   <value value="0.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.adult">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.ET">
+   <value value="0.072"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_soil">
+   <value value="0.5"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_leaf">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Exposure.resting.soil">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="GUTS">
+   <value value="&quot;GUTS-IT&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.guts">
+   <value value="10"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_SD">
+   <value value="0.39"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="bw_SD">
+   <value value="0.014"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_SD">
+   <value value="13"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_IT">
+   <value value="0.012"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_IT">
+   <value value="2.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Fs_IT">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="nectar_prop">
+   <value value="0.78"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="weight.prov">
+   <value value="306"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.dev">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SM">
+   <value value="187"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="F">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SA_i">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.intercept">
+   <value value="1.1534"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.slope">
+   <value value="-0.7876"/>
+  </enumeratedValueSet>
+ </experiment>
+ <experiment name="3" repetitions="1" runMetricsEveryStep="true">
+  <setup>setup</setup>
+  <go>go</go>
+  <metric>doy</metric>
+  <metric>year</metric>
+  <metric>DateREP</metric>
+  <metric>count turtles</metric>
+  <metric>bees.emerged.yr</metric>
+  <metric>f.emerged.yr</metric>
+  <metric>m.emerged.yr</metric>
+  <metric>f.postemergent.today</metric>
+  <metric>bees.nesting</metric>
+  <metric>bees.nesting.today</metric>
+  <metric>sum.cells.today</metric>
+  <metric>sum.f.cells.today</metric>
+  <metric>sum.m.cells.today</metric>
+  <metric>sum.cells</metric>
+  <metric>sum.f.cells</metric>
+  <metric>sum.m.cells</metric>
+  <metric>mean.cells.today</metric>
+  <metric>mean.f.cells.today</metric>
+  <metric>mean.m.cells.today</metric>
+  <metric>mean.cells</metric>
+  <metric>mean.f.cells</metric>
+  <metric>mean.m.cells</metric>
+  <enumeratedValueSet variable="Start.day">
+   <value value="111"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Species">
+   <value value="&quot;O.bicornis&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Voltinism">
+   <value value="&quot;univoltine&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.f">
+   <value value="60"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.m">
+   <value value="90"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.stage">
+   <value value="&quot;cocoon&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.age">
+   <value value="300"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="RndSeed">
+   <value value="24584"/>
+   <value value="47478"/>
+   <value value="31949"/>
+   <value value="88425"/>
+   <value value="220"/>
+   <value value="64146"/>
+   <value value="29155"/>
+   <value value="52010"/>
+   <value value="12140"/>
+   <value value="79058"/>
+   <value value="29762"/>
+   <value value="47736"/>
+   <value value="35049"/>
+   <value value="37930"/>
+   <value value="58119"/>
+   <value value="94416"/>
+   <value value="80001"/>
+   <value value="75785"/>
+   <value value="26303"/>
+   <value value="96626"/>
+   <value value="13224"/>
+   <value value="99547"/>
+   <value value="78046"/>
+   <value value="32466"/>
+   <value value="44798"/>
+   <value value="93823"/>
+   <value value="70716"/>
+   <value value="57"/>
+   <value value="46937"/>
+   <value value="36520"/>
+   <value value="67684"/>
+   <value value="10786"/>
+   <value value="59357"/>
+   <value value="23662"/>
+   <value value="96484"/>
+   <value value="12637"/>
+   <value value="43821"/>
+   <value value="45658"/>
+   <value value="58638"/>
+   <value value="53182"/>
+   <value value="31655"/>
+   <value value="62762"/>
+   <value value="97338"/>
+   <value value="90657"/>
+   <value value="97004"/>
+   <value value="53177"/>
+   <value value="98477"/>
+   <value value="30222"/>
+   <value value="95531"/>
+   <value value="46029"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="MultiYearInput">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="List.input.floral">
+   <value value="&quot;NA&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Num.repeat.yr">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="input.floral">
+   <value value="&quot;/Users/nhuvelle/Documents/These_CA/BIO_7019/SolBeePop_repository/BIO7019_project/run_scenarios/QualityFlo_scenarios/scenario_QC_high.csv&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="stoch.crop.forag">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Density.dep">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.thresh.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.max.cells.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.funct">
+   <value value="&quot;linear&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.log.slope">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.f">
+   <value value="118"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.f">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.m">
+   <value value="117"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.m">
+   <value value="2"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="latest.emerge">
+   <value value="147"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.egg">
+   <value value="8"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.larva">
+   <value value="32"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.cocoon">
+   <value value="68"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.maturation">
+   <value value="7"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="m.life">
+   <value value="21"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.nesting.life">
+   <value value="36"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="p.max.nesting.life">
+   <value value="0.09"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.f.ratio">
+   <value value="0.457"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.cells">
+   <value value="1.543"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.f">
+   <value value="0.913"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.m">
+   <value value="0.887"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="emerged.survival">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.age">
+   <value value="-0.006"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.age">
+   <value value="-0.058"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.age">
+   <value value="-0.003"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.resource">
+   <value value="0.94"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.resource">
+   <value value="0.42"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.resource">
+   <value value="0.114"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Effects">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.nectar.cons">
+   <value value="208.34"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.pollen.cons">
+   <value value="11.6"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="k_CA">
+   <value value="0.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.adult">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.ET">
+   <value value="0.072"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_soil">
+   <value value="0.5"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_leaf">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Exposure.resting.soil">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="GUTS">
+   <value value="&quot;GUTS-IT&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.guts">
+   <value value="10"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_SD">
+   <value value="0.39"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="bw_SD">
+   <value value="0.014"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_SD">
+   <value value="13"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_IT">
+   <value value="0.012"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_IT">
+   <value value="2.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Fs_IT">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="nectar_prop">
+   <value value="0.78"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="weight.prov">
+   <value value="306"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.dev">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SM">
+   <value value="187"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="F">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SA_i">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.intercept">
+   <value value="1.1534"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.slope">
+   <value value="-0.7876"/>
+  </enumeratedValueSet>
+ </experiment>
+ <experiment name="4" repetitions="1" runMetricsEveryStep="true">
+  <setup>setup</setup>
+  <go>go</go>
+  <metric>doy</metric>
+  <metric>year</metric>
+  <metric>DateREP</metric>
+  <metric>count turtles</metric>
+  <metric>bees.emerged.yr</metric>
+  <metric>f.emerged.yr</metric>
+  <metric>m.emerged.yr</metric>
+  <metric>f.postemergent.today</metric>
+  <metric>bees.nesting</metric>
+  <metric>bees.nesting.today</metric>
+  <metric>sum.cells.today</metric>
+  <metric>sum.f.cells.today</metric>
+  <metric>sum.m.cells.today</metric>
+  <metric>sum.cells</metric>
+  <metric>sum.f.cells</metric>
+  <metric>sum.m.cells</metric>
+  <metric>mean.cells.today</metric>
+  <metric>mean.f.cells.today</metric>
+  <metric>mean.m.cells.today</metric>
+  <metric>mean.cells</metric>
+  <metric>mean.f.cells</metric>
+  <metric>mean.m.cells</metric>
+  <enumeratedValueSet variable="Start.day">
+   <value value="111"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Species">
+   <value value="&quot;O.bicornis&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Voltinism">
+   <value value="&quot;univoltine&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.f">
+   <value value="60"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.m">
+   <value value="90"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.stage">
+   <value value="&quot;cocoon&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.age">
+   <value value="300"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="RndSeed">
+   <value value="24584"/>
+   <value value="47478"/>
+   <value value="31949"/>
+   <value value="88425"/>
+   <value value="220"/>
+   <value value="64146"/>
+   <value value="29155"/>
+   <value value="52010"/>
+   <value value="12140"/>
+   <value value="79058"/>
+   <value value="29762"/>
+   <value value="47736"/>
+   <value value="35049"/>
+   <value value="37930"/>
+   <value value="58119"/>
+   <value value="94416"/>
+   <value value="80001"/>
+   <value value="75785"/>
+   <value value="26303"/>
+   <value value="96626"/>
+   <value value="13224"/>
+   <value value="99547"/>
+   <value value="78046"/>
+   <value value="32466"/>
+   <value value="44798"/>
+   <value value="93823"/>
+   <value value="70716"/>
+   <value value="57"/>
+   <value value="46937"/>
+   <value value="36520"/>
+   <value value="67684"/>
+   <value value="10786"/>
+   <value value="59357"/>
+   <value value="23662"/>
+   <value value="96484"/>
+   <value value="12637"/>
+   <value value="43821"/>
+   <value value="45658"/>
+   <value value="58638"/>
+   <value value="53182"/>
+   <value value="31655"/>
+   <value value="62762"/>
+   <value value="97338"/>
+   <value value="90657"/>
+   <value value="97004"/>
+   <value value="53177"/>
+   <value value="98477"/>
+   <value value="30222"/>
+   <value value="95531"/>
+   <value value="46029"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="MultiYearInput">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="List.input.floral">
+   <value value="&quot;NA&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Num.repeat.yr">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="input.floral">
+   <value value="&quot;/Users/nhuvelle/Documents/These_CA/BIO_7019/SolBeePop_repository/BIO7019_project/run_scenarios/QualityFlo_scenarios/scenario_QN_low.csv&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="stoch.crop.forag">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Density.dep">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.thresh.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.max.cells.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.funct">
+   <value value="&quot;linear&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.log.slope">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.f">
+   <value value="118"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.f">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.m">
+   <value value="117"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.m">
+   <value value="2"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="latest.emerge">
+   <value value="147"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.egg">
+   <value value="8"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.larva">
+   <value value="32"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.cocoon">
+   <value value="68"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.maturation">
+   <value value="7"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="m.life">
+   <value value="21"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.nesting.life">
+   <value value="36"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="p.max.nesting.life">
+   <value value="0.09"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.f.ratio">
+   <value value="0.457"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.cells">
+   <value value="1.543"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.f">
+   <value value="0.913"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.m">
+   <value value="0.887"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="emerged.survival">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.age">
+   <value value="-0.006"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.age">
+   <value value="-0.058"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.age">
+   <value value="-0.003"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.resource">
+   <value value="0.94"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.resource">
+   <value value="0.42"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.resource">
+   <value value="0.114"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Effects">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.nectar.cons">
+   <value value="208.34"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.pollen.cons">
+   <value value="11.6"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="k_CA">
+   <value value="0.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.adult">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.ET">
+   <value value="0.072"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_soil">
+   <value value="0.5"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_leaf">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Exposure.resting.soil">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="GUTS">
+   <value value="&quot;GUTS-IT&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.guts">
+   <value value="10"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_SD">
+   <value value="0.39"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="bw_SD">
+   <value value="0.014"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_SD">
+   <value value="13"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_IT">
+   <value value="0.012"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_IT">
+   <value value="2.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Fs_IT">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="nectar_prop">
+   <value value="0.78"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="weight.prov">
+   <value value="306"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.dev">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SM">
+   <value value="187"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="F">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SA_i">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.intercept">
+   <value value="1.1534"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.slope">
+   <value value="-0.7876"/>
+  </enumeratedValueSet>
+ </experiment>
+ <experiment name="5" repetitions="1" runMetricsEveryStep="true">
+  <setup>setup</setup>
+  <go>go</go>
+  <metric>doy</metric>
+  <metric>year</metric>
+  <metric>DateREP</metric>
+  <metric>count turtles</metric>
+  <metric>bees.emerged.yr</metric>
+  <metric>f.emerged.yr</metric>
+  <metric>m.emerged.yr</metric>
+  <metric>f.postemergent.today</metric>
+  <metric>bees.nesting</metric>
+  <metric>bees.nesting.today</metric>
+  <metric>sum.cells.today</metric>
+  <metric>sum.f.cells.today</metric>
+  <metric>sum.m.cells.today</metric>
+  <metric>sum.cells</metric>
+  <metric>sum.f.cells</metric>
+  <metric>sum.m.cells</metric>
+  <metric>mean.cells.today</metric>
+  <metric>mean.f.cells.today</metric>
+  <metric>mean.m.cells.today</metric>
+  <metric>mean.cells</metric>
+  <metric>mean.f.cells</metric>
+  <metric>mean.m.cells</metric>
+  <enumeratedValueSet variable="Start.day">
+   <value value="111"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Species">
+   <value value="&quot;O.bicornis&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Voltinism">
+   <value value="&quot;univoltine&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.f">
+   <value value="60"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.m">
+   <value value="90"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.stage">
+   <value value="&quot;cocoon&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.age">
+   <value value="300"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="RndSeed">
+   <value value="24584"/>
+   <value value="47478"/>
+   <value value="31949"/>
+   <value value="88425"/>
+   <value value="220"/>
+   <value value="64146"/>
+   <value value="29155"/>
+   <value value="52010"/>
+   <value value="12140"/>
+   <value value="79058"/>
+   <value value="29762"/>
+   <value value="47736"/>
+   <value value="35049"/>
+   <value value="37930"/>
+   <value value="58119"/>
+   <value value="94416"/>
+   <value value="80001"/>
+   <value value="75785"/>
+   <value value="26303"/>
+   <value value="96626"/>
+   <value value="13224"/>
+   <value value="99547"/>
+   <value value="78046"/>
+   <value value="32466"/>
+   <value value="44798"/>
+   <value value="93823"/>
+   <value value="70716"/>
+   <value value="57"/>
+   <value value="46937"/>
+   <value value="36520"/>
+   <value value="67684"/>
+   <value value="10786"/>
+   <value value="59357"/>
+   <value value="23662"/>
+   <value value="96484"/>
+   <value value="12637"/>
+   <value value="43821"/>
+   <value value="45658"/>
+   <value value="58638"/>
+   <value value="53182"/>
+   <value value="31655"/>
+   <value value="62762"/>
+   <value value="97338"/>
+   <value value="90657"/>
+   <value value="97004"/>
+   <value value="53177"/>
+   <value value="98477"/>
+   <value value="30222"/>
+   <value value="95531"/>
+   <value value="46029"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="MultiYearInput">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="List.input.floral">
+   <value value="&quot;NA&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Num.repeat.yr">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="input.floral">
+   <value value="&quot;/Users/nhuvelle/Documents/These_CA/BIO_7019/SolBeePop_repository/BIO7019_project/run_scenarios/QualityFlo_scenarios/scenario_QN_high.csv&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="stoch.crop.forag">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Density.dep">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.thresh.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.max.cells.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.funct">
+   <value value="&quot;linear&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.log.slope">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.f">
+   <value value="118"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.f">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.m">
+   <value value="117"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.m">
+   <value value="2"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="latest.emerge">
+   <value value="147"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.egg">
+   <value value="8"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.larva">
+   <value value="32"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.cocoon">
+   <value value="68"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.maturation">
+   <value value="7"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="m.life">
+   <value value="21"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.nesting.life">
+   <value value="36"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="p.max.nesting.life">
+   <value value="0.09"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.f.ratio">
+   <value value="0.457"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.cells">
+   <value value="1.543"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.f">
+   <value value="0.913"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.m">
+   <value value="0.887"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="emerged.survival">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.age">
+   <value value="-0.006"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.age">
+   <value value="-0.058"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.age">
+   <value value="-0.003"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.resource">
+   <value value="0.94"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.resource">
+   <value value="0.42"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.resource">
+   <value value="0.114"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Effects">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.nectar.cons">
+   <value value="208.34"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.pollen.cons">
+   <value value="11.6"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="k_CA">
+   <value value="0.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.adult">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.ET">
+   <value value="0.072"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_soil">
+   <value value="0.5"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_leaf">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Exposure.resting.soil">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="GUTS">
+   <value value="&quot;GUTS-IT&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.guts">
+   <value value="10"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_SD">
+   <value value="0.39"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="bw_SD">
+   <value value="0.014"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_SD">
+   <value value="13"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_IT">
+   <value value="0.012"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_IT">
+   <value value="2.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Fs_IT">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="nectar_prop">
+   <value value="0.78"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="weight.prov">
+   <value value="306"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.dev">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SM">
+   <value value="187"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="F">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SA_i">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.intercept">
+   <value value="1.1534"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.slope">
+   <value value="-0.7876"/>
+  </enumeratedValueSet>
+ </experiment>
+ <experiment name="6" repetitions="1" runMetricsEveryStep="true">
+  <setup>setup</setup>
+  <go>go</go>
+  <metric>doy</metric>
+  <metric>year</metric>
+  <metric>DateREP</metric>
+  <metric>count turtles</metric>
+  <metric>bees.emerged.yr</metric>
+  <metric>f.emerged.yr</metric>
+  <metric>m.emerged.yr</metric>
+  <metric>f.postemergent.today</metric>
+  <metric>bees.nesting</metric>
+  <metric>bees.nesting.today</metric>
+  <metric>sum.cells.today</metric>
+  <metric>sum.f.cells.today</metric>
+  <metric>sum.m.cells.today</metric>
+  <metric>sum.cells</metric>
+  <metric>sum.f.cells</metric>
+  <metric>sum.m.cells</metric>
+  <metric>mean.cells.today</metric>
+  <metric>mean.f.cells.today</metric>
+  <metric>mean.m.cells.today</metric>
+  <metric>mean.cells</metric>
+  <metric>mean.f.cells</metric>
+  <metric>mean.m.cells</metric>
+  <enumeratedValueSet variable="Start.day">
+   <value value="111"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Species">
+   <value value="&quot;O.bicornis&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Voltinism">
+   <value value="&quot;univoltine&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.f">
+   <value value="60"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.m">
+   <value value="90"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.stage">
+   <value value="&quot;cocoon&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.age">
+   <value value="300"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="RndSeed">
+   <value value="24584"/>
+   <value value="47478"/>
+   <value value="31949"/>
+   <value value="88425"/>
+   <value value="220"/>
+   <value value="64146"/>
+   <value value="29155"/>
+   <value value="52010"/>
+   <value value="12140"/>
+   <value value="79058"/>
+   <value value="29762"/>
+   <value value="47736"/>
+   <value value="35049"/>
+   <value value="37930"/>
+   <value value="58119"/>
+   <value value="94416"/>
+   <value value="80001"/>
+   <value value="75785"/>
+   <value value="26303"/>
+   <value value="96626"/>
+   <value value="13224"/>
+   <value value="99547"/>
+   <value value="78046"/>
+   <value value="32466"/>
+   <value value="44798"/>
+   <value value="93823"/>
+   <value value="70716"/>
+   <value value="57"/>
+   <value value="46937"/>
+   <value value="36520"/>
+   <value value="67684"/>
+   <value value="10786"/>
+   <value value="59357"/>
+   <value value="23662"/>
+   <value value="96484"/>
+   <value value="12637"/>
+   <value value="43821"/>
+   <value value="45658"/>
+   <value value="58638"/>
+   <value value="53182"/>
+   <value value="31655"/>
+   <value value="62762"/>
+   <value value="97338"/>
+   <value value="90657"/>
+   <value value="97004"/>
+   <value value="53177"/>
+   <value value="98477"/>
+   <value value="30222"/>
+   <value value="95531"/>
+   <value value="46029"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="MultiYearInput">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="List.input.floral">
+   <value value="&quot;NA&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Num.repeat.yr">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="input.floral">
+   <value value="&quot;/Users/nhuvelle/Documents/These_CA/BIO_7019/SolBeePop_repository/BIO7019_project/run_scenarios/QualityFlo_scenarios/scenario_PFD_Precip_low.csv&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="stoch.crop.forag">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Density.dep">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.thresh.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.max.cells.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.funct">
+   <value value="&quot;linear&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.log.slope">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.f">
+   <value value="118"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.f">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.m">
+   <value value="117"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.m">
+   <value value="2"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="latest.emerge">
+   <value value="147"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.egg">
+   <value value="8"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.larva">
+   <value value="32"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.cocoon">
+   <value value="68"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.maturation">
+   <value value="7"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="m.life">
+   <value value="21"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.nesting.life">
+   <value value="36"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="p.max.nesting.life">
+   <value value="0.09"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.f.ratio">
+   <value value="0.457"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.cells">
+   <value value="1.543"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.f">
+   <value value="0.913"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.m">
+   <value value="0.887"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="emerged.survival">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.age">
+   <value value="-0.006"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.age">
+   <value value="-0.058"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.age">
+   <value value="-0.003"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.resource">
+   <value value="0.94"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.resource">
+   <value value="0.42"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.resource">
+   <value value="0.114"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Effects">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.nectar.cons">
+   <value value="208.34"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.pollen.cons">
+   <value value="11.6"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="k_CA">
+   <value value="0.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.adult">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.ET">
+   <value value="0.072"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_soil">
+   <value value="0.5"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_leaf">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Exposure.resting.soil">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="GUTS">
+   <value value="&quot;GUTS-IT&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.guts">
+   <value value="10"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_SD">
+   <value value="0.39"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="bw_SD">
+   <value value="0.014"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_SD">
+   <value value="13"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_IT">
+   <value value="0.012"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_IT">
+   <value value="2.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Fs_IT">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="nectar_prop">
+   <value value="0.78"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="weight.prov">
+   <value value="306"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.dev">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SM">
+   <value value="187"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="F">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SA_i">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.intercept">
+   <value value="1.1534"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.slope">
+   <value value="-0.7876"/>
+  </enumeratedValueSet>
+ </experiment>
+ <experiment name="7" repetitions="1" runMetricsEveryStep="true">
+  <setup>setup</setup>
+  <go>go</go>
+  <metric>doy</metric>
+  <metric>year</metric>
+  <metric>DateREP</metric>
+  <metric>count turtles</metric>
+  <metric>bees.emerged.yr</metric>
+  <metric>f.emerged.yr</metric>
+  <metric>m.emerged.yr</metric>
+  <metric>f.postemergent.today</metric>
+  <metric>bees.nesting</metric>
+  <metric>bees.nesting.today</metric>
+  <metric>sum.cells.today</metric>
+  <metric>sum.f.cells.today</metric>
+  <metric>sum.m.cells.today</metric>
+  <metric>sum.cells</metric>
+  <metric>sum.f.cells</metric>
+  <metric>sum.m.cells</metric>
+  <metric>mean.cells.today</metric>
+  <metric>mean.f.cells.today</metric>
+  <metric>mean.m.cells.today</metric>
+  <metric>mean.cells</metric>
+  <metric>mean.f.cells</metric>
+  <metric>mean.m.cells</metric>
+  <enumeratedValueSet variable="Start.day">
+   <value value="111"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Species">
+   <value value="&quot;O.bicornis&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Voltinism">
+   <value value="&quot;univoltine&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.f">
+   <value value="60"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.m">
+   <value value="90"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.stage">
+   <value value="&quot;cocoon&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.age">
+   <value value="300"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="RndSeed">
+   <value value="24584"/>
+   <value value="47478"/>
+   <value value="31949"/>
+   <value value="88425"/>
+   <value value="220"/>
+   <value value="64146"/>
+   <value value="29155"/>
+   <value value="52010"/>
+   <value value="12140"/>
+   <value value="79058"/>
+   <value value="29762"/>
+   <value value="47736"/>
+   <value value="35049"/>
+   <value value="37930"/>
+   <value value="58119"/>
+   <value value="94416"/>
+   <value value="80001"/>
+   <value value="75785"/>
+   <value value="26303"/>
+   <value value="96626"/>
+   <value value="13224"/>
+   <value value="99547"/>
+   <value value="78046"/>
+   <value value="32466"/>
+   <value value="44798"/>
+   <value value="93823"/>
+   <value value="70716"/>
+   <value value="57"/>
+   <value value="46937"/>
+   <value value="36520"/>
+   <value value="67684"/>
+   <value value="10786"/>
+   <value value="59357"/>
+   <value value="23662"/>
+   <value value="96484"/>
+   <value value="12637"/>
+   <value value="43821"/>
+   <value value="45658"/>
+   <value value="58638"/>
+   <value value="53182"/>
+   <value value="31655"/>
+   <value value="62762"/>
+   <value value="97338"/>
+   <value value="90657"/>
+   <value value="97004"/>
+   <value value="53177"/>
+   <value value="98477"/>
+   <value value="30222"/>
+   <value value="95531"/>
+   <value value="46029"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="MultiYearInput">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="List.input.floral">
+   <value value="&quot;NA&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Num.repeat.yr">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="input.floral">
+   <value value="&quot;/Users/nhuvelle/Documents/These_CA/BIO_7019/SolBeePop_repository/BIO7019_project/run_scenarios/QualityFlo_scenarios/scenario_PFD_Precip_high.csv&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="stoch.crop.forag">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Density.dep">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.thresh.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.max.cells.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.funct">
+   <value value="&quot;linear&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.log.slope">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.f">
+   <value value="118"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.f">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.m">
+   <value value="117"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.m">
+   <value value="2"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="latest.emerge">
+   <value value="147"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.egg">
+   <value value="8"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.larva">
+   <value value="32"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.cocoon">
+   <value value="68"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.maturation">
+   <value value="7"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="m.life">
+   <value value="21"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.nesting.life">
+   <value value="36"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="p.max.nesting.life">
+   <value value="0.09"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.f.ratio">
+   <value value="0.457"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.cells">
+   <value value="1.543"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.f">
+   <value value="0.913"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.m">
+   <value value="0.887"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="emerged.survival">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.age">
+   <value value="-0.006"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.age">
+   <value value="-0.058"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.age">
+   <value value="-0.003"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.resource">
+   <value value="0.94"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.resource">
+   <value value="0.42"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.resource">
+   <value value="0.114"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Effects">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.nectar.cons">
+   <value value="208.34"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.pollen.cons">
+   <value value="11.6"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="k_CA">
+   <value value="0.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.adult">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.ET">
+   <value value="0.072"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_soil">
+   <value value="0.5"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_leaf">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Exposure.resting.soil">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="GUTS">
+   <value value="&quot;GUTS-IT&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.guts">
+   <value value="10"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_SD">
+   <value value="0.39"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="bw_SD">
+   <value value="0.014"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_SD">
+   <value value="13"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_IT">
+   <value value="0.012"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_IT">
+   <value value="2.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Fs_IT">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="nectar_prop">
+   <value value="0.78"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="weight.prov">
+   <value value="306"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.dev">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SM">
+   <value value="187"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="F">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SA_i">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.intercept">
+   <value value="1.1534"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.slope">
+   <value value="-0.7876"/>
+  </enumeratedValueSet>
+ </experiment>
+ <experiment name="8" repetitions="1" runMetricsEveryStep="true">
+  <setup>setup</setup>
+  <go>go</go>
+  <metric>doy</metric>
+  <metric>year</metric>
+  <metric>DateREP</metric>
+  <metric>count turtles</metric>
+  <metric>bees.emerged.yr</metric>
+  <metric>f.emerged.yr</metric>
+  <metric>m.emerged.yr</metric>
+  <metric>f.postemergent.today</metric>
+  <metric>bees.nesting</metric>
+  <metric>bees.nesting.today</metric>
+  <metric>sum.cells.today</metric>
+  <metric>sum.f.cells.today</metric>
+  <metric>sum.m.cells.today</metric>
+  <metric>sum.cells</metric>
+  <metric>sum.f.cells</metric>
+  <metric>sum.m.cells</metric>
+  <metric>mean.cells.today</metric>
+  <metric>mean.f.cells.today</metric>
+  <metric>mean.m.cells.today</metric>
+  <metric>mean.cells</metric>
+  <metric>mean.f.cells</metric>
+  <metric>mean.m.cells</metric>
+  <enumeratedValueSet variable="Start.day">
+   <value value="111"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Species">
+   <value value="&quot;O.bicornis&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Voltinism">
+   <value value="&quot;univoltine&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.f">
+   <value value="60"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.m">
+   <value value="90"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.stage">
+   <value value="&quot;cocoon&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.age">
+   <value value="300"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="RndSeed">
+   <value value="24584"/>
+   <value value="47478"/>
+   <value value="31949"/>
+   <value value="88425"/>
+   <value value="220"/>
+   <value value="64146"/>
+   <value value="29155"/>
+   <value value="52010"/>
+   <value value="12140"/>
+   <value value="79058"/>
+   <value value="29762"/>
+   <value value="47736"/>
+   <value value="35049"/>
+   <value value="37930"/>
+   <value value="58119"/>
+   <value value="94416"/>
+   <value value="80001"/>
+   <value value="75785"/>
+   <value value="26303"/>
+   <value value="96626"/>
+   <value value="13224"/>
+   <value value="99547"/>
+   <value value="78046"/>
+   <value value="32466"/>
+   <value value="44798"/>
+   <value value="93823"/>
+   <value value="70716"/>
+   <value value="57"/>
+   <value value="46937"/>
+   <value value="36520"/>
+   <value value="67684"/>
+   <value value="10786"/>
+   <value value="59357"/>
+   <value value="23662"/>
+   <value value="96484"/>
+   <value value="12637"/>
+   <value value="43821"/>
+   <value value="45658"/>
+   <value value="58638"/>
+   <value value="53182"/>
+   <value value="31655"/>
+   <value value="62762"/>
+   <value value="97338"/>
+   <value value="90657"/>
+   <value value="97004"/>
+   <value value="53177"/>
+   <value value="98477"/>
+   <value value="30222"/>
+   <value value="95531"/>
+   <value value="46029"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="MultiYearInput">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="List.input.floral">
+   <value value="&quot;NA&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Num.repeat.yr">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="input.floral">
+   <value value="&quot;/Users/nhuvelle/Documents/These_CA/BIO_7019/SolBeePop_repository/BIO7019_project/run_scenarios/QualityFlo_scenarios/scenario_PFC_low.csv&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="stoch.crop.forag">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Density.dep">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.thresh.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.max.cells.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.funct">
+   <value value="&quot;linear&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.log.slope">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.f">
+   <value value="118"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.f">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.m">
+   <value value="117"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.m">
+   <value value="2"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="latest.emerge">
+   <value value="147"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.egg">
+   <value value="8"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.larva">
+   <value value="32"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.cocoon">
+   <value value="68"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.maturation">
+   <value value="7"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="m.life">
+   <value value="21"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.nesting.life">
+   <value value="36"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="p.max.nesting.life">
+   <value value="0.09"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.f.ratio">
+   <value value="0.457"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.cells">
+   <value value="1.543"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.f">
+   <value value="0.913"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.m">
+   <value value="0.887"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="emerged.survival">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.age">
+   <value value="-0.006"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.age">
+   <value value="-0.058"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.age">
+   <value value="-0.003"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.resource">
+   <value value="0.94"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.resource">
+   <value value="0.42"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.resource">
+   <value value="0.114"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Effects">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.nectar.cons">
+   <value value="208.34"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.pollen.cons">
+   <value value="11.6"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="k_CA">
+   <value value="0.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.adult">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.ET">
+   <value value="0.072"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_soil">
+   <value value="0.5"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_leaf">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Exposure.resting.soil">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="GUTS">
+   <value value="&quot;GUTS-IT&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.guts">
+   <value value="10"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_SD">
+   <value value="0.39"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="bw_SD">
+   <value value="0.014"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_SD">
+   <value value="13"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_IT">
+   <value value="0.012"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_IT">
+   <value value="2.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Fs_IT">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="nectar_prop">
+   <value value="0.78"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="weight.prov">
+   <value value="306"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.dev">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SM">
+   <value value="187"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="F">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SA_i">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.intercept">
+   <value value="1.1534"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.slope">
+   <value value="-0.7876"/>
+  </enumeratedValueSet>
+ </experiment>
+ <experiment name="9" repetitions="1" runMetricsEveryStep="true">
+  <setup>setup</setup>
+  <go>go</go>
+  <metric>doy</metric>
+  <metric>year</metric>
+  <metric>DateREP</metric>
+  <metric>count turtles</metric>
+  <metric>bees.emerged.yr</metric>
+  <metric>f.emerged.yr</metric>
+  <metric>m.emerged.yr</metric>
+  <metric>f.postemergent.today</metric>
+  <metric>bees.nesting</metric>
+  <metric>bees.nesting.today</metric>
+  <metric>sum.cells.today</metric>
+  <metric>sum.f.cells.today</metric>
+  <metric>sum.m.cells.today</metric>
+  <metric>sum.cells</metric>
+  <metric>sum.f.cells</metric>
+  <metric>sum.m.cells</metric>
+  <metric>mean.cells.today</metric>
+  <metric>mean.f.cells.today</metric>
+  <metric>mean.m.cells.today</metric>
+  <metric>mean.cells</metric>
+  <metric>mean.f.cells</metric>
+  <metric>mean.m.cells</metric>
+  <enumeratedValueSet variable="Start.day">
+   <value value="111"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Species">
+   <value value="&quot;O.bicornis&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Voltinism">
+   <value value="&quot;univoltine&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.f">
+   <value value="60"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.m">
+   <value value="90"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.stage">
+   <value value="&quot;cocoon&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.age">
+   <value value="300"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="RndSeed">
+   <value value="24584"/>
+   <value value="47478"/>
+   <value value="31949"/>
+   <value value="88425"/>
+   <value value="220"/>
+   <value value="64146"/>
+   <value value="29155"/>
+   <value value="52010"/>
+   <value value="12140"/>
+   <value value="79058"/>
+   <value value="29762"/>
+   <value value="47736"/>
+   <value value="35049"/>
+   <value value="37930"/>
+   <value value="58119"/>
+   <value value="94416"/>
+   <value value="80001"/>
+   <value value="75785"/>
+   <value value="26303"/>
+   <value value="96626"/>
+   <value value="13224"/>
+   <value value="99547"/>
+   <value value="78046"/>
+   <value value="32466"/>
+   <value value="44798"/>
+   <value value="93823"/>
+   <value value="70716"/>
+   <value value="57"/>
+   <value value="46937"/>
+   <value value="36520"/>
+   <value value="67684"/>
+   <value value="10786"/>
+   <value value="59357"/>
+   <value value="23662"/>
+   <value value="96484"/>
+   <value value="12637"/>
+   <value value="43821"/>
+   <value value="45658"/>
+   <value value="58638"/>
+   <value value="53182"/>
+   <value value="31655"/>
+   <value value="62762"/>
+   <value value="97338"/>
+   <value value="90657"/>
+   <value value="97004"/>
+   <value value="53177"/>
+   <value value="98477"/>
+   <value value="30222"/>
+   <value value="95531"/>
+   <value value="46029"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="MultiYearInput">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="List.input.floral">
+   <value value="&quot;NA&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Num.repeat.yr">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="input.floral">
+   <value value="&quot;/Users/nhuvelle/Documents/These_CA/BIO_7019/SolBeePop_repository/BIO7019_project/run_scenarios/QualityFlo_scenarios/scenario_PFC_high.csv&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="stoch.crop.forag">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Density.dep">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.thresh.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.max.cells.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.funct">
+   <value value="&quot;linear&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.log.slope">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.f">
+   <value value="118"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.f">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.m">
+   <value value="117"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.m">
+   <value value="2"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="latest.emerge">
+   <value value="147"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.egg">
+   <value value="8"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.larva">
+   <value value="32"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.cocoon">
+   <value value="68"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.maturation">
+   <value value="7"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="m.life">
+   <value value="21"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.nesting.life">
+   <value value="36"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="p.max.nesting.life">
+   <value value="0.09"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.f.ratio">
+   <value value="0.457"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.cells">
+   <value value="1.543"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.f">
+   <value value="0.913"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.m">
+   <value value="0.887"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="emerged.survival">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.age">
+   <value value="-0.006"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.age">
+   <value value="-0.058"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.age">
+   <value value="-0.003"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.resource">
+   <value value="0.94"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.resource">
+   <value value="0.42"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.resource">
+   <value value="0.114"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Effects">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.nectar.cons">
+   <value value="208.34"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.pollen.cons">
+   <value value="11.6"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="k_CA">
+   <value value="0.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.adult">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.ET">
+   <value value="0.072"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_soil">
+   <value value="0.5"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_leaf">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Exposure.resting.soil">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="GUTS">
+   <value value="&quot;GUTS-IT&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.guts">
+   <value value="10"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_SD">
+   <value value="0.39"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="bw_SD">
+   <value value="0.014"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_SD">
+   <value value="13"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_IT">
+   <value value="0.012"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_IT">
+   <value value="2.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Fs_IT">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="nectar_prop">
+   <value value="0.78"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="weight.prov">
+   <value value="306"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.dev">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SM">
+   <value value="187"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="F">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SA_i">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.intercept">
+   <value value="1.1534"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.slope">
+   <value value="-0.7876"/>
+  </enumeratedValueSet>
+ </experiment>
+ <experiment name="10" repetitions="1" runMetricsEveryStep="true">
+  <setup>setup</setup>
+  <go>go</go>
+  <metric>doy</metric>
+  <metric>year</metric>
+  <metric>DateREP</metric>
+  <metric>count turtles</metric>
+  <metric>bees.emerged.yr</metric>
+  <metric>f.emerged.yr</metric>
+  <metric>m.emerged.yr</metric>
+  <metric>f.postemergent.today</metric>
+  <metric>bees.nesting</metric>
+  <metric>bees.nesting.today</metric>
+  <metric>sum.cells.today</metric>
+  <metric>sum.f.cells.today</metric>
+  <metric>sum.m.cells.today</metric>
+  <metric>sum.cells</metric>
+  <metric>sum.f.cells</metric>
+  <metric>sum.m.cells</metric>
+  <metric>mean.cells.today</metric>
+  <metric>mean.f.cells.today</metric>
+  <metric>mean.m.cells.today</metric>
+  <metric>mean.cells</metric>
+  <metric>mean.f.cells</metric>
+  <metric>mean.m.cells</metric>
+  <enumeratedValueSet variable="Start.day">
+   <value value="111"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Species">
+   <value value="&quot;O.bicornis&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Voltinism">
+   <value value="&quot;univoltine&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.f">
+   <value value="60"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.m">
+   <value value="90"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.stage">
+   <value value="&quot;cocoon&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.age">
+   <value value="300"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="RndSeed">
+   <value value="24584"/>
+   <value value="47478"/>
+   <value value="31949"/>
+   <value value="88425"/>
+   <value value="220"/>
+   <value value="64146"/>
+   <value value="29155"/>
+   <value value="52010"/>
+   <value value="12140"/>
+   <value value="79058"/>
+   <value value="29762"/>
+   <value value="47736"/>
+   <value value="35049"/>
+   <value value="37930"/>
+   <value value="58119"/>
+   <value value="94416"/>
+   <value value="80001"/>
+   <value value="75785"/>
+   <value value="26303"/>
+   <value value="96626"/>
+   <value value="13224"/>
+   <value value="99547"/>
+   <value value="78046"/>
+   <value value="32466"/>
+   <value value="44798"/>
+   <value value="93823"/>
+   <value value="70716"/>
+   <value value="57"/>
+   <value value="46937"/>
+   <value value="36520"/>
+   <value value="67684"/>
+   <value value="10786"/>
+   <value value="59357"/>
+   <value value="23662"/>
+   <value value="96484"/>
+   <value value="12637"/>
+   <value value="43821"/>
+   <value value="45658"/>
+   <value value="58638"/>
+   <value value="53182"/>
+   <value value="31655"/>
+   <value value="62762"/>
+   <value value="97338"/>
+   <value value="90657"/>
+   <value value="97004"/>
+   <value value="53177"/>
+   <value value="98477"/>
+   <value value="30222"/>
+   <value value="95531"/>
+   <value value="46029"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="MultiYearInput">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="List.input.floral">
+   <value value="&quot;NA&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Num.repeat.yr">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="input.floral">
+   <value value="&quot;/Users/nhuvelle/Documents/These_CA/BIO_7019/SolBeePop_repository/BIO7019_project/run_scenarios/QualityFlo_scenarios/scenario_PFD_RH_low.csv&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="stoch.crop.forag">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Density.dep">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.thresh.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.max.cells.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.funct">
+   <value value="&quot;linear&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.log.slope">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.f">
+   <value value="118"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.f">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.m">
+   <value value="117"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.m">
+   <value value="2"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="latest.emerge">
+   <value value="147"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.egg">
+   <value value="8"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.larva">
+   <value value="32"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.cocoon">
+   <value value="68"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.maturation">
+   <value value="7"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="m.life">
+   <value value="21"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.nesting.life">
+   <value value="36"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="p.max.nesting.life">
+   <value value="0.09"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.f.ratio">
+   <value value="0.457"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.cells">
+   <value value="1.543"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.f">
+   <value value="0.913"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.m">
+   <value value="0.887"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="emerged.survival">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.age">
+   <value value="-0.006"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.age">
+   <value value="-0.058"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.age">
+   <value value="-0.003"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.resource">
+   <value value="0.94"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.resource">
+   <value value="0.42"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.resource">
+   <value value="0.114"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Effects">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.nectar.cons">
+   <value value="208.34"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.pollen.cons">
+   <value value="11.6"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="k_CA">
+   <value value="0.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.adult">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.ET">
+   <value value="0.072"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_soil">
+   <value value="0.5"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_leaf">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Exposure.resting.soil">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="GUTS">
+   <value value="&quot;GUTS-IT&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.guts">
+   <value value="10"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_SD">
+   <value value="0.39"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="bw_SD">
+   <value value="0.014"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_SD">
+   <value value="13"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_IT">
+   <value value="0.012"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_IT">
+   <value value="2.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Fs_IT">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="nectar_prop">
+   <value value="0.78"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="weight.prov">
+   <value value="306"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.dev">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SM">
+   <value value="187"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="F">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SA_i">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.intercept">
+   <value value="1.1534"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.slope">
+   <value value="-0.7876"/>
+  </enumeratedValueSet>
+ </experiment>
+ <experiment name="11" repetitions="1" runMetricsEveryStep="true">
+  <setup>setup</setup>
+  <go>go</go>
+  <metric>doy</metric>
+  <metric>year</metric>
+  <metric>DateREP</metric>
+  <metric>count turtles</metric>
+  <metric>bees.emerged.yr</metric>
+  <metric>f.emerged.yr</metric>
+  <metric>m.emerged.yr</metric>
+  <metric>f.postemergent.today</metric>
+  <metric>bees.nesting</metric>
+  <metric>bees.nesting.today</metric>
+  <metric>sum.cells.today</metric>
+  <metric>sum.f.cells.today</metric>
+  <metric>sum.m.cells.today</metric>
+  <metric>sum.cells</metric>
+  <metric>sum.f.cells</metric>
+  <metric>sum.m.cells</metric>
+  <metric>mean.cells.today</metric>
+  <metric>mean.f.cells.today</metric>
+  <metric>mean.m.cells.today</metric>
+  <metric>mean.cells</metric>
+  <metric>mean.f.cells</metric>
+  <metric>mean.m.cells</metric>
+  <enumeratedValueSet variable="Start.day">
+   <value value="111"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Species">
+   <value value="&quot;O.bicornis&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Voltinism">
+   <value value="&quot;univoltine&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.f">
+   <value value="60"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.m">
+   <value value="90"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.stage">
+   <value value="&quot;cocoon&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.age">
+   <value value="300"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="RndSeed">
+   <value value="24584"/>
+   <value value="47478"/>
+   <value value="31949"/>
+   <value value="88425"/>
+   <value value="220"/>
+   <value value="64146"/>
+   <value value="29155"/>
+   <value value="52010"/>
+   <value value="12140"/>
+   <value value="79058"/>
+   <value value="29762"/>
+   <value value="47736"/>
+   <value value="35049"/>
+   <value value="37930"/>
+   <value value="58119"/>
+   <value value="94416"/>
+   <value value="80001"/>
+   <value value="75785"/>
+   <value value="26303"/>
+   <value value="96626"/>
+   <value value="13224"/>
+   <value value="99547"/>
+   <value value="78046"/>
+   <value value="32466"/>
+   <value value="44798"/>
+   <value value="93823"/>
+   <value value="70716"/>
+   <value value="57"/>
+   <value value="46937"/>
+   <value value="36520"/>
+   <value value="67684"/>
+   <value value="10786"/>
+   <value value="59357"/>
+   <value value="23662"/>
+   <value value="96484"/>
+   <value value="12637"/>
+   <value value="43821"/>
+   <value value="45658"/>
+   <value value="58638"/>
+   <value value="53182"/>
+   <value value="31655"/>
+   <value value="62762"/>
+   <value value="97338"/>
+   <value value="90657"/>
+   <value value="97004"/>
+   <value value="53177"/>
+   <value value="98477"/>
+   <value value="30222"/>
+   <value value="95531"/>
+   <value value="46029"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="MultiYearInput">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="List.input.floral">
+   <value value="&quot;NA&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Num.repeat.yr">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="input.floral">
+   <value value="&quot;/Users/nhuvelle/Documents/These_CA/BIO_7019/SolBeePop_repository/BIO7019_project/run_scenarios/QualityFlo_scenarios/scenario_PFD_RH_high.csv&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="stoch.crop.forag">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Density.dep">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.thresh.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.max.cells.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.funct">
+   <value value="&quot;linear&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.log.slope">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.f">
+   <value value="118"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.f">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.m">
+   <value value="117"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.m">
+   <value value="2"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="latest.emerge">
+   <value value="147"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.egg">
+   <value value="8"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.larva">
+   <value value="32"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.cocoon">
+   <value value="68"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.maturation">
+   <value value="7"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="m.life">
+   <value value="21"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.nesting.life">
+   <value value="36"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="p.max.nesting.life">
+   <value value="0.09"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.f.ratio">
+   <value value="0.457"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.cells">
+   <value value="1.543"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.f">
+   <value value="0.913"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.m">
+   <value value="0.887"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="emerged.survival">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.age">
+   <value value="-0.006"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.age">
+   <value value="-0.058"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.age">
+   <value value="-0.003"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.resource">
+   <value value="0.94"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.resource">
+   <value value="0.42"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.resource">
+   <value value="0.114"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Effects">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.nectar.cons">
+   <value value="208.34"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.pollen.cons">
+   <value value="11.6"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="k_CA">
+   <value value="0.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.adult">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.ET">
+   <value value="0.072"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_soil">
+   <value value="0.5"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_leaf">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Exposure.resting.soil">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="GUTS">
+   <value value="&quot;GUTS-IT&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.guts">
+   <value value="10"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_SD">
+   <value value="0.39"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="bw_SD">
+   <value value="0.014"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_SD">
+   <value value="13"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_IT">
+   <value value="0.012"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_IT">
+   <value value="2.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Fs_IT">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="nectar_prop">
+   <value value="0.78"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="weight.prov">
+   <value value="306"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.dev">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SM">
+   <value value="187"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="F">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SA_i">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.intercept">
+   <value value="1.1534"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.slope">
+   <value value="-0.7876"/>
+  </enumeratedValueSet>
+ </experiment>
+ <experiment name="12" repetitions="1" runMetricsEveryStep="true">
+  <setup>setup</setup>
+  <go>go</go>
+  <metric>doy</metric>
+  <metric>year</metric>
+  <metric>DateREP</metric>
+  <metric>count turtles</metric>
+  <metric>bees.emerged.yr</metric>
+  <metric>f.emerged.yr</metric>
+  <metric>m.emerged.yr</metric>
+  <metric>f.postemergent.today</metric>
+  <metric>bees.nesting</metric>
+  <metric>bees.nesting.today</metric>
+  <metric>sum.cells.today</metric>
+  <metric>sum.f.cells.today</metric>
+  <metric>sum.m.cells.today</metric>
+  <metric>sum.cells</metric>
+  <metric>sum.f.cells</metric>
+  <metric>sum.m.cells</metric>
+  <metric>mean.cells.today</metric>
+  <metric>mean.f.cells.today</metric>
+  <metric>mean.m.cells.today</metric>
+  <metric>mean.cells</metric>
+  <metric>mean.f.cells</metric>
+  <metric>mean.m.cells</metric>
+  <enumeratedValueSet variable="Start.day">
+   <value value="111"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Species">
+   <value value="&quot;O.bicornis&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Voltinism">
+   <value value="&quot;univoltine&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.f">
+   <value value="60"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.m">
+   <value value="90"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.stage">
+   <value value="&quot;cocoon&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.age">
+   <value value="300"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="RndSeed">
+   <value value="24584"/>
+   <value value="47478"/>
+   <value value="31949"/>
+   <value value="88425"/>
+   <value value="220"/>
+   <value value="64146"/>
+   <value value="29155"/>
+   <value value="52010"/>
+   <value value="12140"/>
+   <value value="79058"/>
+   <value value="29762"/>
+   <value value="47736"/>
+   <value value="35049"/>
+   <value value="37930"/>
+   <value value="58119"/>
+   <value value="94416"/>
+   <value value="80001"/>
+   <value value="75785"/>
+   <value value="26303"/>
+   <value value="96626"/>
+   <value value="13224"/>
+   <value value="99547"/>
+   <value value="78046"/>
+   <value value="32466"/>
+   <value value="44798"/>
+   <value value="93823"/>
+   <value value="70716"/>
+   <value value="57"/>
+   <value value="46937"/>
+   <value value="36520"/>
+   <value value="67684"/>
+   <value value="10786"/>
+   <value value="59357"/>
+   <value value="23662"/>
+   <value value="96484"/>
+   <value value="12637"/>
+   <value value="43821"/>
+   <value value="45658"/>
+   <value value="58638"/>
+   <value value="53182"/>
+   <value value="31655"/>
+   <value value="62762"/>
+   <value value="97338"/>
+   <value value="90657"/>
+   <value value="97004"/>
+   <value value="53177"/>
+   <value value="98477"/>
+   <value value="30222"/>
+   <value value="95531"/>
+   <value value="46029"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="MultiYearInput">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="List.input.floral">
+   <value value="&quot;NA&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Num.repeat.yr">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="input.floral">
+   <value value="&quot;/Users/nhuvelle/Documents/These_CA/BIO_7019/SolBeePop_repository/BIO7019_project/run_scenarios/QualityFlo_scenarios/scenario_PFD_T_low.csv&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="stoch.crop.forag">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Density.dep">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.thresh.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.max.cells.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.funct">
+   <value value="&quot;linear&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.log.slope">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.f">
+   <value value="118"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.f">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.m">
+   <value value="117"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.m">
+   <value value="2"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="latest.emerge">
+   <value value="147"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.egg">
+   <value value="8"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.larva">
+   <value value="32"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.cocoon">
+   <value value="68"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.maturation">
+   <value value="7"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="m.life">
+   <value value="21"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.nesting.life">
+   <value value="36"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="p.max.nesting.life">
+   <value value="0.09"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.f.ratio">
+   <value value="0.457"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.cells">
+   <value value="1.543"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.f">
+   <value value="0.913"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.m">
+   <value value="0.887"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="emerged.survival">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.age">
+   <value value="-0.006"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.age">
+   <value value="-0.058"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.age">
+   <value value="-0.003"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.resource">
+   <value value="0.94"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.resource">
+   <value value="0.42"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.resource">
+   <value value="0.114"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Effects">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.nectar.cons">
+   <value value="208.34"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.pollen.cons">
+   <value value="11.6"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="k_CA">
+   <value value="0.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.adult">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.ET">
+   <value value="0.072"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_soil">
+   <value value="0.5"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_leaf">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Exposure.resting.soil">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="GUTS">
+   <value value="&quot;GUTS-IT&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.guts">
+   <value value="10"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_SD">
+   <value value="0.39"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="bw_SD">
+   <value value="0.014"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_SD">
+   <value value="13"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_IT">
+   <value value="0.012"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_IT">
+   <value value="2.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Fs_IT">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="nectar_prop">
+   <value value="0.78"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="weight.prov">
+   <value value="306"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.dev">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SM">
+   <value value="187"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="F">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SA_i">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.intercept">
+   <value value="1.1534"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.slope">
+   <value value="-0.7876"/>
+  </enumeratedValueSet>
+ </experiment>
+ <experiment name="13" repetitions="1" runMetricsEveryStep="true">
+  <setup>setup</setup>
+  <go>go</go>
+  <metric>doy</metric>
+  <metric>year</metric>
+  <metric>DateREP</metric>
+  <metric>count turtles</metric>
+  <metric>bees.emerged.yr</metric>
+  <metric>f.emerged.yr</metric>
+  <metric>m.emerged.yr</metric>
+  <metric>f.postemergent.today</metric>
+  <metric>bees.nesting</metric>
+  <metric>bees.nesting.today</metric>
+  <metric>sum.cells.today</metric>
+  <metric>sum.f.cells.today</metric>
+  <metric>sum.m.cells.today</metric>
+  <metric>sum.cells</metric>
+  <metric>sum.f.cells</metric>
+  <metric>sum.m.cells</metric>
+  <metric>mean.cells.today</metric>
+  <metric>mean.f.cells.today</metric>
+  <metric>mean.m.cells.today</metric>
+  <metric>mean.cells</metric>
+  <metric>mean.f.cells</metric>
+  <metric>mean.m.cells</metric>
+  <enumeratedValueSet variable="Start.day">
+   <value value="111"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Species">
+   <value value="&quot;O.bicornis&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Voltinism">
+   <value value="&quot;univoltine&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.f">
+   <value value="60"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.num.m">
+   <value value="90"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.stage">
+   <value value="&quot;cocoon&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Initial.age">
+   <value value="300"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="RndSeed">
+   <value value="24584"/>
+   <value value="47478"/>
+   <value value="31949"/>
+   <value value="88425"/>
+   <value value="220"/>
+   <value value="64146"/>
+   <value value="29155"/>
+   <value value="52010"/>
+   <value value="12140"/>
+   <value value="79058"/>
+   <value value="29762"/>
+   <value value="47736"/>
+   <value value="35049"/>
+   <value value="37930"/>
+   <value value="58119"/>
+   <value value="94416"/>
+   <value value="80001"/>
+   <value value="75785"/>
+   <value value="26303"/>
+   <value value="96626"/>
+   <value value="13224"/>
+   <value value="99547"/>
+   <value value="78046"/>
+   <value value="32466"/>
+   <value value="44798"/>
+   <value value="93823"/>
+   <value value="70716"/>
+   <value value="57"/>
+   <value value="46937"/>
+   <value value="36520"/>
+   <value value="67684"/>
+   <value value="10786"/>
+   <value value="59357"/>
+   <value value="23662"/>
+   <value value="96484"/>
+   <value value="12637"/>
+   <value value="43821"/>
+   <value value="45658"/>
+   <value value="58638"/>
+   <value value="53182"/>
+   <value value="31655"/>
+   <value value="62762"/>
+   <value value="97338"/>
+   <value value="90657"/>
+   <value value="97004"/>
+   <value value="53177"/>
+   <value value="98477"/>
+   <value value="30222"/>
+   <value value="95531"/>
+   <value value="46029"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="MultiYearInput">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="List.input.floral">
+   <value value="&quot;NA&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Num.repeat.yr">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="input.floral">
+   <value value="&quot;/Users/nhuvelle/Documents/These_CA/BIO_7019/SolBeePop_repository/BIO7019_project/run_scenarios/QualityFlo_scenarios/scenario_PFD_T_high.csv&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="stoch.crop.forag">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Density.dep">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.thresh.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.max.cells.s">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.funct">
+   <value value="&quot;linear&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="DD.log.slope">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.f">
+   <value value="118"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.f">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="day.emerge.m">
+   <value value="117"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="var.emerge.m">
+   <value value="2"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="latest.emerge">
+   <value value="147"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.egg">
+   <value value="8"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.larva">
+   <value value="32"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dev.cocoon">
+   <value value="68"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.maturation">
+   <value value="7"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="m.life">
+   <value value="21"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.nesting.life">
+   <value value="36"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="p.max.nesting.life">
+   <value value="0.09"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.f.ratio">
+   <value value="0.457"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.cells">
+   <value value="1.543"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.f">
+   <value value="0.913"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="max.survival.e.m">
+   <value value="0.887"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="emerged.survival">
+   <value value="1"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.age">
+   <value value="-0.006"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.age">
+   <value value="-0.058"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.age">
+   <value value="-0.003"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.cell.resource">
+   <value value="0.94"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.sex.resource">
+   <value value="0.42"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="a.size.resource">
+   <value value="0.114"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Effects">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.nectar.cons">
+   <value value="208.34"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.pollen.cons">
+   <value value="11.6"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="k_CA">
+   <value value="0.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.adult">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="ad.ET">
+   <value value="0.072"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_soil">
+   <value value="0.5"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="TC_leaf">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Exposure.resting.soil">
+   <value value="false"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="GUTS">
+   <value value="&quot;GUTS-IT&quot;"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="t.guts">
+   <value value="10"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_SD">
+   <value value="0.39"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="bw_SD">
+   <value value="0.014"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_SD">
+   <value value="13"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="kd_IT">
+   <value value="0.012"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="mw_IT">
+   <value value="2.4"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Fs_IT">
+   <value value="3"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="nectar_prop">
+   <value value="0.78"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="weight.prov">
+   <value value="306"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="Transfer.mat.dev">
+   <value value="true"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SM">
+   <value value="187"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="F">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="SA_i">
+   <value value="0"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.intercept">
+   <value value="1.1534"/>
+  </enumeratedValueSet>
+  <enumeratedValueSet variable="dr.slope">
+   <value value="-0.7876"/>
+  </enumeratedValueSet>
+ </experiment>
+</experiments>

@@ -1,0 +1,78 @@
+---
+title: "Nierfen_combine_output_files"
+author: 'Noémie Huvelle'
+date: "2025-12-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Prepare R environment 
+```{r load packages}
+rm(list = ls())
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+library(here)
+```
+
+```{r set wd}
+wd <- here("run_scenarios/QualityFlo_treatment")
+in_files <- here("run_scenarios/QualityFlo_treatment/Intermediate_results")
+out_file <- here("run_scenarios/QualityFlo_scenarios")
+setwd(wd)
+```
+
+```{r load floral ressource data}
+ress_flo <- read.csv(paste(in_files,
+                           "/baseline_QF.csv",
+                           sep=""))
+ress_flo$X.1 <- NULL
+ress_flo$date <- as.Date(ress_flo$date)
+head(ress_flo)
+```
+
+```{r load meteoroligical derived ressource data}
+prop_forag_day <- read.csv(paste(in_files,
+                           "/baseline_PFD.csv",
+                           sep=""))
+prop_forag_day$date <- as.Date(prop_forag_day$date)
+prop_forag_day$X <- NULL
+head(prop_forag_day)
+```
+# Join both dataframes
+```{r join both sources of date}
+ress_flo_out <- ress_flo %>% 
+  left_join(prop_forag_day, by = "date")
+
+head(ress_flo_out)
+```
+
+# Format the resuting dataframe 
+
+The intended file format is composed of 5 columns named : "doy", "Prop_foraging_day", "Quality_crop", "Quality_nat" and "Prop_foraging_crop"
+```{r formatting of output file}
+ress_flo_out$date <- NULL #Suppress date column
+ress_flo_out$lambda <- NULL
+
+ress_flo_out <- ress_flo_out[, c("X", "Prop_foraging_day",
+                                "quality_crop", "quality_nat",
+                                "prop_forag_crop")] #Reorganize column order 
+
+colnames(ress_flo_out) <- c("doy", "Prop_foraging_day",
+                            "Quality_crop", "Quality_nat",
+                            "Prop_foraging_crop")#Rename the columns 
+head(ress_flo_out)
+```
+
+# Save the results
+
+```{r save the output file}
+write.csv(ress_flo_out,
+          paste(out_file,
+                "/baseline_ResFlo.csv",
+                sep=""),
+          row.names = FALSE)
+```
