@@ -1,0 +1,259 @@
+---
+title: "Treat_Results"
+author: 'Noémie Huvelle'
+date: "2025-12-02"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Prepare R envronment 
+```{r load package}
+rm(list = ls())
+library(ggplot2)
+library(tools)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(here)
+```
+
+```{r set directories}
+root <- here()
+wd <- here("run_scenarios/Results_analysis")
+graph_file <- here("Graphs/Sens_analysis")
+setwd(wd)
+```
+
+```{r load data}
+base_scenario <- read.csv("Scenario_baseline.csv", skip=6)
+base_scenario
+
+bysim <- split(base_scenario, base_scenario$RndSeed) #Split by simulation (RndSeed)
+```
+
+```{r define output variables}
+ov <- c('bees.emerged.yr', 'f.emerged.yr', 'm.emerged.yr',
+        'f.postemergent.today', 'bees.nesting.today',
+        'sum.cells', 'sum.f.cells', 'sum.m.cells')
+```
+
+```{r check data format}
+sapply(bysim, nrow) # Each df has the same length 
+sapply(bysim, function(x) min(x$doy)) # Simulation starts at day 1
+sapply(bysim, function(x) length(unique(x$DateREP))) # Each df has 255 days (1rst year starts at day 111)
+
+# Check output columns of one simulation
+df1 <- bysim[[1]]
+df1[, 69:90] #Show columns with output values
+```
+# Plot
+```{r plot each simulation}
+base_scenario_long <- base_scenario %>%
+  select(RndSeed, doy, DateREP, all_of(ov)) %>%
+  pivot_longer(
+    cols = all_of(ov),
+    names_to = "variable",
+    values_to = "value"
+  )
+
+ggplot(base_scenario_long,
+       aes(x = doy, y = value, group = RndSeed)) +
+  geom_line(alpha = 0.3) +
+  facet_wrap(~ variable, scales = "free_y") +
+  labs(x = "Jour de l'année", y = "Valeur",
+       title = "Trajectoires par simulation – Année 1") +
+  theme_bw()
+```
+
+#Get and plot the mean value of output variables 
+```{r plot mean}
+base_scenario_mean <- base_scenario_long %>%
+  group_by(variable, doy) %>%
+  summarise(
+    DateREP = first(DateREP),
+    mean = mean(value, na.rm = TRUE),
+    sd   = sd(value, na.rm = TRUE),
+    n    = dplyr::n(),
+    se   = sd / sqrt(n),
+    .groups = "drop"
+  )
+
+ggplot(base_scenario_mean,
+       aes(x = doy, y = mean)) +
+  geom_line(alpha = 0.3) +
+  facet_wrap(~ variable, scales = "free_y") +
+  labs(x = "Jour de l'année", y = "Valeur",
+       title = "Trajectoire moyenne (baseline) – Année 1") +
+  theme_bw()
+```
+
+```{r plot mean and sd}
+ggplot(base_scenario_mean,
+       aes(x = doy, y = mean)) +
+  geom_ribbon(aes(ymin = mean - 2*se, ymax = mean + 2*se),
+              alpha = 0.2) +
+  geom_line() +
+  facet_wrap(~ variable, scales = "free_y") +
+  labs(x = "Jour de l'année",
+       y = "Moyenne ± 2*SE",
+       title = "Moyenne des simulations (± 2*SE) – Année 1") +
+  theme_bw()
+```
+
+```{r write results }
+write.csv(base_scenario_mean, "Mean_scenarios/mean_ouputs_baseline.csv")
+```
+
+# Treat all scenarios
+
+## Create function
+```{r mean function}
+process_scenario <- function(file_path, out_dir = "Mean_scenarios") {
+  
+  # Get scenario name from file path name
+  scenario_name <- tools::file_path_sans_ext(basename(file_path))
+  
+  # Create the dir out (if doesn't exists)
+  if (!dir.exists(out_dir)) dir.create(out_dir, recursive = TRUE)
+  
+  message("Treating: ", scenario_name)
+  
+  ##  Read data
+  scenario <- read.csv(file_path, skip = 6)
+  
+  
+  ##  Get the data into long format
+  scenario_long <- scenario %>%
+    select(RndSeed, doy, DateREP, all_of(ov)) %>%
+    pivot_longer(
+      cols = all_of(ov),
+      names_to = "variable",
+      values_to = "value"
+    )
+  
+  
+  ##  Get the mean and sd for each day and variable 
+  scenario_mean <- scenario_long %>%
+    group_by(variable, doy) %>%
+    summarise(
+      DateREP = first(DateREP),
+      mean = mean(value, na.rm = TRUE),
+      sd   = sd(value, na.rm = TRUE),
+      n    = dplyr::n(),
+      se   = sd / sqrt(n),
+      .groups = "drop"
+    )
+  
+  
+  ##  Save the results in csv
+  write.csv(
+    scenario_mean,
+    file = file.path(out_dir, paste0("mean_outputs_",
+                                     scenario_name, ".csv")),
+    row.names = FALSE
+  )
+}
+
+```
+
+## Apply function
+```{r apply mean function }
+files <- list.files(wd,
+                    pattern = "^Scenario_.*\\.csv$",
+                    full.names = TRUE)
+
+results_list <- lapply(files, process_scenario)
+```
+
+
+```{r check results per scenario}
+quick_summary <- function(path) {
+  df <- read.csv(path, skip = 6)
+  data.frame(
+    file            = basename(path),
+    n_rows          = nrow(df),
+    bees_sum        = sum(df$bees.emerged.yr, na.rm = TRUE),
+    f_post_max      = max(df$f.postemergent.today, na.rm = TRUE),
+    sum_cells_mean  = mean(df$sum.cells, na.rm = TRUE)
+  )
+}
+
+summaries <- do.call(rbind, lapply(files, quick_summary))
+summaries
+```
+
+We'll look at the cell production, since it is the output most impacted (normal, since the foraging mostly impact the nesting female ability to produce an offspring)
+
+```{r plot results per scenario}
+# Number the scenarios
+scenario_ids <- paste0("S", seq_along(files))
+names(scenario_ids) <- tools::file_path_sans_ext(basename(files))
+
+# Read all scenario and put in a single df 
+all_scenarios <- lapply(seq_along(files), function(i) {
+  
+  path <- files[i]
+  longname <- names(scenario_ids)[i]
+  idshort  <- scenario_ids[i]
+  
+  df <- read.csv(path, skip = 6)
+  df$scenario_name <- longname
+  df$scenario_id   <- idshort
+  
+  df
+}) %>% bind_rows()
+
+# Get into long format
+all_long <- all_scenarios %>%
+  select(scenario_name, scenario_id, RndSeed, doy, DateREP, all_of(ov)) %>%
+  pivot_longer(
+    cols = all_of(ov),
+    names_to = "variable",
+    values_to = "value"
+  )
+
+# Mean and sd per scenario, variable and day
+all_mean <- all_long %>%
+  group_by(scenario_id, scenario_name, variable, doy) %>%
+  summarise(
+    DateREP = first(DateREP),
+    mean = mean(value, na.rm = TRUE),
+    sd   = sd(value, na.rm = TRUE),
+    n    = dplyr::n(),
+    se   = sd / sqrt(n),
+    .groups = "drop"
+  )
+# Scenario ids into factors to force the order in the graph
+all_mean$scenario_id <- factor(all_mean$scenario_id,
+                               levels = scenario_ids) 
+
+# Plot mean ± 2*sd per scenario and per variable 
+plot <- ggplot(all_mean,
+               aes(x = doy, y = mean)) +
+  geom_ribbon(aes(ymin = mean - 2*se, ymax = mean + 2*se),
+              alpha = 0.2) +
+  geom_line() +
+  facet_grid(variable ~ scenario_name, scales = "free_y") +
+  labs(x = "Jour de l'année",
+       y = "Moyenne ± 2*SE",
+       title = "Moyenne des simulations (± 2*SE) – par scénario") +
+  theme_bw()
+
+
+plot
+# Save the plot 
+ggsave(
+  filename = paste(graph_file,
+                   "/matrix_scenarios_out_vars.png",
+                   sep=""),
+  plot = plot,
+  width = 20, height = 8
+)
+```
+
+```{r save all mean results for all scenario}
+write.csv(all_mean, "mean_outputs_all_scenarios.csv", row.names = FALSE)
+```

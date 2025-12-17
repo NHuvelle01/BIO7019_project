@@ -1,0 +1,370 @@
+---
+title: "Sensitivity_analysis"
+author: 'Noémie Huvelle'
+date: "2025-12-05"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Prepare R envronment 
+```{r load package}
+rm(list = ls())
+library(ggplot2)
+library(tools)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(patchwork)
+library(here)
+```
+
+```{r set directories}
+graph_file <- here("Graphs/sens_analysis")
+```
+
+```{r load data}
+all_scenarios <- read.csv("mean_outputs_all_scenarios.csv")
+```
+
+```{r function to run a local sensitivity function}
+local_sensitivity_fun <- function(df, #df with all scenarios
+                                       variable = "bees.emerged.yr",
+                                       baseline_name = "Scenario_baseline",
+                                       frac_change = 0.10) {
+  
+  # 2. Only keep the chosen output variable
+  df_var <- df %>%
+    filter(variable == !!variable)
+  
+  # 3. Get the baseline scenario outputs
+  ref <- df_var %>%
+    filter(scenario_name == baseline_name) %>%
+    arrange(doy)
+  
+  # Check if there are values for baseline scenario
+  if (nrow(ref) == 0) {
+    stop("No row for the baseline scenario : check 'baseline_name'.")
+  }
+  
+  # Temporal mean of the reference output var
+  outm <- mean(ref$mean, na.rm = TRUE)
+  
+  # 4. Get S.oat(t) for all scenarios different than baseline
+  sens_long <- df_var %>%
+    filter(scenario_name != baseline_name) %>%
+    select(scenario_id, scenario_name, doy, mean_pert = mean) %>%
+    left_join(
+      ref %>% select(doy, mean_ref = mean),
+      by = "doy"
+    ) %>%
+    mutate(
+      S_t = (mean_pert - mean_ref) / outm / frac_change
+      #S.oat = (y_pert - y_ref) / outm / ss
+    )
+  
+  # 5.Get the right S.oat format (one column per scenario)
+  S_oat_df <- sens_long %>%
+    select(doy, scenario_name, S_t) %>%
+    pivot_wider(
+      names_from  = scenario_name,
+      values_from = S_t
+    )
+  
+  # 6. Get global indice Sij = sqrt( mean( S_t^2 ) ) for each scenario
+  Sij_df <- sens_long %>%
+    group_by(scenario_name) %>%
+    summarise(
+      Sij = sqrt(mean(S_t^2, na.rm = TRUE)),
+      .groups = "drop"
+    ) %>%
+    arrange(desc(Sij))
+  
+  # 7. Factorize the scenarios (for the order)
+  if ("scenario_id" %in% names(df_var)) {
+    lev <- df_var %>%
+      dplyr::distinct(scenario_id, scenario_name) %>%
+      dplyr::arrange(scenario_id) %>%
+      dplyr::pull(scenario_name)
+    
+    sens_long$scenario_name <- factor(sens_long$scenario_name,
+                                      levels = lev)
+    Sij_df$scenario_name    <- factor(Sij_df$scenario_name,
+                                      levels = lev)
+  }
+  
+  list(
+    ref   = ref,        # y reference 
+    S_oat = S_oat_df,   # S.oat(t) into wide format
+    Sij   = Sij_df,     # Global indice for each scenario
+    long  = sens_long   # S.oat(t) into long format
+  )
+}
+
+```
+
+# Apply sensitivity function 
+
+```{r apply sensitivity function}
+results_sens <- local_sensitivity_fun(all_scenarios,
+                                      variable = "sum.cells",
+                                       baseline_name = "Scenario_baseline",
+                                       frac_change = 0.10)
+
+str(results_sens)
+```
+
+# Vizualise results 
+
+```{r get global indices (sij)}
+results_sens$Sij
+
+str(results_sens)
+```
+
+```{r plot global indices per param}
+Sij_param <- results_sens$Sij %>%
+  mutate(parameter = case_when(
+    str_detect(as.character(scenario_name), "_RH_")           ~ "RH.max",
+    str_detect(as.character(scenario_name), "_T_")            ~ "T.min",
+    str_detect(as.character(scenario_name), "_QC_")         ~ "Lambda.crop",
+    str_detect(as.character(scenario_name), "_QN_")          ~ "Lambda.nat",
+    str_detect(as.character(scenario_name), "_Precip_")       ~ "Precip.max",
+    str_detect(as.character(scenario_name), "_PFC_")    ~ "Alpha",
+    TRUE ~ as.character(scenario_name)
+  )) %>%
+  group_by(parameter) %>%
+  summarise(
+    Sij_mean = mean(Sij),
+    Sij_max  = max(Sij),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(Sij_mean))
+
+Sij_param
+
+Sij_plot <- ggplot(Sij_param, aes(x = reorder(parameter, -Sij_mean),
+                                  y = Sij_mean)) +
+  geom_col() +
+  labs(x = "Paramètre",
+       y = "Sij moyen [-]",
+       title = "") +
+  theme_bw()
+
+Sij_plot
+
+ggsave(paste(graph_file, "/Sij_per_param.png", sep=""),
+       Sij_plot,
+       width= 6 , height = 2.5)
+```
+
+
+```{r plot local indices for RH}
+S_long_RH <- results_sens$long %>%
+  filter(str_detect(scenario_name, "RH"))
+
+ggplot(S_long_RH,
+       aes(x = doy, y = S_t, colour = scenario_name)) +
+  geom_line() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Jour de l'année",
+       y = "S.oat(t)",
+       title = "Sensibilité locale – scénarios liés à RH",
+       subtitle = paste("Variable :", unique(S_long_RH$variable))) +
+  theme_bw()
+```
+```{r plot local indices for T}
+S_long_T <- results_sens$long %>%
+  filter(str_detect(scenario_name, "T"))
+
+ggplot(S_long_T,
+       aes(x = doy, y = S_t, colour = scenario_name)) +
+  geom_line() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Jour de l'année",
+       y = "S.oat",
+       title = "Sensibilité locale – scénarios liés à T",
+       subtitle = paste("Variable :", unique(S_long_T$variable))) +
+  theme_bw()
+```
+```{r plot local indices for quality_nat}
+S_long_quality_nat <- results_sens$long %>%
+  filter(str_detect(scenario_name, "QN"))
+
+ggplot(S_long_quality_nat,
+       aes(x = doy, y = S_t, colour = scenario_name)) +
+  geom_line() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Jour de l'année",
+       y = "S.oat",
+       title = "Sensibilité locale – scénarios liés à quality_crop",
+       subtitle = paste("Variable :", unique(S_long_quality_nat$variable))) +
+  theme_bw()
+```
+
+
+```{r Prepare data to plot}
+S_long_T_comb <- results_sens$long %>%
+  filter(str_detect(scenario_name, "T")) %>%
+  mutate(
+      delta = case_when(
+      str_detect(scenario_name, "high")  ~ "Paramètre -10%",
+      str_detect(scenario_name, "low") ~ "Paramètre +10%",
+      TRUE                              ~ NA_character_
+    )
+  ) %>%
+  filter(!is.na(delta))
+
+S_long_RH_comb <- results_sens$long %>%
+  filter(str_detect(scenario_name, "RH")) %>%
+   mutate(
+      delta = case_when(
+      str_detect(scenario_name, "high")  ~ "Paramètre -10%",
+      str_detect(scenario_name, "low") ~ "Paramètre +10%",
+      TRUE                              ~ NA_character_
+    )
+  ) %>%
+  filter(!is.na(delta))
+
+S_long_lambda_nat_comb <- results_sens$long %>%
+  filter(str_detect(scenario_name, "QN")) %>%
+   mutate(
+      delta = case_when(
+      str_detect(scenario_name, "high")  ~ "Paramètre -10%",
+      str_detect(scenario_name, "low") ~ "Paramètre +10%",
+      TRUE                              ~ NA_character_
+    )
+  ) %>%
+  filter(!is.na(delta))
+
+
+```
+
+```{r plot local indices for 3 most influential params}
+manual_colors <- c(
+  "Paramètre -10%" = "chartreuse4",
+  "Paramètre +10%" = "firebrick"
+)
+
+# Graph1 - RH
+p_RH <- ggplot(S_long_RH_comb,
+               aes(x = doy, y = S_t, colour = delta)) +
+  geom_line() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  scale_color_manual(
+    name   = "",
+    values = manual_colors
+  ) +
+  labs(
+    title = "RH.max",
+    x = "",
+    y = "S.oat"
+  ) +
+  theme_bw(base_size = 14)
+
+# Graph2 - Temperature
+p_T <- ggplot(S_long_T_comb,
+              aes(x = doy, y = S_t, colour = delta)) +
+  geom_line() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  scale_color_manual(
+    name   = "",          # pas de titre de légende
+    values = manual_colors
+  ) +
+  labs(
+    title = "T.min",
+    x = "Jour de l'année",
+    y = ""
+  ) +
+  theme_bw(base_size = 14)
+
+# Graph3 - lambda quality_nat 
+p_lambda_nat <- ggplot(S_long_lambda_nat_comb,
+                   aes(x = doy, y = S_t, colour = delta)) +
+  geom_line() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  scale_color_manual(
+    name   = "",
+    values = manual_colors
+  ) +
+  labs(
+    title = "Lambda nat",
+    x = "",
+    y = ""
+  ) +
+  theme_bw(base_size = 14)
+
+## Combine graphs with a common legend
+combo_plot <- ( p_RH |p_T | p_lambda_nat) +
+  plot_layout(guides = "collect") &
+  theme(
+    legend.position  = "bottom",
+    legend.direction = "horizontal"
+  )
+
+
+combo_plot
+
+## Save
+
+ggsave(
+  filename = paste(graph_file, "/Soat_3_params.png", sep=""),
+  plot     = combo_plot,
+  width    = 14,   # à ajuster selon ton rapport
+  height   = 4,
+  dpi      = 300
+)
+
+```
+
+```{r plot local indices for prop_forag_crop}
+S_long_prop_forag_crop <- results_sens$long %>%
+  filter(str_detect(scenario_name, "PFC"))
+
+ggplot(S_long_prop_forag_crop,
+       aes(x = doy, y = S_t, colour = scenario_name)) +
+  geom_line() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Jour de l'année",
+       y = "S.oat(t)",
+       title = "Sensibilité locale – scénarios liés à prop_foraging_crop (alpha)",
+       subtitle = paste("Variable :", unique(S_long_prop_forag_crop$variable))) +
+  theme_bw()
+```
+
+
+```{r plot local indices for quality crop}
+S_long_quality_crop <- results_sens$long %>%
+  filter(str_detect(scenario_name, "QC"))
+
+ggplot(S_long_quality_crop,
+       aes(x = doy, y = S_t, colour = scenario_name)) +
+  geom_line() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Jour de l'année",
+       y = "S.oat(t)",
+       title = "Sensibilité locale – scénarios liés à lambda quality_crop",
+       subtitle = paste("Variable :", unique(S_long_quality_crop$variable))) +
+  theme_bw()
+```
+Doesn't change cause prop_forag_day takes over -> crops have flowers but the bees are unable to forage on them. Phenology...
+
+```{r plot local indices for precip}
+S_long_precip <- results_sens$long %>%
+  filter(str_detect(scenario_name, "Precip"))
+
+ggplot(S_long_precip,
+       aes(x = doy, y = S_t, colour = scenario_name)) +
+  geom_line() +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  labs(x = "Jour de l'année",
+       y = "S.oat(t)",
+       title = "Sensibilité locale – scénarios liés à Precip.max",
+       subtitle = paste("Variable :", unique(S_long_precip$variable))) +
+  theme_bw()
+```
+
+The precipitation mean is the same everywhere no matter the scenario, because the threshold doesn't modify prop_foraging_day 
+
