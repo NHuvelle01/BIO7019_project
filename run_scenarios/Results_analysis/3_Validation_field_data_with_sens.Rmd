@@ -78,13 +78,14 @@ field_sex_ratio <- offspring_field$female.num / ( offspring_field$female.num + o
 # Plots 
 ```{r plot brood cell -- sim vs obs}
 
+
 sim_cell_prod <- mean_sim_output %>%
   filter(variable == "sum.cells")  %>%
   filter(between(DateREP, as.Date("2015-04-24"), as.Date("2015-05-27")))
-    
+
 sim_cell_prod 
 
-ggplot(sim_cell_prod,
+p_sum_cell <- ggplot(sim_cell_prod,
        aes(x = DateREP, y = mean)) +
   geom_ribbon(aes(ymin = mean - 2*se, ymax = mean + 2*se),
               alpha = 0.2) +
@@ -92,11 +93,13 @@ ggplot(sim_cell_prod,
   geom_point(data = field_cell_prod_summarize,
             aes(x = date, y = brood.sum.cum)) +
   geom_line()+
-  labs(x = "Jour de l'année",
-       y = "Moyenne ± 2*SE",
-       title = "Moyenne des simulations (± 2*SE) – Année 1") +
+  labs(x = "",
+       y = "sum.cells",
+       title = "") +
   theme_bw()
+p_sum_cell
 ```
+
 
 ```{r plot nesting females -- sim vs obs}
 sim_nest_f <- mean_sim_output %>%
@@ -107,17 +110,20 @@ sim_nest_f
 field_NO_summarize
 
 
-ggplot(sim_nest_f,
+p_nest_f <- ggplot(sim_nest_f,
        aes(x = DateREP, y = mean)) +
   geom_ribbon(aes(ymin = mean - 2*se, ymax = mean + 2*se),
               alpha = 0.2) +
   geom_line() +
   geom_point(data = field_NO_summarize,
             aes(x = date, y = female.sum)) +
-  labs(x = "Jour de l'année",
-       y = "Moyenne ± 2*SE",
-       title = "Moyenne des simulations (± 2*SE) – Année 1") +
+  labs(x = "Date",
+       y = "nest.f",
+       title = "") +
   theme_bw()
+
+p_nest_f 
+
 ```
 
 ```{r see male/female ratio -- sim vs obs}
@@ -139,18 +145,33 @@ sim_sex_ratio_df <- data.frame(date = sim_offspring_male$DateREP,
                                sex.ratio = sim_sex_ratio)
 
 
-ggplot(sim_sex_ratio_df,
+p_sex_ratio <- ggplot(sim_sex_ratio_df,
        aes(x = date, y = sex.ratio)) +
   geom_line() +
-  labs(x = "Jour de l'année",
-       y = "Moyenne ± 2*SE",
-       title = "Moyenne des simulations (± 2*SE) – Année 1") +
+  labs(x = "",
+       y = "Proportion de femelles à l’émergence",
+       title = "") +
+  geom_point(aes(x=as.Date("2015-05-27") ,y=field_sex_ratio )) +
   theme_bw()
+
+p_sex_ratio 
 ```
 
 As we can see, the sex ratio is constantly much higher than the observed one (0.25). As the female eggs are produced when there are more foraging ressource, all indicates an overestimation of floral ressources. 
 
 The dip in sex ratio around the 27th of April might be du a lack of ressources around that time (compare with floral quality) OR due to the fact that no new cycle offspring yet ?
+```{r combine graphs}
+combo_plots <- ( p_sum_cell | p_nest_f | p_sex_ratio) 
+
+combo_plots
+
+ggsave(
+  paste(graph_file, "/validation_out_vars.png", sep=""),
+  plot   = combo_plots,
+  width  = 14,
+  height = 4
+)
+```
 
 # After the sensitivity analysis...
 We've seen that the thresholds for precipitations, relative humidity and temperature are the most influent. Let's look a bit at which simulation is the closest to the field data.  The graphs presented before only accounted for the baseline scenario. 
@@ -190,7 +211,6 @@ base_sim_cell_prod <- sim_cell_prod #Baseline scenario filtered out for relevant
 base_sim_cell_prod$level <- as.factor("baseline")
 field_cell_prod <- field_cell_prod_summarize %>%
   mutate(sum.cells =  brood.sum.cum)#field data
-
 ```
 
 ```{r plot legend }
@@ -334,6 +354,35 @@ ggsave(
 )
 ```
 
+
+```{r Calculate RMSE of these 3 parameters}
+all_scenarios_sum_cells_params <- all_scenarios %>%
+  filter(variable == "sum.cells") %>%
+  filter(param_type %in% c("lambda.nat", "temperature", "humidity")) %>%
+  select(scenario_name, param_type, level, DateREP, variable, mean)
+
+field_cell_prod_summarize$DateREP <- field_cell_prod_summarize$date
+
+rmse_sens_df <- all_scenarios_sum_cells_params %>%
+  inner_join(field_cell_prod_summarize, by = "DateREP") %>%
+  group_by(param_type, level, scenario_name) %>%
+  summarise(
+    n = n(),
+    RMSE = sqrt(mean((mean - brood.sum.cum)^2, na.rm = TRUE)),
+    .groups = "drop"
+  ) %>%
+  arrange(param_type, RMSE)
+
+rsme_base_df <- base_sim_cell_prod %>%
+  inner_join(field_cell_prod_summarize, by = "DateREP") %>%
+  summarise(
+    RMSE = sqrt(mean((mean - brood.sum.cum)^2, na.rm = TRUE)),
+    n = n()
+  )
+
+rmse_sens_df
+rsme_base_df 
+```
 
 ```{r plot RH -- nesting females}
 #Filter the relevant parametersand relevant timelines
